@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="506672ff-9773-4cfb-a238-37826d187973" name="変更" comment="">
+      <change afterPath="$PROJECT_DIR$/../AI_Temp/Timeline.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/CharacterSecrets.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/CoreMysteries.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/ForeshadowingMap.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/PlacementSchedule.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Foreshadowing/TechnologyHints.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AI_Temp/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../AI_Temp/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AI_Temp/ストーリー構造改善案.md" beforeDir="false" afterPath="$PROJECT_DIR$/../AI_Temp/StoryStructure.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AI_Temp/世界観整理.md" beforeDir="false" afterPath="$PROJECT_DIR$/../AI_Temp/WorldSettings.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AI_Temp/登場人物相関図.md" beforeDir="false" afterPath="$PROJECT_DIR$/../AI_Temp/CharacterRelations.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Story/1AnesthesiaAwareness/1.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Story/1AnesthesiaAwareness/1.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Story/1AnesthesiaAwareness/2.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Story/1AnesthesiaAwareness/2.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="325ZuP1m0vN2MgSDcn0dBu8Agfz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/seiri/Documents/GitHub/Echoes_of_a_MisalignedReality/World",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="デフォルトタスク">
+      <changelist id="506672ff-9773-4cfb-a238-37826d187973" name="変更" comment="" />
+      <created>1756712615667</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756712615667</updated>
+      <workItem from="1756712616833" duration="1203000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
