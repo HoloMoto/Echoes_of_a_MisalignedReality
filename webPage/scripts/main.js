@@ -195,4 +195,95 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.outline = 'none';
         });
     });
+
+    // Fuzzy Text効果の初期化
+    initFuzzyTextEffect();
+    
+    // Decrypted Text効果の初期化
+    initDecryptedTextEffect();
 });
+
+// Fuzzy Text効果の実装（クリック時のみアクセス拒否）
+function initFuzzyTextEffect() {
+    const fuzzyTexts = document.querySelectorAll('.fuzzy-text');
+    
+    fuzzyTexts.forEach(element => {
+        if (!element) return;
+        
+        // クリックイベント（アクセス拒否）
+        element.addEventListener('click', (e) => {
+            e.preventDefault();
+            showAccessDenied();
+        });
+    });
+}
+
+// アクセス拒否オーバーレイの表示
+function showAccessDenied() {
+    const overlay = document.getElementById('accessDeniedOverlay');
+    const text = document.getElementById('accessDeniedText');
+    
+    if (overlay && text) {
+        // テキストにノイズ効果を適用
+        text.style.animation = 'none';
+        setTimeout(() => {
+            text.style.animation = 'fuzzyGlitch 0.5s infinite';
+        }, 10);
+        
+        overlay.classList.add('show');
+    }
+}
+
+// アクセス拒否オーバーレイを閉じる
+function closeAccessDenied() {
+    const overlay = document.getElementById('accessDeniedOverlay');
+    if (overlay) {
+        overlay.classList.remove('show');
+    }
+}
+
+// Decrypted Text効果の実装
+function initDecryptedTextEffect() {
+    const decryptedTexts = document.querySelectorAll('.decrypted-text');
+    
+    decryptedTexts.forEach(element => {
+        if (!element) return;
+        
+        const originalText = element.getAttribute('data-text') || element.textContent.trim();
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+        
+        // テキストを文字ごとに分割
+        const textChars = originalText.split('');
+        element.innerHTML = '';
+        
+        textChars.forEach((char, index) => {
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = char;
+            span.style.animationDelay = `${index * 0.1}s`;
+            element.appendChild(span);
+        });
+        
+        // アニメーション開始
+        setTimeout(() => {
+            const charElements = element.querySelectorAll('.char');
+            charElements.forEach((charEl, index) => {
+                setTimeout(() => {
+                    // ランダムな文字でアニメーション
+                    let iterations = 0;
+                    const maxIterations = 10;
+                    
+                    const interval = setInterval(() => {
+                        charEl.textContent = chars[Math.floor(Math.random() * chars.length)];
+                        iterations++;
+                        
+                        if (iterations >= maxIterations) {
+                            clearInterval(interval);
+                            charEl.textContent = originalText[index];
+                        }
+                    }, 50);
+                }, index * 100);
+            });
+        }, 500);
+    });
+}
