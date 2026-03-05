@@ -19,6 +19,12 @@ def md_to_episode_html(path):
             out.append('<div class="chapter-break">\n<h2>{}</h2>\n</div>\n\n'.format(title))
             i += 1
             continue
+        # Single # chapter title (e.g. "# 3章　メモリーのあと")
+        if stripped.startswith('# ') and not stripped.startswith('## '):
+            title = stripped[2:].strip()
+            out.append('<div class="chapter-break">\n<h2>{}</h2>\n</div>\n\n'.format(title))
+            i += 1
+            continue
         # Date-only line like "2072年5月　ゴールデンウィーク" as small header or paragraph
         if re.match(r'^\d{4}年', stripped) and ' ' in stripped:
             out.append('<p class="chapter-date">{}</p>\n\n'.format(stripped))
@@ -31,7 +37,7 @@ def md_to_episode_html(path):
             s = l.rstrip()
             if s == '' or s == '---' or s.startswith('ーーー'):
                 break
-            if s.startswith('## '):
+            if s.startswith('## ') or (s.startswith('# ') and not s.startswith('## ')):
                 break
             if re.match(r'^\d{4}年', s) and ' ' in s and not para_lines:
                 break
