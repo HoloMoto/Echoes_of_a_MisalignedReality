@@ -1,53 +1,39 @@
 /* ストーリーページ専用スタイル */
 
-/* ページヘッダー */
+/* ページヘッダー - 白背景・グレー＋右影 */
 .page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--tertiary-color) 100%);
-    color: var(--text-on-light);
+    background: var(--page-bg, #fff);
+    border-bottom: 1px solid var(--page-border, rgba(0,0,0,0.08));
     padding: 120px 0 80px;
     text-align: center;
     position: relative;
-    overflow: hidden;
 }
 
 .page-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
+    display: none;
 }
 
 .page-title {
     position: relative;
     z-index: 2;
-    background: rgba(255, 255, 255, 0.7);
     padding: 2rem 3rem;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     display: inline-block;
     margin: 0 auto;
 }
 
 .page-title h1 {
     font-size: 3.5rem;
-    font-weight: 900;
+    font-weight: 700;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-    color: var(--text-dark);
+    color: var(--page-text, #555);
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .page-title p {
     font-size: 1.2rem;
-    opacity: 0.8;
-    font-weight: 300;
-    color: var(--text-dark);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    font-weight: 400;
+    color: var(--page-text-light, #777);
+    text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 /* ストーリー概要 */
@@ -66,10 +52,11 @@
 .overview-text h2 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--page-text, #555);
     margin-bottom: 2rem;
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--page-text, #555);
     padding-left: 1rem;
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .overview-text p {
@@ -93,27 +80,20 @@
 .concept-item {
     text-align: center;
     padding: 2rem;
-    background: var(--bg-light);
-    border-radius: var(--border-radius);
+    background: var(--page-bg, #fff);
+    border: 1px solid var(--page-border, rgba(0,0,0,0.08));
     transition: var(--transition);
-    border: 2px solid transparent;
 }
 
 .concept-item:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
+    border-color: var(--page-text-light, #777);
 }
 
 .concept-item i {
     font-size: 3rem;
-    color: var(--primary-color);
+    color: var(--page-text, #555);
     margin-bottom: 1rem;
-}
-
-.concept-item:hover i {
-    color: white;
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .concept-item h3 {
@@ -140,43 +120,41 @@
 }
 
 .episode-card {
-    background: var(--bg-white);
-    border-radius: var(--border-radius);
+    background: var(--page-bg, #fff);
     overflow: hidden;
-    box-shadow: var(--shadow);
     transition: var(--transition);
-    border: 2px solid transparent;
+    border: 1px solid var(--page-border, rgba(0,0,0,0.08));
 }
 
 .episode-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-hover);
-    border-color: var(--primary-color);
+    border-color: var(--page-text-light, #777);
 }
 
-.episode-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
+.episode-card .episode-header {
+    background: var(--page-bg, #fff);
+    color: var(--page-text, #555);
     padding: 2rem;
     text-align: center;
     position: relative;
+    border-bottom: 1px solid var(--page-border, rgba(0,0,0,0.08));
 }
 
 .episode-number {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--page-line, rgba(0,0,0,0.12));
     padding: 0.5rem 1rem;
-    border-radius: 25px;
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    backdrop-filter: blur(10px);
+    color: var(--page-text, #555);
+    text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
-.episode-header h3 {
+.episode-card .episode-header h3 {
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .episode-content {
