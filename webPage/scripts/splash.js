@@ -58,8 +58,36 @@
     requestAnimationFrame(tick);
   }
 
+  var glitchInterval = null;
+
+  function triggerGlitch() {
+    if (!splash || splash.classList.contains('hide')) return;
+    splash.classList.add('fui-glitch');
+    window.setTimeout(function () {
+      splash.classList.remove('fui-glitch');
+    }, 140);
+  }
+
+  function scheduleNextGlitch() {
+    if (!splash || splash.classList.contains('hide')) return;
+    var delay = 2000 + Math.random() * 3500;
+    glitchInterval = window.setTimeout(function () {
+      triggerGlitch();
+      scheduleNextGlitch();
+    }, delay);
+  }
+
+  function stopGlitchLoop() {
+    if (glitchInterval) {
+      window.clearTimeout(glitchInterval);
+      glitchInterval = null;
+    }
+    splash.classList.remove('fui-glitch');
+  }
+
   function runSequence() {
     setActive(phases.welcome);
+    scheduleNextGlitch();
 
     setTimeout(function () {
       setActive(phases.typewriter);
@@ -79,6 +107,7 @@
       e.preventDefault();
       if (e.type === 'touchend') e.preventDefault();
     }
+    stopGlitchLoop();
     splash.classList.add('hide');
   }
 
