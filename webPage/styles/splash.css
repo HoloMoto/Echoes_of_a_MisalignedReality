@@ -1,0 +1,253 @@
+/* FUI Splash - ガンダム／軍事オペレーション風 */
+/* 英字のみ GAU Root、日本語は Noto Sans JP のまま */
+
+@font-face {
+  font-family: 'GAU Root';
+  src: url('../font/GAU_Root_Nomal.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+#fui-splash {
+  --fui-bg: #030508;
+  --fui-accent: #00ff88;
+  --fui-accent-dim: rgba(0, 255, 136, 0.4);
+  --fui-accent-bright: rgba(0, 255, 136, 0.9);
+  --fui-grid: rgba(0, 255, 136, 0.04);
+  --fui-scan: rgba(0, 255, 136, 0.05);
+}
+
+#fui-splash {
+  position: fixed;
+  inset: 0;
+  top: env(safe-area-inset-top);
+  right: env(safe-area-inset-right);
+  bottom: env(safe-area-inset-bottom);
+  left: env(safe-area-inset-left);
+  z-index: 99999;
+  background: var(--fui-bg);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  overflow: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#fui-splash.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* スキャンライン */
+#fui-splash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--fui-scan) 2px,
+    var(--fui-scan) 3px
+  );
+  animation: fui-scan 0.12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fui-scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* グリッド */
+.fui-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--fui-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--fui-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ビネット */
+#fui-splash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(3, 5, 8, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+/* 中央フレーム（角 L 字） */
+.fui-frame {
+  position: absolute;
+  inset: 12%;
+  pointer-events: none;
+}
+
+.fui-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--fui-accent);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.6;
+  box-sizing: border-box;
+}
+
+.fui-corner-tl { top: 0; left: 0; border-left-width: 2px; border-top-width: 2px; }
+.fui-corner-tr { top: 0; right: 0; border-right-width: 2px; border-top-width: 2px; }
+.fui-corner-bl { bottom: 0; left: 0; border-left-width: 2px; border-bottom-width: 2px; }
+.fui-corner-br { bottom: 0; right: 0; border-right-width: 2px; border-bottom-width: 2px; }
+
+/* 中央コンテンツ */
+.fui-center {
+  position: absolute;
+  inset: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 英字のみ FUI フォント */
+.fui-phase {
+  font-family: 'GAU Root', 'Share Tech Mono', monospace;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: var(--fui-accent);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.fui-phase.active {
+  position: relative;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Phase 1: Welcome */
+.fui-welcome {
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  letter-spacing: 0.2em;
+  animation: fui-blink 1s ease-in-out infinite;
+}
+
+@keyframes fui-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+/* Phase 2: Typewriter */
+.fui-typewriter-wrap {
+  font-size: clamp(0.65rem, 2.2vw, 0.9rem);
+  line-height: 1.6;
+  max-width: 90%;
+  text-align: left;
+}
+
+.fui-typewriter-wrap .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--fui-accent);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: fui-cursor-blink 0.6s step-end infinite;
+}
+
+.fui-typewriter-wrap .cursor.hidden {
+  display: none;
+}
+
+@keyframes fui-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Phase 3: Acronym */
+.fui-acronym-phase {
+  position: relative;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 20px var(--fui-accent-dim);
+}
+
+.fui-acronym-phase .fui-acronym-lower,
+.fui-acronym-phase .fui-acronym-upper {
+  transition: opacity 0.8s ease;
+}
+
+.fui-acronym-phase .fui-acronym-upper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.fui-acronym-phase.fade-done .fui-acronym-lower {
+  opacity: 0;
+}
+
+.fui-acronym-phase.fade-done .fui-acronym-upper {
+  opacity: 1;
+}
+
+/* Phase 4: Final */
+.fui-phase#fui-phase-final .fui-sub {
+  font-size: clamp(0.7rem, 2.5vw, 0.95rem);
+  letter-spacing: 0.25em;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.fui-phase#fui-phase-final .fui-line {
+  width: 60px;
+  height: 1px;
+  background: var(--fui-accent-dim);
+  margin: 0.8rem 0;
+}
+
+.fui-phase#fui-phase-final .fui-acronym {
+  font-size: clamp(1.1rem, 4.5vw, 1.8rem);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 24px var(--fui-accent-dim);
+  animation: fui-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes fui-glow {
+  0%, 100% { opacity: 0.9; filter: brightness(1); }
+  50% { opacity: 1; filter: brightness(1.15); }
+}
+
+.fui-phase#fui-phase-final .fui-tap {
+  margin-top: 2rem;
+  font-size: clamp(0.65rem, 2vw, 0.8rem);
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+  animation: fui-tap-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes fui-tap-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* 日本語はスプラッシュ内でも Noto Sans JP */
+.fui-ja {
+  font-family: 'Noto Sans JP', sans-serif;
+}

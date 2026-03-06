@@ -2,13 +2,50 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>春風シンクレティック - 公式サイト</title>
+    <link rel="stylesheet" href="styles/splash.css">
     <link rel="stylesheet" href="styles/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- FUI スプラッシュ（タップで閉じる） -->
+    <div id="fui-splash" role="button" aria-label="スプラッシュを閉じる">
+        <div class="fui-grid"></div>
+        <div class="fui-frame">
+            <span class="fui-corner fui-corner-tl"></span>
+            <span class="fui-corner fui-corner-tr"></span>
+            <span class="fui-corner fui-corner-bl"></span>
+            <span class="fui-corner fui-corner-br"></span>
+        </div>
+        <div class="fui-center">
+            <div class="fui-phase active" id="fui-phase-welcome">
+                <div class="fui-welcome">Welcome to</div>
+            </div>
+            <div class="fui-phase" id="fui-phase-typewriter">
+                <div class="fui-typewriter-wrap">
+                    <span id="fui-typed-text"></span>
+                    <span class="cursor" id="fui-cursor"></span>
+                </div>
+            </div>
+            <div class="fui-phase" id="fui-phase-acronym">
+                <div class="fui-acronym-phase" id="fui-acronym-box">
+                    <div class="fui-acronym-lower">harukaze syncretech</div>
+                    <div class="fui-acronym-upper">HARUKAZE SYNCRETECH</div>
+                </div>
+            </div>
+            <div class="fui-phase" id="fui-phase-final">
+                <div class="fui-sub">Echoes of a Misaligned Reality</div>
+                <div class="fui-line"></div>
+                <div class="fui-acronym">HARUKAZE SYNCRETECH</div>
+                <div class="fui-line"></div>
+                <div class="fui-sub">Syncretic Harmonic Interface</div>
+                <div class="fui-tap">TAP TO START</div>
+            </div>
+        </div>
+    </div>
+
     <!-- ヘッダー -->
     <header class="header">
         <nav class="navbar">
@@ -281,6 +318,7 @@
         </div>
     </footer>
 
+    <script src="scripts/splash.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
