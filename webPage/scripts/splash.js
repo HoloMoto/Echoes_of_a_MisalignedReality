@@ -62,10 +62,12 @@
 
   function triggerGlitch() {
     if (!splash || splash.classList.contains('hide')) return;
+    var turb = document.getElementById('fui-glitch-turb');
+    if (turb) turb.setAttribute('seed', Math.floor(Math.random() * 100));
     splash.classList.add('fui-glitch');
     window.setTimeout(function () {
       splash.classList.remove('fui-glitch');
-    }, 140);
+    }, 180);
   }
 
   function scheduleNextGlitch() {
