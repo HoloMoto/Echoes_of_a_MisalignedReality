@@ -10,12 +10,13 @@
 }
 
 #fui-splash {
-  --fui-bg: #030508;
-  --fui-accent: #00ff88;
-  --fui-accent-dim: rgba(0, 255, 136, 0.4);
-  --fui-accent-bright: rgba(0, 255, 136, 0.9);
-  --fui-grid: rgba(0, 255, 136, 0.04);
-  --fui-scan: rgba(0, 255, 136, 0.05);
+  --fui-bg: #ffffff;
+  --fui-text: #555555;
+  --fui-text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
+  --fui-grid: rgba(0, 0, 0, 0.06);
+  --fui-scan: rgba(0, 0, 0, 0.04);
+  --fui-line: rgba(0, 0, 0, 0.15);
+  --fui-corner: #666666;
 }
 
 #fui-splash {
@@ -72,15 +73,15 @@
   pointer-events: none;
 }
 
-/* ビネット */
+/* ビネット（白背景ではごく薄く） */
 #fui-splash::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
     ellipse at center,
-    transparent 30%,
-    rgba(3, 5, 8, 0.6) 100%
+    transparent 50%,
+    rgba(0, 0, 0, 0.03) 100%
   );
   pointer-events: none;
 }
@@ -96,10 +97,10 @@
   position: absolute;
   width: 24px;
   height: 24px;
-  border-color: var(--fui-accent);
+  border-color: var(--fui-corner);
   border-style: solid;
   border-width: 0;
-  opacity: 0.6;
+  opacity: 0.7;
   box-sizing: border-box;
 }
 
@@ -118,7 +119,7 @@
   flex-direction: column;
 }
 
-/* 英字のみ FUI フォント */
+/* 英字のみ FUI フォント・グレー文字＋右に影 */
 .fui-phase {
   font-family: 'GAU Root', 'Share Tech Mono', monospace;
   position: absolute;
@@ -129,7 +130,8 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  color: var(--fui-accent);
+  color: var(--fui-text);
+  text-shadow: var(--fui-text-shadow);
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -163,7 +165,7 @@
   display: inline-block;
   width: 2px;
   height: 1em;
-  background: var(--fui-accent);
+  background: var(--fui-text);
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: fui-cursor-blink 0.6s step-end infinite;
@@ -183,7 +185,7 @@
   position: relative;
   font-size: clamp(1.2rem, 5vw, 2rem);
   letter-spacing: 0.15em;
-  text-shadow: 0 0 20px var(--fui-accent-dim);
+  text-shadow: var(--fui-text-shadow);
 }
 
 .fui-acronym-phase .fui-acronym-lower,
@@ -218,14 +220,14 @@
 .fui-phase#fui-phase-final .fui-line {
   width: 60px;
   height: 1px;
-  background: var(--fui-accent-dim);
+  background: var(--fui-line);
   margin: 0.8rem 0;
 }
 
 .fui-phase#fui-phase-final .fui-acronym {
   font-size: clamp(1.1rem, 4.5vw, 1.8rem);
   letter-spacing: 0.2em;
-  text-shadow: 0 0 24px var(--fui-accent-dim);
+  text-shadow: var(--fui-text-shadow);
   animation: fui-glow 2.5s ease-in-out infinite;
 }
 
