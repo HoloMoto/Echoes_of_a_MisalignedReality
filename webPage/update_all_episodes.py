@@ -19,7 +19,7 @@ EPISODES = {
     2: {
         'en': 'Log',
         'ja': 'ログ',
-        'desc': 'カイと綾との記憶、旧校舎のメモリー、そしてユビキタスコアの報告書が千花の日常を揺らす。',
+        'desc': 'カイと綾との記憶、旧校舎のメモリー、そして黒塗りの報告書が千花の日常を揺らす。',
     },
     3: {
         'en': 'Boundary',
@@ -39,7 +39,7 @@ EPISODES = {
     6: {
         'en': 'Departure',
         'ja': '旅立ち',
-        'desc': '雷鳥に収容された千花は、ユビキタスコアの真実と瑠璃見を離れる痛みを抱えて夜空へ向かう。',
+        'desc': '雷鳥に収容された千花は、体内にある未確定の接続核と瑠璃見を離れる痛みを抱えて夜空へ向かう。',
     },
     7: {
         'en': 'Boundary Noise',
@@ -52,9 +52,9 @@ EPISODES = {
         'desc': '保護された綾は、翼のペンダントと荒木紘一の記憶を通じて、自分が千花の支えである意味を選ぶ。',
     },
     9: {
-        'en': 'IKAROS',
-        'ja': 'IKAROSの名前',
-        'desc': '旧郷土資料館で荒木の紙記録を発見し、カイがIKAROS計画の支援人格として生まれたことを知る。',
+        'en': 'Black File',
+        'ja': '黒いファイル',
+        'desc': '旧郷土資料館で黒塗りの紙記録を発見し、千花はカイの声とクロノスを結ぶ線に触れる。',
     },
     10: {
         'en': 'Phase Two',
@@ -69,7 +69,7 @@ EPISODES = {
     12: {
         'en': 'Experiment Footage',
         'ja': '実験映像',
-        'desc': '綾のペンダントに隠された映像から、千花は麻酔覚醒の恐怖とカイ誕生の瞬間を目撃する。',
+        'desc': '綾のペンダントに隠された映像から、千花は麻酔覚醒の恐怖と黒く伏せられた対話補助の存在を目撃する。',
     },
     13: {
         'en': 'Under the Gymnasium',
@@ -307,16 +307,24 @@ def update_story_listing():
     with open(story_path, 'r', encoding='utf-8') as f:
         html = f.read()
     cards = '\n\n'.join(render_episode_card(n) for n in sorted(EPISODES))
-    pattern = r'(\s*<div class="episodes-grid">)\s*.*?(\n\s*</div>\n\s*</div>\n\s*</section>\n\n\s*<!-- Access Denied Overlay -->)'
-    new_html = re.sub(
-        pattern,
-        r'\1\n' + cards + r'\2',
-        html,
-        count=1,
-        flags=re.DOTALL,
+    start_marker = '            <div class="episodes-grid">'
+    end_marker = '    <!-- Access Denied Overlay -->'
+    start = html.find(start_marker)
+    end = html.find(end_marker)
+    if start == -1 or end == -1 or end <= start:
+        raise RuntimeError('Failed to locate story.html episode grid')
+    prefix = html[:start]
+    suffix = html[end:]
+    grid = (
+        start_marker
+        + '\n'
+        + cards
+        + '\n'
+        + '            </div>\n'
+        + '        </div>\n'
+        + '    </section>\n\n'
     )
-    if new_html == html:
-        raise RuntimeError('Failed to update story.html episode grid')
+    new_html = prefix + grid + suffix
     with open(story_path, 'w', encoding='utf-8') as f:
         f.write(new_html)
     print('Updated story.html episode listing')
