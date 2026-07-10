@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // キーボードナビゲーション
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
+        if (e.key === 'Escape' && hamburger && navMenu) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }
