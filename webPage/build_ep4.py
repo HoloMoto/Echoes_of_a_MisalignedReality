@@ -40,8 +40,8 @@ head = '''<!DOCTYPE html>
                     <i class="fas fa-chevron-right"></i>
                     <span>第四話</span>
                 </div>
-                <h1>#4 Crumbling Sandbox</h1>
-                <p class="episode-subtitle">崩れゆく砂箱</p>
+                <h1>#4 Cracking Sandbox</h1>
+                <p class="episode-subtitle">ひびく Sandbox</p>
             </div>
         </div>
     </section>

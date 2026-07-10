@@ -669,6 +669,169 @@ section {
   text-align: center;
 }
 
+/* ========== キーワードプレビュー ========== */
+.keywords-preview {
+  background: var(--page-bg);
+  border-top: 1px solid var(--page-border);
+}
+
+.spoiler-note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  max-width: 880px;
+  margin: 0 auto 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--page-line);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.spoiler-note i {
+  color: var(--page-text);
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
+  text-shadow: var(--page-shadow-sm);
+}
+
+.spoiler-note strong {
+  display: block;
+  color: var(--page-text);
+  margin-bottom: 0.35rem;
+  text-shadow: var(--page-shadow-sm);
+}
+
+.spoiler-note p {
+  color: var(--page-text-light);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-shadow: var(--page-shadow-sm);
+}
+
+.keyword-index {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 2rem;
+  max-width: 980px;
+}
+
+.keyword-index a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--page-border);
+  color: var(--page-text);
+  background: var(--page-bg);
+  font-size: 0.82rem;
+  text-decoration: none;
+  text-shadow: var(--page-shadow-sm);
+  transition: var(--transition);
+}
+
+.keyword-index a:hover,
+.keyword-index a:focus {
+  border-color: var(--page-text-light);
+  color: var(--page-text-light);
+  box-shadow: var(--page-shadow-sm);
+}
+
+.keyword-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.keyword-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--page-border);
+  background: var(--page-bg);
+  transition: var(--transition);
+}
+
+.keyword-card:hover {
+  border-color: var(--page-text-light);
+  box-shadow: var(--page-shadow-sm);
+}
+
+.keyword-card-important {
+  grid-column: span 2;
+  border-color: var(--page-text);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.035), rgba(0, 0, 0, 0));
+}
+
+.keyword-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.keyword-tag {
+  align-self: flex-start;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--page-line);
+  font-family: 'GAU Root', 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--page-text-light);
+  text-shadow: var(--page-shadow-sm);
+}
+
+.keyword-card h3 {
+  color: var(--page-text);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-shadow: var(--page-shadow);
+}
+
+.keyword-card p {
+  color: var(--page-text-light);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  text-shadow: var(--page-shadow-sm);
+}
+
+.keyword-detail {
+  margin-top: auto;
+  border-top: 1px solid var(--page-border);
+  padding-top: 0.9rem;
+}
+
+.keyword-detail summary {
+  cursor: pointer;
+  color: var(--page-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-shadow: var(--page-shadow-sm);
+  list-style-position: inside;
+}
+
+.keyword-detail summary:hover,
+.keyword-detail summary:focus {
+  color: var(--page-text-light);
+}
+
+.keyword-detail summary:focus {
+  outline: 2px solid var(--page-line);
+  outline-offset: 3px;
+}
+
+.keyword-detail p {
+  margin-top: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid var(--page-border);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.spoiler-detail summary {
+  color: #6a4c4c;
+}
+
 /* ========== フッター ========== */
 .footer {
   background: var(--page-bg);
@@ -770,6 +933,14 @@ section {
     text-align: center;
   }
 
+  .keyword-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .keyword-card-important {
+    grid-column: span 2;
+  }
+
   .footer-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -792,6 +963,19 @@ section {
   .btn {
     padding: 10px 20px;
     font-size: 0.85rem;
+  }
+
+  .spoiler-note {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .keyword-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .keyword-card-important {
+    grid-column: span 1;
   }
 }
 

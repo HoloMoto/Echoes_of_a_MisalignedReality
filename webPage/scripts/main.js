@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
 
     // アニメーション対象要素を監視
-    document.querySelectorAll('.news-item, .character-card, .world-item, .timeline-item, .episode-card').forEach(el => {
+    document.querySelectorAll('.news-item, .character-card, .world-item, .timeline-item, .episode-card, .keyword-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
