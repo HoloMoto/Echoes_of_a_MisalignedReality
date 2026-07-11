@@ -315,10 +315,24 @@ body.xr-story-active .xr-story-launch {
     visibility: hidden;
 }
 
-/* In headset, hide 2D HUD — content is rendered in WebGL only */
+/* In headset: keep only XR exit control on DOM layer */
 .xr-story-shell.is-xr-presenting .xr-story-shell__hud {
     opacity: 0;
     pointer-events: none;
+}
+
+.xr-story-shell.is-xr-presenting .xr-story-shell__xr-exit {
+    display: flex;
+}
+
+.xr-story-shell__xr-exit {
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%);
+    z-index: 3000;
+    pointer-events: auto;
 }
 
 .xr-story-shell.is-xr-presenting .xr-story-shell__canvas {
@@ -326,6 +340,14 @@ body.xr-story-active .xr-story-launch {
     inset: 0;
     width: 100vw !important;
     height: 100vh !important;
+    z-index: 1;
+}
+
+.xr-story-shell.is-xr-presenting .xr-story-shell__status {
+    opacity: 1;
+    top: 1rem;
+    z-index: 3001;
+    pointer-events: none;
 }
 
 .xr-vr-button {

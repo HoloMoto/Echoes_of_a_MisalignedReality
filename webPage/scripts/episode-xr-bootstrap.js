@@ -40,7 +40,7 @@
 
     function loadReaderModule() {
         ensureImportMap();
-        return import('./webxr-story.js?v=2');
+        return import('./webxr-story.js?v=6');
     }
 
     function parseEpisodeData() {
