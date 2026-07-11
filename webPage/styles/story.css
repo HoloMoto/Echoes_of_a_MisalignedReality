@@ -161,6 +161,24 @@
     padding: 2rem;
 }
 
+.episode-xr-note {
+    max-width: 920px;
+    margin: 0 auto 2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(0, 180, 220, 0.22);
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(240, 252, 255, 0.9), rgba(248, 250, 252, 0.95));
+    color: var(--text-light);
+    line-height: 1.7;
+    font-size: 0.92rem;
+}
+
+.episode-xr-note strong {
+    font-family: 'GAU Root', 'Share Tech Mono', monospace;
+    letter-spacing: 0.06em;
+    color: var(--text-dark);
+}
+
 .episode-description {
     color: var(--text-light);
     line-height: 1.6;
