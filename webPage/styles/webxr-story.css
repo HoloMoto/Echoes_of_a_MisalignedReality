@@ -315,6 +315,19 @@ body.xr-story-active .xr-story-launch {
     visibility: hidden;
 }
 
+/* In headset, hide 2D HUD — content is rendered in WebGL only */
+.xr-story-shell.is-xr-presenting .xr-story-shell__hud {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.xr-story-shell.is-xr-presenting .xr-story-shell__canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
 .xr-vr-button {
     pointer-events: auto !important;
     margin: 0 !important;
