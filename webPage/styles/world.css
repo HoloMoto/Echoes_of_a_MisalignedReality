@@ -611,3 +611,98 @@
         padding: 0 1.5rem 1.5rem;
     }
 }
+
+/* スマホ崩れ対策 */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 88px 0 44px;
+    }
+
+    .page-title {
+        display: block;
+        padding: 1rem 0;
+    }
+
+    .page-title h1 {
+        line-height: 1.18;
+        overflow-wrap: anywhere;
+    }
+
+    .era-background,
+    .technology-section,
+    .world-keywords-section,
+    .setting-section,
+    .organizations-section {
+        padding: 3rem 0;
+    }
+
+    .era-text h2 {
+        line-height: 1.35;
+    }
+
+    .era-text p,
+    .world-section-lead,
+    .tech-description p,
+    .location-description p,
+    .org-description p {
+        font-size: 0.96rem;
+        line-height: 1.85;
+    }
+
+    .tech-showcase {
+        flex-direction: column;
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .tech-item {
+        min-width: 0;
+        padding: 1.25rem;
+    }
+
+    .tech-grid,
+    .organizations-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .tech-card,
+    .org-description,
+    .location-description,
+    .world-keyword-card {
+        padding: 1.25rem;
+    }
+
+    .org-header,
+    .location-header {
+        padding: 1.35rem;
+    }
+
+    .location-header h3 {
+        font-size: 1.55rem;
+        overflow-wrap: anywhere;
+    }
+
+    .location-features {
+        grid-template-columns: 1fr;
+        padding: 0 1.25rem 1.25rem;
+    }
+
+    .feature,
+    .feature-item,
+    .activity {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 420px) {
+    .tech-icon i,
+    .org-icon i {
+        font-size: 2.35rem;
+    }
+
+    .tech-card h3,
+    .org-header h3 {
+        font-size: 1.25rem;
+        line-height: 1.35;
+    }
+}

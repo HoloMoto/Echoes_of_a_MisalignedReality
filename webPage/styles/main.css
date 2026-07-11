@@ -1754,3 +1754,69 @@ section {
     gap: 0.25rem;
   }
 }
+
+/* ========== スマホ崩れ対策（全ページ共通） ========== */
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  * {
+    min-width: 0;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .container,
+  .nav-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .btn {
+    min-height: 44px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .btn:hover,
+  .character-card-detailed:hover,
+  .tech-card:hover,
+  .org-card:hover,
+  .location-card:hover {
+    transform: none;
+  }
+
+  .section-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .section-title {
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+  }
+
+  .decrypted-text {
+    overflow: visible;
+    overflow-wrap: anywhere;
+  }
+
+  .footer {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 2.6rem 0;
+  }
+
+  .footer-content {
+    gap: 1.1rem;
+  }
+}

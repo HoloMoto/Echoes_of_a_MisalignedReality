@@ -230,3 +230,80 @@ section.episode-header {
         padding: 2rem;
     }
 }
+
+/* スマホ崩れ対策 */
+@media (max-width: 768px) {
+    section.episode-header {
+        padding: 88px 0 42px;
+    }
+
+    .episode-title {
+        display: block;
+        padding: 1rem 0;
+    }
+
+    .episode-title h1 {
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+    }
+
+    .episode-breadcrumb {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .episode-content {
+        padding: 3rem 0;
+    }
+
+    .episode-text {
+        max-width: 100%;
+        padding: 0 18px;
+        line-height: 1.9;
+    }
+
+    .episode-text p {
+        font-size: 1rem;
+        line-height: 1.95;
+        text-align: left;
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    .chapter-break {
+        margin: 2.6rem 0;
+        padding: 1.25rem;
+    }
+
+    .chapter-continue {
+        margin-top: 3rem;
+        padding: 1.25rem;
+    }
+
+    .episode-navigation .btn {
+        min-height: 48px;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 420px) {
+    .episode-text {
+        padding: 0 14px;
+    }
+
+    .episode-text p {
+        font-size: 0.96rem;
+        line-height: 1.9;
+        margin-bottom: 1.35rem;
+    }
+
+    .episode-title h1 {
+        font-size: 1.45rem;
+    }
+
+    .episode-subtitle {
+        font-size: 0.95rem;
+    }
+}
