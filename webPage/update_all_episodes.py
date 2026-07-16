@@ -256,6 +256,25 @@ def update_header(html, ep_num):
     return html
 
 
+def inject_xr_assets(html):
+    """Inject optional WebXR reader assets without changing episode body markup."""
+    if 'styles/webxr-story.css' not in html:
+        html = html.replace(
+            '<link rel="stylesheet" href="styles/episode.css">',
+            '<link rel="stylesheet" href="styles/episode.css">\n'
+            '    <link rel="stylesheet" href="styles/webxr-story.css">',
+            1,
+        )
+    if 'scripts/episode-xr-bootstrap.js' not in html:
+        html = html.replace(
+            '<script src="scripts/main.js"></script>',
+            '<script src="scripts/episode-xr-bootstrap.js" defer></script>\n'
+            '    <script src="scripts/main.js"></script>',
+            1,
+        )
+    return html
+
+
 def update_html(ep_num):
     ensure_episode_html(ep_num)
     html_path = os.path.join(BASE, 'episode{}.html'.format(ep_num))
@@ -275,6 +294,7 @@ def update_html(ep_num):
     new_html = matcher.sub(repl, html, count=1)
     if new_html == html:
         raise RuntimeError('Failed to update article in episode{}.html'.format(ep_num))
+    new_html = inject_xr_assets(new_html)
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(new_html)
     print('Updated episode{}.html'.format(ep_num))
