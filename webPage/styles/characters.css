@@ -399,3 +399,84 @@
         height: 100%;
     }
 }
+
+/* スマホ崩れ対策 */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 88px 0 44px;
+    }
+
+    .page-title {
+        display: block;
+        padding: 1rem 0;
+    }
+
+    .page-title h1,
+    .character-name-large {
+        line-height: 1.18;
+        overflow-wrap: anywhere;
+    }
+
+    .main-character,
+    .sub-characters {
+        padding: 3rem 0;
+    }
+
+    .character-detail {
+        gap: 1.5rem;
+    }
+
+    .character-illustration {
+        width: min(240px, 72vw);
+        height: min(240px, 72vw);
+    }
+
+    .character-badge.main {
+        right: max(0.5rem, 8vw);
+    }
+
+    .character-info-large {
+        padding: 0;
+        text-align: left;
+    }
+
+    .character-name-large {
+        font-size: 2rem;
+    }
+
+    .character-stats {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .character-description-large h3,
+    .character-abilities h3 {
+        font-size: 1.25rem;
+        line-height: 1.35;
+    }
+
+    .characters-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .character-card-detailed .character-info {
+        padding: 1.25rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .character-name-large {
+        font-size: 1.75rem;
+    }
+
+    .character-card-detailed .character-image {
+        height: 160px;
+    }
+}

@@ -454,3 +454,84 @@
         font-size: 1.3rem;
     }
 }
+
+/* スマホ崩れ対策 */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 88px 0 44px;
+    }
+
+    .page-title {
+        display: block;
+        padding: 1rem 0;
+    }
+
+    .page-title h1 {
+        line-height: 1.15;
+        overflow-wrap: anywhere;
+    }
+
+    .story-overview,
+    .episodes-section {
+        padding: 3rem 0;
+    }
+
+    .overview-text h2 {
+        line-height: 1.35;
+    }
+
+    .overview-text p {
+        font-size: 0.98rem;
+        line-height: 1.85;
+    }
+
+    .world-concept {
+        flex-direction: column;
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .concept-item {
+        min-width: 0;
+        padding: 1.25rem;
+    }
+
+    .episodes-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    .episode-card .episode-header {
+        padding: 1.25rem;
+    }
+
+    .episode-card .episode-header h3 {
+        overflow-wrap: anywhere;
+        line-height: 1.2;
+    }
+
+    .episode-content {
+        padding: 1.25rem;
+    }
+
+    .episode-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.85rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .page-title h1 {
+        font-size: 1.75rem;
+    }
+
+    .page-title p {
+        font-size: 0.95rem;
+    }
+
+    .episode-card .episode-header h3 {
+        font-size: 1.15rem;
+    }
+}
