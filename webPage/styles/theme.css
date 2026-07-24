@@ -1,0 +1,197 @@
+/* Theme: light (default) / dark — overrides CSS variables site-wide */
+
+:root {
+  --page-bg: #ffffff;
+  --page-bg-elevated: #f7f7f7;
+  --page-text: #555555;
+  --page-text-light: #777777;
+  --page-shadow: 3px 2px 4px rgba(0, 0, 0, 0.2);
+  --page-shadow-sm: 2px 1px 3px rgba(0, 0, 0, 0.15);
+  --page-border: rgba(0, 0, 0, 0.08);
+  --page-line: rgba(0, 0, 0, 0.12);
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-bg-scrolled: rgba(255, 255, 255, 0.98);
+  --card-bg: #ffffff;
+  --toggle-bg: #f0f0f0;
+  --toggle-fg: #555555;
+  --prefetch-accent: #2a7a8a;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #0e1218;
+  --page-bg-elevated: #161c26;
+  --page-text: #d5dde8;
+  --page-text-light: #9aa6b8;
+  --page-shadow: 3px 2px 6px rgba(0, 0, 0, 0.55);
+  --page-shadow-sm: 2px 1px 4px rgba(0, 0, 0, 0.45);
+  --page-border: rgba(255, 255, 255, 0.1);
+  --page-line: rgba(255, 255, 255, 0.14);
+  --header-bg: rgba(14, 18, 24, 0.94);
+  --header-bg-scrolled: rgba(14, 18, 24, 0.98);
+  --card-bg: #161c26;
+  --toggle-bg: #1c2430;
+  --toggle-fg: #d5dde8;
+  --prefetch-accent: #5fd0e0;
+  --primary-color: var(--page-text);
+  --secondary-color: var(--page-text-light);
+  --tertiary-color: var(--page-bg);
+  --accent-color: var(--page-text);
+  --text-dark: var(--page-text);
+  --text-light: var(--page-text-light);
+  --text-on-light: var(--page-text);
+  --bg-light: var(--page-bg-elevated);
+  --bg-white: var(--page-bg);
+}
+
+html[data-theme="dark"] body {
+  background: var(--page-bg);
+  color: var(--page-text);
+}
+
+html[data-theme="dark"] .header {
+  background: var(--header-bg) !important;
+  border-bottom-color: var(--page-border);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .header.is-scrolled {
+  background: var(--header-bg-scrolled) !important;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Home hero / cards that hardcode white */
+html[data-theme="dark"] .home-hero,
+html[data-theme="dark"] section.hero {
+  background: linear-gradient(180deg, #0e1218 0%, #121820 58%, #0e1218 100%) !important;
+}
+
+html[data-theme="dark"] .hero-copy,
+html[data-theme="dark"] .news-item,
+html[data-theme="dark"] .character-card,
+html[data-theme="dark"] .world-item,
+html[data-theme="dark"] .keyword-card,
+html[data-theme="dark"] .episode-card,
+html[data-theme="dark"] .timeline-item {
+  background: var(--card-bg);
+  border-color: var(--page-border);
+}
+
+html[data-theme="dark"] .footer {
+  background: var(--page-bg-elevated);
+  border-top: 1px solid var(--page-border);
+}
+
+html[data-theme="dark"] .btn,
+html[data-theme="dark"] .btn-primary,
+html[data-theme="dark"] .btn-outline {
+  border-color: var(--page-line);
+}
+
+html[data-theme="dark"] .btn-primary {
+  background: var(--page-text);
+  color: var(--page-bg);
+}
+
+html[data-theme="dark"] .btn-outline {
+  background: transparent;
+  color: var(--page-text);
+}
+
+html[data-theme="dark"] .hamburger .bar {
+  background: var(--page-text);
+}
+
+html[data-theme="dark"] .page-header,
+html[data-theme="dark"] .episode-header,
+html[data-theme="dark"] .episode-content,
+html[data-theme="dark"] .chapter-break,
+html[data-theme="dark"] .chapter-continue,
+html[data-theme="dark"] .highlight-box {
+  background: var(--page-bg) !important;
+  border-color: var(--page-border);
+}
+
+html[data-theme="dark"] .scroll-progress {
+  background: linear-gradient(45deg, #1a4a55, #3a2a55, #2a3a4a) !important;
+}
+
+html[data-theme="dark"] .access-denied-overlay {
+  background: rgba(0, 0, 0, 0.88);
+}
+
+@media (max-width: 768px) {
+  html[data-theme="dark"] .header {
+    background: var(--header-bg-scrolled) !important;
+  }
+}
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: 0.75rem;
+  border: 1px solid var(--page-border);
+  border-radius: 999px;
+  background: var(--toggle-bg);
+  color: var(--toggle-fg);
+  cursor: pointer;
+  transition: var(--transition, all 0.25s ease);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--page-line);
+}
+
+.theme-toggle i {
+  font-size: 0.95rem;
+}
+
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: inline-block; }
+
+html[data-theme="dark"] .theme-toggle .icon-sun { display: inline-block; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* Episode prefetch indicator */
+.episode-prefetch-hint {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--prefetch-accent);
+  letter-spacing: 0.04em;
+}
+
+.episode-prefetch-hint.is-visible {
+  display: inline-flex;
+}
+
+.episode-prefetch-hint.is-ready {
+  color: var(--page-text);
+}
+
+.episode-prefetch-hint .spin {
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: prefetchSpin 0.7s linear infinite;
+}
+
+@keyframes prefetchSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    margin-left: 0.5rem;
+  }
+}

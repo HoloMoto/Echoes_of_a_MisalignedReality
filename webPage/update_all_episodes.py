@@ -275,6 +275,32 @@ def inject_xr_assets(html):
     return html
 
 
+def inject_theme_prefetch_assets(html):
+    """Inject dark-mode + next-episode prefetch assets."""
+    if 'styles/theme.css' not in html:
+        if 'styles/main.css' in html:
+            html = html.replace(
+                '<link rel="stylesheet" href="styles/main.css">',
+                '<link rel="stylesheet" href="styles/main.css">\n'
+                '    <link rel="stylesheet" href="styles/theme.css">',
+                1,
+            )
+    if 'scripts/theme-init.js' not in html:
+        html = html.replace(
+            '</head>',
+            '    <script src="scripts/theme-init.js"></script>\n</head>',
+            1,
+        )
+    if 'scripts/episode-prefetch.js' not in html:
+        html = html.replace(
+            '<script src="scripts/main.js"></script>',
+            '<script src="scripts/episode-prefetch.js" defer></script>\n'
+            '    <script src="scripts/main.js"></script>',
+            1,
+        )
+    return html
+
+
 def update_html(ep_num):
     ensure_episode_html(ep_num)
     html_path = os.path.join(BASE, 'episode{}.html'.format(ep_num))
@@ -295,6 +321,7 @@ def update_html(ep_num):
     if new_html == html:
         raise RuntimeError('Failed to update article in episode{}.html'.format(ep_num))
     new_html = inject_xr_assets(new_html)
+    new_html = inject_theme_prefetch_assets(new_html)
     with open(html_path, 'w', encoding='utf-8') as f:
         f.write(new_html)
     print('Updated episode{}.html'.format(ep_num))

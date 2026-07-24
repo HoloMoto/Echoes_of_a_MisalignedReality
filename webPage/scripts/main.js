@@ -1,6 +1,61 @@
 // メインJavaScriptファイル
 
+const THEME_STORAGE_KEY = 'hs-theme';
+
+function getPreferredTheme() {
+    try {
+        const saved = localStorage.getItem(THEME_STORAGE_KEY);
+        if (saved === 'dark' || saved === 'light') return saved;
+    } catch (e) { /* ignore */ }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    return 'light';
+}
+
+function applyTheme(theme) {
+    const next = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+        localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch (e) { /* ignore */ }
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) {
+        toggle.setAttribute('aria-label', next === 'dark' ? 'ライトモードに切替' : 'ダークモードに切替');
+        toggle.setAttribute('title', next === 'dark' ? 'ライトモード' : 'ダークモード');
+    }
+}
+
+function initThemeToggle() {
+    applyTheme(getPreferredTheme());
+
+    const navContainer = document.querySelector('.nav-container');
+    if (!navContainer || document.getElementById('themeToggle')) return;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'themeToggle';
+    btn.className = 'theme-toggle';
+    btn.innerHTML =
+        '<i class="fas fa-moon icon-moon" aria-hidden="true"></i>' +
+        '<i class="fas fa-sun icon-sun" aria-hidden="true"></i>';
+    btn.addEventListener('click', function () {
+        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    const hamburger = navContainer.querySelector('.hamburger');
+    if (hamburger) {
+        navContainer.insertBefore(btn, hamburger);
+    } else {
+        navContainer.appendChild(btn);
+    }
+    applyTheme(getPreferredTheme());
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    initThemeToggle();
+
     // ハンバーガーメニューの制御
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -37,14 +92,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ヘッダーの背景透明度調整
+    // ヘッダーの背景透明度調整（テーマ変数を使用）
     window.addEventListener('scroll', function() {
         const header = document.querySelector('.header');
+        if (!header) return;
         if (window.scrollY > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            header.classList.add('is-scrolled');
+            header.style.background = 'var(--header-bg-scrolled)';
+            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.12)';
         } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.classList.remove('is-scrolled');
+            header.style.background = 'var(--header-bg)';
             header.style.boxShadow = 'none';
         }
     });
