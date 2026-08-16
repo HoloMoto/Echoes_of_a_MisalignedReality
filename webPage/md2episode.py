@@ -2,6 +2,27 @@
 import re
 import sys
 
+IMG_MD_RE = re.compile(r'^!\[(.*?)\]\((.+?)\)$')
+
+
+def html_escape(text):
+    return (
+        text.replace('&', '&amp;')
+        .replace('<', '&lt;')
+        .replace('>', '&gt;')
+        .replace('"', '&quot;')
+    )
+
+
+def illust_html(alt, src):
+    filename = src.replace('\\', '/').split('/')[-1]
+    return (
+        '                <figure class="episode-illust">\n'
+        '                    <img src="images/{}" alt="{}">\n'
+        '                </figure>\n\n'.format(filename, html_escape(alt))
+    )
+
+
 def md_to_episode_html(path):
     with open(path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -12,6 +33,11 @@ def md_to_episode_html(path):
         stripped = line.rstrip()
         # Skip episode title line and pure separators
         if stripped == '' or stripped == '---' or stripped.startswith('ーーー') or (stripped.startswith('Episode ') and ':' in stripped):
+            i += 1
+            continue
+        img_m = IMG_MD_RE.match(stripped)
+        if img_m:
+            out.append(illust_html(img_m.group(1), img_m.group(2)))
             i += 1
             continue
         if stripped.startswith('## '):
@@ -38,6 +64,8 @@ def md_to_episode_html(path):
             if s == '' or s == '---' or s.startswith('ーーー'):
                 break
             if s.startswith('## ') or (s.startswith('# ') and not s.startswith('## ')):
+                break
+            if IMG_MD_RE.match(s):
                 break
             if re.match(r'^\d{4}年', s) and ' ' in s and not para_lines:
                 break

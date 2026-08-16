@@ -79,6 +79,19 @@ section.episode-header {
     text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
+.episode-illust {
+    margin: 2rem auto 2.75rem;
+    max-width: 520px;
+    text-align: center;
+}
+
+.episode-illust img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
 .chapter-break {
     text-align: center;
     margin: 4rem 0;
@@ -270,6 +283,11 @@ section.episode-header {
         text-align: left;
         overflow-wrap: break-word;
         word-break: normal;
+    }
+
+    .episode-illust {
+        max-width: 100%;
+        margin: 1.5rem auto 2rem;
     }
 
     .chapter-break {
