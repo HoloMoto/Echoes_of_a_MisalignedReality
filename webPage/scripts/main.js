@@ -345,3 +345,13 @@ function initDecryptedTextEffect() {
         }, 500);
     });
 }
+
+// Register episode cache SW early (https / localhost only)
+(function registerEpisodeCacheSW() {
+    if (!('serviceWorker' in navigator)) return;
+    var host = window.location.hostname;
+    if (window.location.protocol !== 'https:' && host !== 'localhost' && host !== '127.0.0.1') return;
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function (err) {
+        console.warn('Episode SW register failed:', err);
+    });
+})();
