@@ -6,7 +6,7 @@
   'use strict';
 
   var CACHE_NAME = 'hs-episode-cache-v2';
-  var MAX_EPISODE = 20;
+  var MAX_EPISODE = 7;
   var SW_URL = 'sw.js';
 
   function currentEpisodeNumber() {
