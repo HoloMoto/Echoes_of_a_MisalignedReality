@@ -178,6 +178,30 @@ html[data-theme="dark"] .keyword-tag {
   letter-spacing: 0.18em;
 }
 
+/* ---- READING ROUTE 区画: 元CSSで背景が白固定のため、ダークでは個別に上書き ----
+   （2026-11-05 ブラウザ確認で「白背景に白文字で読めない」と判明した箇所の修正） */
+html[data-theme="dark"] .episode-gateway {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.06), transparent 30%, transparent 70%, rgba(129, 140, 248, 0.06)),
+    #060b14;
+  border-top: 1px solid var(--df-line);
+  border-bottom: 1px solid var(--df-line);
+}
+
+html[data-theme="dark"] .gateway-copy h2 {
+  color: var(--df-text);
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.25);
+}
+
+html[data-theme="dark"] .gateway-copy p {
+  color: #a9bdd6;
+}
+
+html[data-theme="dark"] .trace-point {
+  background: #0a1424;
+  border-color: var(--df-line);
+}
+
 /* ---- フッター ---- */
 html[data-theme="dark"] .footer {
   background: #030509;
