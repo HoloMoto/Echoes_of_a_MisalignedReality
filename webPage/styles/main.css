@@ -1820,3 +1820,9 @@ video {
     gap: 1.1rem;
   }
 }
+
+/* キーワード区画の「もっと見る」導線（トップ／世界観 共通） */
+.keywords-more {
+  text-align: center;
+  margin-top: 2rem;
+}

@@ -706,3 +706,11 @@
         line-height: 1.35;
     }
 }
+
+/* 詳細キーワード見出し */
+.world-keywords-detail-title {
+  margin: 3rem 0 0.6rem;
+  font-size: 1.35rem;
+  color: var(--page-text);
+  text-shadow: var(--page-shadow-sm);
+}
