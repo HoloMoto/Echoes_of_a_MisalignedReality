@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="styles/splash.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/dark-future.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="scripts/theme-init.js"></script>
+    <!-- トップページは保存済み設定がない場合ダークを既定にする（Muse 凛, 2026-11-05） -->
+    <script>
+      try {
+        if (!localStorage.getItem('hs-theme')) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) { /* 保存設定が読めない環境では theme-init の結果のまま */ }
+    </script>
 </head>
 <body>
     <!-- グリッチ用 SVG フィルター（ブロックずれ＋色収差） -->
