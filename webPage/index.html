@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>春風シンクレティック - 公式サイト</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <meta name="description" content="2073年、瑠璃見。記録と食い違う半年を生きた少女・春風千花と、ユビキタスコアをめぐる物語『春風シンクレティック』公式サイト。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="春風シンクレティック - 公式サイト">
+    <meta property="og:description" content="2073年、瑠璃見。記録と食い違う半年を生きた少女・春風千花と、ユビキタスコアをめぐる物語『春風シンクレティック』公式サイト。">
+    <meta property="og:url" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/index.html">
+    <meta property="og:image" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/images/ChikaHarukaze.png">
     <link rel="stylesheet" href="styles/splash.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/theme.css">
+    <link rel="stylesheet" href="styles/dark-future.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="scripts/theme-init.js"></script>
+    <!-- トップページは保存済み設定がない場合ダークを既定にする（Muse 凛, 2026-11-05） -->
+    <script>
+      try {
+        if (!localStorage.getItem('hs-theme')) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) { /* 保存設定が読めない環境では theme-init の結果のまま */ }
+    </script>
 </head>
 <body>
     <!-- グリッチ用 SVG フィルター（ブロックずれ＋色収差） -->
@@ -204,7 +220,7 @@
                 <a href="episode2.html" class="episode-chip"><span>#2</span>Log</a>
                 <a href="episode3.html" class="episode-chip"><span>#3</span>Boundary</a>
                 <a href="episode4.html" class="episode-chip"><span>#4</span>Cracking Sandbox</a>
-                <a href="episode5.html" class="episode-chip"><span>#5</span>Awakening</a>
+                <a href="episode5.html" class="episode-chip"><span>#5</span>Aporia</a>
                 <a href="episode6.html" class="episode-chip"><span>#6</span>Existential Exodus</a>
                 <a href="episode7.html" class="episode-chip"><span>#7</span>Boundary Noise</a>
             </div>
@@ -303,9 +319,7 @@
                 <a href="#keyword-neo-ubiquitous">ネオユビキタス</a>
                 <a href="#keyword-linker">ユビキタスリンカー</a>
                 <a href="#keyword-core">ユビキタスコア</a>
-                <a href="#keyword-redbox">レッドボックス</a>
-                <a href="#keyword-gear">装備</a>
-                <a href="#keyword-organizations">組織</a>
+                <a href="world.html#world-keywords-detail">装備・組織・AIの用語集（世界観ページ）</a>
             </nav>
             <div class="keyword-grid">
                 <article class="keyword-card keyword-card-important" id="keyword-rurimi-server">
@@ -385,171 +399,26 @@
                         <p>脳波パターンを用いた暗号化や増幅を担う中核部品。安全装置であると同時に、接続者をめぐる争奪や保護の理由にもなります。</p>
                     </details>
                 </article>
-                <article class="keyword-card" id="keyword-redbox">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>レッドボックス</h3>
-                    </div>
-                    <p>人類未到達の技術を生み出しうる、超高度AIや量子コンピュータを指す呼称。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>日本ではIKAROSや神楽が該当する。軍事・政治・生活技術の均衡を左右する存在として扱われ、核兵器級の抑止力として警戒されます。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>IKAROS</h3>
-                    </div>
-                    <p>作中の重要な超高度AI。ユビキタスリンカーの思想やカイの成立に関わる存在。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>荒木紘一の構想を内側に抱え、疑似人格カイ・ローレンスを作成した領域に関わります。瑠璃見サーバー施設の停止時には残存領域の扱いが大きな選択になります。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>神楽</h3>
-                    </div>
-                    <p>スサノオ部隊の支援にも使われる超高度AI。装備制御や作戦支援に関わる。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>強化スーツf62などの高度装備をバックアップし、対レッドボックス戦でも重要な役割を持つAIです。</p>
-                    </details>
-                </article>
-                <article class="keyword-card" id="keyword-gear">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>強化スーツ</h3>
-                    </div>
-                    <p>身体保護と身体拡張を組み合わせた戦闘装備。特殊部隊で運用される。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>AI支援による姿勢制御や換装式ユニットを備え、任務に応じて飛行・高機動・防護などを拡張する。第6世代以降のスマートアイとの併用が基本です。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>強化スーツf62</h3>
-                    </div>
-                    <p>スサノオに先行配備された新型パワードスーツ。任務に応じて構成を変えられる。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>神楽のバックアップを受けて身体を拡張する試作装備。飛行ユニットや高高度狙撃など、三次元的な機動を想定しています。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>シールド</h3>
-                    </div>
-                    <p>スサノオ隊に先行配備された特殊素材の防弾シールド。f62開発のプロトタイプでもある。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>多層フィルムと電子回路を内蔵し、ビーム給電による相転移で強度を上げる。自己再生ガラスの性質を持ち、継続使用を想定した装備です。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">DEVICE</span>
-                        <h3>クアンタムセル</h3>
-                    </div>
-                    <p>強化スーツなどに用いられる超高度AIの子機端末。同期によって演算能力を拡張する。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>20cm大のセルにナンバリングされ、センサーや演算補助として使われる。雷鳥に搭載された神楽のターミナルハブは、この発想へ通じるプロトタイプです。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">SUIT</span>
-                        <h3>ヘパイストス</h3>
-                    </div>
-                    <p>ユビキタスリンカーユーザー専用の高高度強襲用空中装備。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>思考操作により身体を動かさず操縦でき、分離後は浮遊支援テザードローンとしても運用できる。隠密偵察や強襲に向いた装備です。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">SUIT</span>
-                        <h3>ヘパイストスII</h3>
-                    </div>
-                    <p>ユビキタスリンカーユーザー以外にも扱えるよう改良されたヘパイストス。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>脳波コントロールで操作可能になり、ハードポイントも増設された一方、重量増加や出力低下が見られる改良型です。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AIRCRAFT</span>
-                        <h3>輸送機C-2改「雷鳥」</h3>
-                    </div>
-                    <p>自衛隊C-2輸送機をベースにした特殊作戦用輸送機。空中指揮所としても機能する。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>13課やスサノオ部隊などが運用する輸送・指揮統制機。監視スクリーンや強化スーツのコントロールパネル、隊員の空中展開機能を備えます。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">DEVICE</span>
-                        <h3>VA64</h3>
-                    </div>
-                    <p>Vision Amplifier type64型スマートアイ。スサノオ隊の標準装備。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>第6世代スマートアイに相当するバイザー型デバイス。うなじ部の脳波集約補助デバイスで高度な入力を行います。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">WEAPON</span>
-                        <h3>VSAR</h3>
-                    </div>
-                    <p>13課の標準装備である実弾型ライフル。読みはヴァーサー。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>Variable Speed Assault Rifleの略。実弾を使用し、MDシリーズ同様にAIによる自動照準機能を備えます。</p>
-                    </details>
-                </article>
-                <article class="keyword-card" id="keyword-organizations">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">ORG</span>
-                        <h3>公安局 / 第13課</h3>
-                    </div>
-                    <p>ユビキタスコアをめぐる捜査や回収に関わる国家側組織。作中の対立軸の一つ。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>国内機密情報を扱う組織として、ユビキタスコアの共同捜査や技術独占に関わる。琴音との癒着やユビキタスシステムの秘匿をめぐり、スサノオ隊と衝突します。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">ORG</span>
-                        <h3>スサノオ部隊</h3>
-                    </div>
-                    <p>ユビキタスコアの保護・国外流出防止などに関わる自衛隊側の特務部隊。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>強化スーツf62、VA64、雷鳥などを運用する特殊部隊。13課と対立し、千花の保護をめぐる作戦に関与します。</p>
-                    </details>
-                </article>
-                <article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">PERSON</span>
-                        <h3>荒木紘一</h3>
-                    </div>
-                    <p>ユビキタスコアおよびユビキタスリンカーの開発者。脳科学者であり量子コンピュータ研究者。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>ユビキタスリンカー計画と千花の過去に関わる研究者。彼の告発記録は、事故、救命、実験、アナログハッチの存在をつなぐ重要な証拠になります。</p>
-                    </details>
-                </article>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+                    <div class="keywords-more">
+                <a href="world.html#world-keywords-detail" class="btn btn-outline">
+                    装備・組織・AIの用語は世界観ページへ <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>

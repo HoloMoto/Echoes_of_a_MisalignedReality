@@ -1,0 +1,214 @@
+/* ============================================================
+   Dark Future theme — トップページ用オーバーライド
+   作成: Muse 凛 (2026-11-05) / 方向性: 「ダークで近未来寄り」
+   - html[data-theme="dark"] のときだけ効く。ライト切替時は元のデザインに戻る。
+   - index.html からのみ読み込む。他ページには影響しない。
+   - 戻し方: index.html の <link> 1行を消すだけで元に戻る。
+   ============================================================ */
+
+html[data-theme="dark"] {
+  --df-bg: #04070d;
+  --df-bg-2: #081020;
+  --df-panel: rgba(10, 20, 36, 0.78);
+  --df-cyan: #67e8f9;
+  --df-cyan-strong: #22d3ee;
+  --df-violet: #a5b4fc;
+  --df-line: rgba(103, 232, 249, 0.28);
+  --df-text: #e6f1ff;
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(34, 211, 238, 0.13), transparent 60%),
+    radial-gradient(900px 480px at 88% 108%, rgba(129, 140, 248, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--df-bg) 0%, var(--df-bg-2) 55%, var(--df-bg) 100%);
+  color: var(--df-text);
+}
+
+/* ---- ヘッダー: 暗いガラス + 下線のグロー ---- */
+html[data-theme="dark"] .header {
+  background: rgba(4, 8, 15, 0.82) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--df-line);
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.12);
+}
+
+html[data-theme="dark"] .nav-link.active,
+html[data-theme="dark"] .nav-link:hover {
+  color: var(--df-cyan);
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.65);
+}
+
+/* ---- ヒーロー: グリッドとスキャンラインの近未来空間 ---- */
+html[data-theme="dark"] .home-hero {
+  background:
+    linear-gradient(rgba(103, 232, 249, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.05) 1px, transparent 1px),
+    radial-gradient(820px 420px at 70% 18%, rgba(34, 211, 238, 0.16), transparent 62%),
+    linear-gradient(180deg, #04070d 0%, #071224 58%, #04070d 100%) !important;
+  background-size: 44px 44px, 44px 44px, auto, auto;
+}
+
+html[data-theme="dark"] .home-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .section-kicker {
+  font-family: "Share Tech Mono", monospace;
+  color: var(--df-cyan);
+  letter-spacing: 0.32em;
+  text-shadow: 0 0 10px rgba(103, 232, 249, 0.55);
+}
+
+html[data-theme="dark"] .hero-copy .title-main {
+  background: linear-gradient(92deg, #ffffff 10%, var(--df-cyan) 55%, var(--df-violet) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.35));
+}
+
+html[data-theme="dark"] .hero-catchphrase {
+  color: var(--df-text);
+}
+
+html[data-theme="dark"] .hero-description {
+  color: #a9bdd6;
+}
+
+/* ---- ヒーローパネル / ターミナル断片: 発光する計器盤 ---- */
+html[data-theme="dark"] .hero-panel {
+  background: var(--df-panel);
+  border: 1px solid var(--df-line);
+  box-shadow:
+    0 0 0 1px rgba(4, 10, 18, 0.6),
+    0 0 34px rgba(34, 211, 238, 0.16),
+    inset 0 0 24px rgba(34, 211, 238, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+html[data-theme="dark"] .panel-label {
+  font-family: "Share Tech Mono", monospace;
+  color: var(--df-cyan);
+  letter-spacing: 0.22em;
+}
+
+html[data-theme="dark"] .terminal-fragment {
+  font-family: "Share Tech Mono", monospace;
+  color: #9fe8f5;
+}
+
+html[data-theme="dark"] .terminal-fragment .fragment-alert {
+  color: #fda4af;
+  text-shadow: 0 0 10px rgba(253, 164, 175, 0.6);
+}
+
+html[data-theme="dark"] .trace-core {
+  color: var(--df-cyan);
+  text-shadow: 0 0 14px rgba(103, 232, 249, 0.8);
+}
+
+html[data-theme="dark"] .orbit-node {
+  box-shadow: 0 0 12px rgba(103, 232, 249, 0.9);
+}
+
+/* ---- ボタン: 主ボタンはシアンの発光、副ボタンは輪郭光 ---- */
+html[data-theme="dark"] .btn-primary {
+  background: linear-gradient(92deg, var(--df-cyan-strong), #818cf8);
+  color: #03141c;
+  border: none;
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.45);
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 0 0 32px rgba(34, 211, 238, 0.7);
+}
+
+html[data-theme="dark"] .btn-secondary {
+  background: rgba(8, 18, 32, 0.55);
+  color: var(--df-cyan);
+  border: 1px solid var(--df-line);
+}
+
+html[data-theme="dark"] .btn-secondary:hover {
+  border-color: var(--df-cyan);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.35);
+}
+
+/* ---- カード類: 暗いガラス + ホバーで浮上と発光 ---- */
+html[data-theme="dark"] .story-card,
+html[data-theme="dark"] .character-card-home,
+html[data-theme="dark"] .keyword-card,
+html[data-theme="dark"] .episode-chip {
+  background: var(--df-panel);
+  border: 1px solid rgba(148, 197, 255, 0.16);
+  box-shadow: inset 0 0 18px rgba(34, 211, 238, 0.04);
+  backdrop-filter: blur(6px);
+}
+
+html[data-theme="dark"] .story-card:hover,
+html[data-theme="dark"] .character-card-home:hover,
+html[data-theme="dark"] .episode-chip:hover {
+  border-color: var(--df-cyan);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(34, 211, 238, 0.3);
+}
+
+html[data-theme="dark"] .card-number,
+html[data-theme="dark"] .character-index,
+html[data-theme="dark"] .episode-chip span {
+  font-family: "Share Tech Mono", monospace;
+  color: var(--df-cyan);
+}
+
+html[data-theme="dark"] .keyword-tag {
+  font-family: "Share Tech Mono", monospace;
+  color: var(--df-violet);
+  letter-spacing: 0.18em;
+}
+
+/* ---- READING ROUTE 区画: 元CSSで背景が白固定のため、ダークでは個別に上書き ----
+   （2026-11-05 ブラウザ確認で「白背景に白文字で読めない」と判明した箇所の修正） */
+html[data-theme="dark"] .episode-gateway {
+  background:
+    linear-gradient(90deg, rgba(34, 211, 238, 0.06), transparent 30%, transparent 70%, rgba(129, 140, 248, 0.06)),
+    #060b14;
+  border-top: 1px solid var(--df-line);
+  border-bottom: 1px solid var(--df-line);
+}
+
+html[data-theme="dark"] .gateway-copy h2 {
+  color: var(--df-text);
+  text-shadow: 0 0 16px rgba(34, 211, 238, 0.25);
+}
+
+html[data-theme="dark"] .gateway-copy p {
+  color: #a9bdd6;
+}
+
+html[data-theme="dark"] .trace-point {
+  background: #0a1424;
+  border-color: var(--df-line);
+}
+
+/* ---- フッター ---- */
+html[data-theme="dark"] .footer {
+  background: #030509;
+  border-top: 1px solid var(--df-line);
+}
+
+html[data-theme="dark"] ::selection {
+  background: rgba(34, 211, 238, 0.4);
+  color: #ffffff;
+}
