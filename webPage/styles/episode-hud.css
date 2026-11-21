@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Episode Third-Eye Reading HUD & Typography Controls (Step 3)
+   フォント不変: Noto Sans JP / GAU Root / Share Tech Mono
+   ========================================================================== */
+
+.episode-hud-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 1.1rem;
+  transform: translateX(-50%);
+  z-index: 1150;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.65rem;
+  border: 1px solid var(--df-line);
+  border-radius: 999px;
+  background: var(--df-panel-strong);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 22px var(--df-glow);
+}
+
+.ep-hud-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--df-text-muted);
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.ep-hud-btn:hover,
+.ep-hud-btn.is-active {
+  border-color: var(--df-line);
+  background: rgba(34, 211, 238, 0.14);
+  color: var(--df-cyan);
+}
+
+.ep-hud-pct {
+  padding: 0 0.45rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--df-cyan);
+  min-width: 3.1rem;
+  text-align: center;
+}
+
+/* Text size & line height presets (keeps Noto Sans JP!) */
+article.episode-text.ep-size-sm p { font-size: 0.98rem !important; }
+article.episode-text.ep-size-md p { font-size: 1.1rem !important; }
+article.episode-text.ep-size-lg p { font-size: 1.24rem !important; }
+
+article.episode-text.ep-lead-tight { line-height: 1.78 !important; }
+article.episode-text.ep-lead-wide { line-height: 2.15 !important; }
+
+/* Focus Mode */
+body.ep-focus-mode #syncretic-canvas,
+body.ep-focus-mode .syncretic-hud-frame,
+body.ep-focus-mode .hud-telemetry-badge {
+  opacity: 0.08 !important;
+  transition: opacity 0.3s ease;
+}
+
+body.ep-focus-mode .header {
+  opacity: 0.22;
+  transition: opacity 0.25s ease;
+}
+
+body.ep-focus-mode .header:hover {
+  opacity: 1;
+}
+
+/* Optical Inline Token 《...》 */
+.ep-optical-token {
+  display: inline;
+  padding: 0.04rem 0.35rem;
+  margin: 0 0.1rem;
+  border: 1px solid var(--df-line);
+  border-radius: 3px;
+  background: rgba(34, 211, 238, 0.09);
+  color: var(--df-cyan);
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.94em;
+}
+
+html.ep-optics-off .ep-optical-token {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Resume Bookmark Toast */
+.ep-resume-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 auto 2rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--df-line);
+  background: var(--df-panel);
+  color: var(--df-cyan);
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.8rem;
+}
+
+.ep-resume-toast button {
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--df-cyan);
+  background: rgba(34, 211, 238, 0.14);
+  color: var(--df-cyan);
+  font-family: inherit;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+
+.ep-resume-toast button:hover {
+  background: var(--df-cyan-strong);
+  color: #03141c;
+}
+
+.chapter-date {
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.14em;
+  color: var(--df-cyan) !important;
+  border-left: 3px solid var(--df-cyan);
+  padding-left: 0.75rem;
+  margin: 2rem 0 1.4rem !important;
+}
+
+@media (max-width: 768px) {
+  .episode-hud-bar {
+    left: 0.75rem;
+    transform: none;
+    bottom: 0.85rem;
+    max-width: calc(100vw - 10.5rem);
+    overflow-x: auto;
+  }
+}

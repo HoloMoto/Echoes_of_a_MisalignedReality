@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Story Archive Visual Tracker & Card Motifs (Step 3)
+   フォント不変: Noto Sans JP / GAU Root / Share Tech Mono
+   ========================================================================== */
+
+.story-progress-banner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  max-width: 920px;
+  margin: 0 auto 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--df-line);
+  background: var(--df-panel);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+.story-progress-kicker {
+  font-family: 'GAU Root', 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--df-cyan);
+}
+
+.story-progress-title {
+  margin: 0.3rem 0 0.55rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--df-text);
+}
+
+.story-progress-bars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.76rem;
+  color: var(--df-text-muted);
+}
+
+.story-mini-bar {
+  display: inline-block;
+  width: 96px;
+  height: 5px;
+  margin-left: 0.45rem;
+  vertical-align: middle;
+  background: var(--df-line-soft);
+  overflow: hidden;
+}
+
+.story-mini-bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--df-cyan-strong), var(--df-violet));
+}
+
+.episode-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-card .episode-content {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.episode-card .episode-meta {
+  margin-top: auto;
+}
+
+.episode-card-motif {
+  position: absolute;
+  right: 0.85rem;
+  top: 0.85rem;
+  width: 58px;
+  height: 58px;
+  color: var(--df-cyan);
+  opacity: 0.24;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+.episode-card:hover .episode-card-motif {
+  opacity: 0.5;
+  transform: scale(1.06);
+}
+
+.episode-read-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--df-cyan);
+  background: rgba(34, 211, 238, 0.14);
+  color: var(--df-cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+.episode-card.is-read {
+  border-color: rgba(103, 232, 249, 0.42) !important;
+}
+
+@media (max-width: 720px) {
+  .story-progress-banner {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,1176 @@
+/* ==========================================================================
+   Syncretic Optical HUD — 全ページ共通グラフィック基盤 & バグ一括修復
+   フォント不変: Noto Sans JP / GAU Root / Share Tech Mono のみ使用
+   ========================================================================== */
+
+:root {
+  --border-radius: 4px;
+  --shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 18px 42px rgba(8, 145, 178, 0.16);
+}
+
+/* ---------- Light Mode: White Reality + AR Optical Layer ---------- */
+html[data-theme="light"] {
+  --df-bg: #f6f9fc;
+  --df-bg-2: #eaf1f8;
+  --df-panel: rgba(255, 255, 255, 0.84);
+  --df-panel-strong: rgba(255, 255, 255, 0.96);
+  --df-cyan: #0e7490;
+  --df-cyan-strong: #0891b2;
+  --df-violet: #4f46e5;
+  --df-amber: #b45309;
+  --df-rose: #be123c;
+  --df-line: rgba(8, 145, 178, 0.28);
+  --df-line-soft: rgba(15, 23, 42, 0.1);
+  --df-text: #1e293b;
+  --df-text-muted: #475569;
+  --df-glow: rgba(8, 145, 178, 0.16);
+
+  --page-bg: #f6f9fc;
+  --page-bg-elevated: #ffffff;
+  --page-text: #1e293b;
+  --page-text-light: #475569;
+  --page-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+  --page-shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --page-border: rgba(8, 145, 178, 0.18);
+  --page-line: rgba(8, 145, 178, 0.28);
+  --header-bg: rgba(246, 249, 252, 0.86);
+  --header-bg-scrolled: rgba(246, 249, 252, 0.96);
+  --card-bg: rgba(255, 255, 255, 0.86);
+  --toggle-bg: rgba(8, 145, 178, 0.09);
+  --toggle-fg: #0e7490;
+  --prefetch-accent: #0891b2;
+}
+
+/* ---------- Dark Mode: Deep Neural / Night Ops (Default) ---------- */
+html[data-theme="dark"] {
+  --df-bg: #03060d;
+  --df-bg-2: #081224;
+  --df-panel: rgba(8, 18, 34, 0.78);
+  --df-panel-strong: rgba(5, 12, 24, 0.94);
+  --df-cyan: #67e8f9;
+  --df-cyan-strong: #22d3ee;
+  --df-violet: #a5b4fc;
+  --df-amber: #fbbf24;
+  --df-rose: #fda4af;
+  --df-line: rgba(103, 232, 249, 0.28);
+  --df-line-soft: rgba(148, 197, 255, 0.14);
+  --df-text: #e6f1ff;
+  --df-text-muted: #9eb4ce;
+  --df-glow: rgba(34, 211, 238, 0.22);
+
+  --page-bg: #040812;
+  --page-bg-elevated: #0b1424;
+  --page-text: #e6f1ff;
+  --page-text-light: #9eb4ce;
+  --page-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
+  --page-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --page-border: rgba(103, 232, 249, 0.18);
+  --page-line: rgba(103, 232, 249, 0.28);
+  --header-bg: rgba(4, 8, 18, 0.8);
+  --header-bg-scrolled: rgba(4, 8, 18, 0.94);
+  --card-bg: rgba(8, 18, 34, 0.78);
+  --toggle-bg: rgba(103, 232, 249, 0.1);
+  --toggle-fg: #67e8f9;
+  --prefetch-accent: #67e8f9;
+}
+
+/* ---------- Canvas Backdrop & Global Ambient Layer ---------- */
+#syncretic-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body {
+  position: relative;
+  background: var(--df-bg);
+  color: var(--df-text);
+  overflow-x: hidden;
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(1200px 560px at 12% -6%, rgba(34, 211, 238, 0.12), transparent 62%),
+    radial-gradient(960px 500px at 88% 106%, rgba(129, 140, 248, 0.12), transparent 60%),
+    linear-gradient(180deg, #03060d 0%, #071020 52%, #03060d 100%);
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(1100px 540px at 14% -6%, rgba(14, 165, 233, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 88% 104%, rgba(79, 70, 229, 0.07), transparent 60%),
+    linear-gradient(180deg, #f8fbfe 0%, #edf4fa 55%, #f6f9fc 100%);
+}
+
+/* Keep page content stacked cleanly above fixed canvas */
+.header,
+section,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  position: fixed !important;
+  z-index: 1000;
+  background: var(--header-bg) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--df-line) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] .header {
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.12);
+}
+
+.header.is-scrolled {
+  background: var(--header-bg-scrolled) !important;
+}
+
+.logo-text,
+.nav-link {
+  color: var(--df-text);
+}
+
+.logo-subtitle {
+  color: var(--df-cyan);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--df-cyan);
+}
+
+html[data-theme="dark"] .nav-link:hover,
+html[data-theme="dark"] .nav-link.active {
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.65);
+}
+
+.nav-link::after {
+  background: var(--df-cyan);
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    background: var(--df-panel-strong) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--df-line);
+  }
+}
+
+/* ---------- Optical HUD Corner Frame (Subtle Screen Telemetry) ---------- */
+.syncretic-hud-frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.syncretic-hud-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(103, 232, 249, 0.015) 0 1px,
+    transparent 1px 5px
+  );
+  opacity: 0.7;
+}
+
+html[data-theme="light"] .syncretic-hud-frame::before {
+  opacity: 0.3;
+}
+
+.hud-telemetry-badge {
+  position: fixed;
+  left: 1rem;
+  bottom: 0.9rem;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--df-line);
+  background: var(--df-panel);
+  backdrop-filter: blur(8px);
+  color: var(--df-cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.hud-telemetry-badge:hover {
+  border-color: var(--df-cyan);
+  box-shadow: 0 0 16px var(--df-glow);
+}
+
+.hud-telemetry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--df-cyan);
+  box-shadow: 0 0 8px var(--df-cyan);
+  animation: hudPulse 2s ease-in-out infinite;
+}
+
+@keyframes hudPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+@media (max-width: 768px) {
+  .hud-telemetry-badge {
+    display: none;
+  }
+}
+
+/* ---------- Navbar Action Pills ([TRACE] + Theme Toggle) ---------- */
+.nav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+  flex-shrink: 0;
+}
+
+.hud-trace-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 2.2rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--df-line);
+  border-radius: 4px;
+  background: var(--toggle-bg);
+  color: var(--df-cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hud-trace-btn:hover {
+  border-color: var(--df-cyan);
+  box-shadow: 0 0 14px var(--df-glow);
+  transform: translateY(-1px);
+}
+
+.theme-toggle {
+  margin-left: 0 !important;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-color: var(--df-line);
+  background: var(--toggle-bg);
+  color: var(--df-cyan);
+}
+
+.theme-toggle:hover {
+  border-color: var(--df-cyan);
+  box-shadow: 0 0 14px var(--df-glow);
+}
+
+@media (max-width: 480px) {
+  .hud-trace-btn span {
+    display: none;
+  }
+  .hud-trace-btn {
+    padding: 0 0.55rem;
+  }
+}
+
+/* ---------- Scroll Progress Telemetry Bar ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  z-index: 1200;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--df-cyan-strong), var(--df-violet), var(--df-cyan));
+  box-shadow: 0 0 12px var(--df-glow);
+  transition: width 0.08s linear;
+}
+
+/* ---------- Common Sections & Page Headers (Unified Light & Dark) ---------- */
+section {
+  background: transparent;
+}
+
+.page-header,
+.story-overview,
+.episodes-section,
+.era-background,
+.technology-section,
+.world-keywords-section,
+.setting-section,
+.organizations-section,
+.main-character,
+.sub-characters,
+.story-preview,
+.characters-preview,
+.world-preview,
+.keywords-preview,
+section.episode-header,
+.episode-content {
+  background: transparent !important;
+  border-color: var(--df-line-soft) !important;
+}
+
+.page-header,
+section.episode-header {
+  border-bottom: 1px solid var(--df-line-soft) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(34, 211, 238, 0.06),
+    transparent 85%
+  ) !important;
+}
+
+.page-title h1,
+.episode-title h1,
+.section-title {
+  color: var(--df-text) !important;
+}
+
+html[data-theme="dark"] .page-title h1,
+html[data-theme="dark"] .episode-title h1 {
+  text-shadow: 0 0 24px rgba(34, 211, 238, 0.28);
+}
+
+.page-title p,
+.episode-subtitle,
+.section-subtitle,
+.world-section-lead {
+  color: var(--df-text-muted) !important;
+}
+
+.section-kicker,
+.eyebrow,
+.panel-label,
+.character-index {
+  color: var(--df-cyan) !important;
+}
+
+/* ---------- Unified Cyber/Glass Cards & Fix Hardcoded Whites ---------- */
+.story-card,
+.character-card-home,
+.keyword-card,
+.episode-chip,
+.episode-card,
+.tech-item,
+.tech-card,
+.world-keyword-card,
+.location-card,
+.org-card,
+.character-card-detailed,
+.chapter-break,
+.chapter-continue,
+.highlight-box {
+  background: var(--df-panel) !important;
+  border: 1px solid var(--df-line-soft) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+html[data-theme="light"] .story-card,
+html[data-theme="light"] .character-card-home,
+html[data-theme="light"] .keyword-card,
+html[data-theme="light"] .episode-chip,
+html[data-theme="light"] .episode-card,
+html[data-theme="light"] .tech-item,
+html[data-theme="light"] .tech-card,
+html[data-theme="light"] .world-keyword-card,
+html[data-theme="light"] .location-card,
+html[data-theme="light"] .org-card,
+html[data-theme="light"] .character-card-detailed,
+html[data-theme="light"] .chapter-break,
+html[data-theme="light"] .chapter-continue,
+html[data-theme="light"] .highlight-box {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.story-card:hover,
+.character-card-home:hover,
+.keyword-card:hover,
+.episode-chip:hover,
+.episode-card:hover,
+.tech-card:hover,
+.world-keyword-card:hover,
+.org-card:hover,
+.character-card-detailed:hover {
+  border-color: var(--df-cyan) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.25), 0 0 24px var(--df-glow) !important;
+}
+
+.story-card-large,
+.primary-character {
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.07), transparent 55%),
+    var(--df-panel) !important;
+}
+
+.keyword-card-important {
+  border-color: var(--df-cyan) !important;
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(129, 140, 248, 0.05)),
+    var(--df-panel) !important;
+}
+
+/* Fix index.html trace-core white circle + world-home-visual white box */
+.trace-core,
+.trace-point {
+  background: var(--df-panel-strong) !important;
+  border-color: var(--df-line) !important;
+  color: var(--df-cyan) !important;
+}
+
+.trace-line {
+  background: var(--df-line) !important;
+}
+
+.trace-core::after {
+  border-color: var(--df-line) !important;
+}
+
+.world-home-visual {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(34, 211, 238, 0.14), transparent 65%),
+    var(--df-panel) !important;
+  border-color: var(--df-line) !important;
+}
+
+html[data-theme="dark"] .tower-shape {
+  background: linear-gradient(180deg, #1e3a5f, #091426);
+  border: 1px solid rgba(103, 232, 249, 0.4);
+  box-shadow: 0 0 32px rgba(34, 211, 238, 0.25);
+}
+
+html[data-theme="dark"] .water-line {
+  background: linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.65), transparent);
+}
+
+html[data-theme="dark"] .signal-ring {
+  border-color: rgba(103, 232, 249, 0.38);
+  box-shadow: 0 0 18px rgba(34, 211, 238, 0.18);
+}
+
+/* Fix story.css broken overview grid & white episode-xr-note */
+.overview-content {
+  grid-template-columns: 1fr !important;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.episode-xr-note {
+  background:
+    linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(129, 140, 248, 0.06)),
+    var(--df-panel) !important;
+  border: 1px solid var(--df-line) !important;
+  color: var(--df-text-muted) !important;
+}
+
+.episode-xr-note strong {
+  color: var(--df-cyan) !important;
+}
+
+.episode-card .episode-header {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.07), transparent) !important;
+  border-bottom: 1px solid var(--df-line-soft) !important;
+  color: var(--df-text) !important;
+}
+
+.episode-number {
+  border-color: var(--df-line) !important;
+  color: var(--df-cyan) !important;
+  font-family: 'GAU Root', 'Share Tech Mono', monospace;
+}
+
+.episode-meta {
+  background: rgba(103, 232, 249, 0.05) !important;
+  border: 1px solid var(--df-line-soft);
+}
+
+.episode-card-locked {
+  opacity: 0.78;
+}
+
+.episode-card-locked .episode-description {
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  letter-spacing: 0.04em;
+  color: var(--df-text-muted);
+}
+
+.episode-classified-tag {
+  display: inline-block;
+  margin-right: 0.45rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--df-line);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--df-amber);
+}
+
+.btn.disabled,
+.episode-navigation .btn.disabled {
+  background: rgba(148, 163, 184, 0.12) !important;
+  color: var(--df-text-muted) !important;
+  border-color: var(--df-line-soft) !important;
+  opacity: 0.7;
+}
+
+/* Fix characters.css hardcoded white .stat / broken hover / bright card header */
+.character-stats {
+  background: var(--df-panel) !important;
+  border: 1px solid var(--df-line-soft);
+  border-radius: 6px;
+}
+
+.stat {
+  background: rgba(103, 232, 249, 0.05) !important;
+  border: 1px solid var(--df-line-soft);
+  box-shadow: none !important;
+}
+
+.stat-label {
+  color: var(--df-text-muted) !important;
+}
+
+.stat-value {
+  color: var(--df-cyan) !important;
+}
+
+.ability {
+  background: var(--df-panel) !important;
+  border: 1px solid var(--df-line-soft);
+  color: var(--df-text) !important;
+}
+
+.ability i {
+  color: var(--df-cyan) !important;
+}
+
+.ability:hover {
+  background: var(--df-cyan-strong) !important;
+  color: #03141c !important;
+  border-color: var(--df-cyan) !important;
+}
+
+.ability:hover i {
+  color: #03141c !important;
+}
+
+.character-card-detailed .character-image {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(34, 211, 238, 0.16), rgba(8, 18, 34, 0.92)) !important;
+  border-bottom: 1px solid var(--df-line-soft);
+}
+
+html[data-theme="light"] .character-card-detailed .character-image {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(8, 145, 178, 0.14), rgba(226, 238, 248, 0.92)) !important;
+}
+
+.character-card-detailed .character-avatar {
+  color: var(--df-cyan) !important;
+}
+
+.character-card-detailed .character-badge,
+.character-badge.main {
+  background: rgba(8, 20, 38, 0.88) !important;
+  color: var(--df-cyan) !important;
+  border: 1px solid var(--df-line) !important;
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+}
+
+html[data-theme="light"] .character-card-detailed .character-badge,
+html[data-theme="light"] .character-badge.main {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--df-cyan) !important;
+}
+
+.character-name,
+.character-name-large,
+.character-description-large h3,
+.character-abilities h3 {
+  color: var(--df-text) !important;
+  border-left-color: var(--df-cyan) !important;
+}
+
+.character-role {
+  color: var(--df-cyan) !important;
+}
+
+.character-description,
+.character-description-large p,
+.character-name-romaji {
+  color: var(--df-text-muted) !important;
+}
+
+/* Fix world.css / main.css spoiler & detail contrast */
+.spoiler-note {
+  background: var(--df-panel) !important;
+  border: 1px solid var(--df-line) !important;
+}
+
+.spoiler-note i,
+.spoiler-note strong {
+  color: var(--df-amber) !important;
+}
+
+.spoiler-note p {
+  color: var(--df-text-muted) !important;
+}
+
+.keyword-index a {
+  background: var(--df-panel) !important;
+  border-color: var(--df-line-soft) !important;
+  color: var(--df-text) !important;
+}
+
+.keyword-index a:hover {
+  border-color: var(--df-cyan) !important;
+  color: var(--df-cyan) !important;
+}
+
+.keyword-tag,
+.world-keyword-tag {
+  border-color: var(--df-line) !important;
+  color: var(--df-violet) !important;
+}
+
+.keyword-detail summary,
+.world-spoiler-detail summary {
+  color: var(--df-cyan) !important;
+}
+
+.spoiler-detail summary,
+.world-spoiler-detail summary {
+  color: var(--df-rose) !important;
+}
+
+html[data-theme="light"] .spoiler-detail summary,
+html[data-theme="light"] .world-spoiler-detail summary {
+  color: #9f1239 !important;
+}
+
+.keyword-detail p,
+.world-spoiler-detail p {
+  background: rgba(103, 232, 249, 0.05) !important;
+  border-color: var(--df-line-soft) !important;
+  color: var(--df-text-muted) !important;
+}
+
+.location-header,
+.org-header {
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.06), transparent) !important;
+  border-bottom: 1px solid var(--df-line-soft) !important;
+  color: var(--df-text) !important;
+}
+
+.feature,
+.feature-item,
+.activity {
+  background: rgba(103, 232, 249, 0.04) !important;
+  border-color: var(--df-line-soft) !important;
+  color: var(--df-text) !important;
+}
+
+.feature i,
+.feature-item i,
+.activity i,
+.tech-icon i,
+.tech-item i,
+.org-icon i {
+  color: var(--df-cyan) !important;
+}
+
+.tech-subtitle,
+.org-subtitle,
+.location-subtitle,
+.tech-description p,
+.location-description p,
+.org-description p,
+.member,
+.era-text p,
+.tech-item p {
+  color: var(--df-text-muted) !important;
+}
+
+.era-text h2,
+.overview-text h2 {
+  color: var(--df-text) !important;
+  border-left-color: var(--df-cyan) !important;
+}
+
+.era-text h2,
+.tech-card h3,
+.tech-item h3,
+.world-keyword-card h3,
+.keyword-card h3,
+.location-header h3,
+.org-header h3,
+.world-keywords-detail-title {
+  color: var(--df-text) !important;
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+  background: linear-gradient(92deg, var(--df-cyan-strong), var(--df-violet)) !important;
+  color: #03141c !important;
+  border: none !important;
+  font-weight: 700;
+  box-shadow: 0 6px 20px var(--df-glow);
+}
+
+html[data-theme="light"] .btn-primary {
+  color: #ffffff !important;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 28px var(--df-glow);
+  filter: brightness(1.08);
+}
+
+.btn-secondary,
+.btn-outline {
+  background: var(--df-panel) !important;
+  color: var(--df-cyan) !important;
+  border: 1px solid var(--df-line) !important;
+}
+
+.btn-secondary:hover,
+.btn-outline:hover {
+  border-color: var(--df-cyan) !important;
+  background: rgba(34, 211, 238, 0.14) !important;
+  color: var(--df-text) !important;
+}
+
+/* ---------- Optical Archival Plate for Pencil Artwork ---------- */
+.optical-plate,
+.episode-illust {
+  position: relative;
+  padding: 0.9rem;
+  border: 1px solid var(--df-line);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(232, 245, 252, 0.96), rgba(206, 228, 242, 0.92));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), 0 0 28px var(--df-glow);
+  overflow: hidden;
+}
+
+.optical-plate::before,
+.episode-illust::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(8, 145, 178, 0.05) 0 1px,
+      transparent 1px 4px
+    );
+  z-index: 2;
+}
+
+.optical-plate::after,
+.episode-illust::after {
+  content: 'OPTICAL ARCHIVE // 2073-SCAN';
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.45rem;
+  z-index: 3;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: rgba(14, 116, 144, 0.72);
+  pointer-events: none;
+}
+
+.optical-plate img,
+.episode-illust img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.character-illustration.optical-plate-circle {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(236, 247, 253, 0.98), rgba(202, 226, 242, 0.92)) !important;
+  border: 2px solid var(--df-cyan) !important;
+  box-shadow: 0 0 34px var(--df-glow), inset 0 0 22px rgba(8, 145, 178, 0.2);
+}
+
+.character-illustration.optical-plate-circle img {
+  mix-blend-mode: multiply;
+}
+
+.character-portrait-rect {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  mix-blend-mode: multiply;
+}
+
+.character-image-plate {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(235, 246, 252, 0.96), rgba(204, 226, 240, 0.92)) !important;
+  padding: 0.5rem;
+}
+
+/* ---------- Episode Prose & Scene Dividers ---------- */
+.episode-text p {
+  color: var(--df-text) !important;
+  text-shadow: none !important;
+}
+
+.episode-breadcrumb a {
+  color: var(--df-cyan) !important;
+}
+
+.scene-divider {
+  border: 0;
+  height: 1px;
+  margin: 2.8rem auto;
+  max-width: 320px;
+  background: linear-gradient(90deg, transparent, var(--df-cyan), var(--df-violet), transparent);
+  position: relative;
+  overflow: visible;
+}
+
+.scene-divider::after {
+  content: '◇';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 0.6rem;
+  background: var(--df-bg);
+  color: var(--df-cyan);
+  font-size: 0.85rem;
+}
+
+/* ---------- Safe Scroll Reveal (does not break CSS :hover) ---------- */
+.reveal-target {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reveal-target.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-target {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--df-panel-strong) !important;
+  border-top: 1px solid var(--df-line) !important;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: var(--df-text) !important;
+}
+
+.footer-section p,
+.footer-section a,
+.footer-bottom {
+  color: var(--df-text-muted) !important;
+}
+
+.footer-section a:hover {
+  color: var(--df-cyan) !important;
+}
+
+.footer-easter-triggers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.footer-mini-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--df-line-soft);
+  background: transparent;
+  color: var(--df-text-muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-mini-btn:hover {
+  border-color: var(--df-cyan);
+  color: var(--df-cyan);
+}
+
+/* ==========================================================================
+   EASTER EGG 1: UBIQUITOUS TRACE TERMINAL MODAL
+   ========================================================================== */
+.trace-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 15000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(2, 6, 14, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.trace-modal.is-open {
+  display: flex;
+}
+
+.trace-window {
+  width: min(94vw, 760px);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--df-cyan);
+  background: rgba(4, 10, 20, 0.96);
+  color: #d8f6ff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 36px rgba(34, 211, 238, 0.25);
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+}
+
+.trace-window-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.25);
+  background: rgba(10, 24, 44, 0.9);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: #67e8f9;
+}
+
+.trace-close-btn {
+  border: 1px solid rgba(253, 164, 175, 0.45);
+  background: transparent;
+  color: #fda4af;
+  padding: 0.22rem 0.6rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.trace-close-btn:hover {
+  background: rgba(253, 164, 175, 0.18);
+}
+
+.trace-output {
+  flex: 1;
+  min-height: 220px;
+  max-height: 46vh;
+  overflow-y: auto;
+  padding: 1rem;
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.trace-line-entry {
+  margin-bottom: 0.45rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.trace-line-cmd {
+  color: #67e8f9;
+}
+
+.trace-line-warn {
+  color: #fbbf24;
+}
+
+.trace-line-alert {
+  color: #fda4af;
+}
+
+.trace-line-ok {
+  color: #86efac;
+}
+
+.trace-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid rgba(103, 232, 249, 0.14);
+  background: rgba(8, 18, 34, 0.7);
+}
+
+.trace-chip {
+  padding: 0.22rem 0.55rem;
+  border: 1px solid rgba(103, 232, 249, 0.3);
+  background: rgba(34, 211, 238, 0.08);
+  color: #67e8f9;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.trace-chip:hover {
+  background: rgba(34, 211, 238, 0.22);
+}
+
+.trace-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(103, 232, 249, 0.25);
+  background: rgba(2, 6, 14, 0.92);
+}
+
+.trace-prompt {
+  color: #67e8f9;
+  font-weight: 700;
+}
+
+.trace-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #eefaff;
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   EASTER EGG 2: RAW VISION LAYER (サードアイ強制透過オーバーレイ)
+   ========================================================================== */
+html.raw-vision .syncretic-hud-frame::after {
+  content: 'THIRD EYE RAW OVERLAY // BIOMETRIC KEY: UNKNOWN // NODE: RURIMI_DAM_01';
+  position: fixed;
+  top: 4.6rem;
+  right: 1rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgba(253, 164, 175, 0.55);
+  background: rgba(40, 8, 18, 0.78);
+  color: #fda4af;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+  z-index: 950;
+}
+
+html.raw-vision [data-raw-tag] {
+  position: relative;
+}
+
+html.raw-vision [data-raw-tag]::after {
+  content: attr(data-raw-tag);
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  padding: 0.14rem 0.42rem;
+  border: 1px solid rgba(103, 232, 249, 0.55);
+  background: rgba(3, 10, 22, 0.88);
+  color: #67e8f9;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 6;
+}
+
+html.raw-glitch-pulse body {
+  filter: url(#fui-glitch-filter);
+}
+
+/* ==========================================================================
+   EASTER EGG 3: ANALOG HATCH MODE (物理設計図・紙とインクのバイパス)
+   ========================================================================== */
+html.analog-hatch {
+  --df-bg: #f4efe4;
+  --df-bg-2: #e9e1d0;
+  --df-panel: rgba(250, 246, 237, 0.92);
+  --df-panel-strong: rgba(247, 242, 230, 0.98);
+  --df-cyan: #8b3a2b;
+  --df-cyan-strong: #9f4130;
+  --df-violet: #2d4c63;
+  --df-amber: #7c4a12;
+  --df-rose: #881337;
+  --df-line: rgba(139, 58, 43, 0.4);
+  --df-line-soft: rgba(65, 52, 38, 0.18);
+  --df-text: #2a241d;
+  --df-text-muted: #5a4e40;
+  --df-glow: rgba(139, 58, 43, 0.18);
+  --page-bg: #f4efe4;
+  --page-text: #2a241d;
+  --page-text-light: #5a4e40;
+  --header-bg: rgba(244, 239, 228, 0.94);
+  --header-bg-scrolled: rgba(244, 239, 228, 0.98);
+  --toggle-bg: rgba(139, 58, 43, 0.1);
+}
+
+html.analog-hatch body {
+  background:
+    repeating-linear-gradient(0deg, rgba(139, 58, 43, 0.04) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(90deg, rgba(139, 58, 43, 0.04) 0 1px, transparent 1px 28px),
+    #f4efe4 !important;
+  color: #2a241d !important;
+}
+
+html.analog-hatch .syncretic-hud-frame::after {
+  content: 'ANALOG HATCH // PHYSICAL BYPASS ACTIVE — DIGITAL CONTROL OFFLINE';
+  position: fixed;
+  top: 4.6rem;
+  right: 1rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px dashed #8b3a2b;
+  background: rgba(244, 239, 228, 0.94);
+  color: #8b3a2b;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+  z-index: 950;
+}
+
+html.analog-hatch .story-card,
+html.analog-hatch .character-card-home,
+html.analog-hatch .keyword-card,
+html.analog-hatch .episode-card,
+html.analog-hatch .tech-card,
+html.analog-hatch .world-keyword-card,
+html.analog-hatch .org-card {
+  border-style: dashed !important;
+  box-shadow: 4px 4px 0 rgba(42, 36, 29, 0.12) !important;
+}

@@ -41,7 +41,7 @@ async function detectXrMode() {
 
 function createXrGlContext(canvas) {
     var attrs = {
-        antialias: false,
+        antialias: true,
         alpha: false,
         depth: true,
         stencil: false,
@@ -63,9 +63,14 @@ export function createXrStoryReader() {
         clock: new THREE.Clock(),
         contentRig: null,
         holoPanel: null,
+        holoFrame: null,
         navPrev: null,
         navNext: null,
         backdrop: null,
+        envGroup: null,
+        particles: null,
+        orbitRingA: null,
+        orbitRingB: null,
         overlaySprites: [],
         resizeHandler: null,
         keyHandler: null,
@@ -151,37 +156,77 @@ export function createXrStoryReader() {
             String(state.data.segments.length).padStart(2, '0');
 
         updatePanelTexture(segment);
-        showStatus(state.isPresenting ? 'PINCH: NEXT / PREV' : 'SEGMENT LOADED');
+        showStatus(state.isPresenting ? 'PINCH: NEXT / PREV' : 'SEGMENT SYNCED');
     }
 
     function buildHoloTexture(segment, forXr) {
         var canvas = document.createElement('canvas');
-        canvas.width = forXr ? 2048 : 1024;
-        canvas.height = forXr ? 1024 : 512;
+        canvas.width = forXr ? 2048 : 1280;
+        canvas.height = forXr ? 1024 : 640;
         var ctx = canvas.getContext('2d');
+        var w = canvas.width;
+        var h = canvas.height;
 
-        ctx.fillStyle = '#0a1e30';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Deep space gradient glass panel
+        var bg = ctx.createLinearGradient(0, 0, w, h);
+        bg.addColorStop(0, '#040c18');
+        bg.addColorStop(0.5, '#07182c');
+        bg.addColorStop(1, '#050b18');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
 
-        ctx.strokeStyle = '#3de8ff';
-        ctx.lineWidth = forXr ? 8 : 4;
-        ctx.strokeRect(28, 28, canvas.width - 56, canvas.height - 56);
+        // Subtle optical scanlines
+        ctx.fillStyle = 'rgba(103, 232, 249, 0.035)';
+        for (var sy = 0; sy < h; sy += 6) {
+            ctx.fillRect(0, sy, w, 1);
+        }
 
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold ' + (forXr ? 56 : 30) + 'px "Share Tech Mono", monospace';
-        ctx.fillText(state.data.title || 'EPISODE', 56, forXr ? 100 : 72);
+        // Outer neon border + corner brackets
+        ctx.strokeStyle = 'rgba(103, 232, 249, 0.45)';
+        ctx.lineWidth = forXr ? 5 : 3;
+        ctx.strokeRect(24, 24, w - 48, h - 48);
 
-        ctx.fillStyle = '#e8f8ff';
-        ctx.font = (forXr ? 44 : 24) + 'px "Noto Sans JP", sans-serif';
+        var bLen = forXr ? 48 : 30;
+        ctx.strokeStyle = '#67e8f9';
+        ctx.lineWidth = forXr ? 9 : 5;
+        [[24, 24, 1, 1], [w - 24, 24, -1, 1], [24, h - 24, 1, -1], [w - 24, h - 24, -1, -1]].forEach(function (c) {
+            ctx.beginPath();
+            ctx.moveTo(c[0] + c[2] * bLen, c[1]);
+            ctx.lineTo(c[0], c[1]);
+            ctx.lineTo(c[0], c[1] + c[3] * bLen);
+            ctx.stroke();
+        });
+
+        // Header divider & telemetry
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.08)';
+        ctx.fillRect(26, 26, w - 52, forXr ? 100 : 66);
+
+        ctx.fillStyle = '#67e8f9';
+        ctx.font = 'bold ' + (forXr ? 46 : 28) + 'px "Share Tech Mono", monospace';
+        ctx.fillText(state.data.title || 'EPISODE', 56, forXr ? 90 : 68);
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#a5b4fc';
+        ctx.font = (forXr ? 32 : 20) + 'px "Share Tech Mono", monospace';
+        ctx.fillText(
+            'SEG ' + String(state.index + 1).padStart(2, '0') + '/' + String(state.data.segments.length).padStart(2, '0'),
+            w - 56,
+            forXr ? 88 : 66
+        );
+        ctx.textAlign = 'left';
+
+        // Story body text
+        ctx.fillStyle = segment.type === 'dialogue' ? '#fff4df' : '#e6f4ff';
+        ctx.font = (forXr ? 44 : 26) + 'px "Noto Sans JP", sans-serif';
         var text = (segment.text || '').replace(OVERLAY_PATTERN, '').replace(/\s+/g, ' ').trim();
-        wrapText(ctx, text, 56, forXr ? 160 : 120, canvas.width - 112, forXr ? 56 : 34);
+        wrapText(ctx, text, 58, forXr ? 185 : 138, w - 116, forXr ? 62 : 40);
 
         if (segment.overlays && segment.overlays.length) {
-            ctx.fillStyle = '#5dffd8';
-            ctx.font = 'bold ' + (forXr ? 36 : 22) + 'px "Share Tech Mono", monospace';
-            var y = canvas.height - 72 - segment.overlays.length * (forXr ? 44 : 28);
+            ctx.fillStyle = '#67e8f9';
+            ctx.font = 'bold ' + (forXr ? 36 : 22) + 'px "Share Tech Mono", "Noto Sans JP", monospace';
+            var y = h - 68 - segment.overlays.length * (forXr ? 48 : 30);
             segment.overlays.forEach(function (line, i) {
-                ctx.fillText('《' + line + '》', 56, y + i * (forXr ? 44 : 28));
+                ctx.fillText('《' + line + '》', 58, y + i * (forXr ? 48 : 30));
             });
         }
 
@@ -200,12 +245,12 @@ export function createXrStoryReader() {
                 ctx.fillText(line, x, y);
                 line = chars[i];
                 y += lineHeight;
-                if (y > ctx.canvas.height - 72) break;
+                if (y > ctx.canvas.height - 84) break;
             } else {
                 line = test;
             }
         }
-        if (line && y <= ctx.canvas.height - 72) ctx.fillText(line, x, y);
+        if (line && y <= ctx.canvas.height - 84) ctx.fillText(line, x, y);
     }
 
     function updatePanelTexture(segment) {
@@ -230,11 +275,14 @@ export function createXrStoryReader() {
         canvas.width = 1024;
         canvas.height = 128;
         var ctx = canvas.getContext('2d');
-        ctx.fillStyle = 'rgba(0, 30, 45, 0.85)';
+        ctx.fillStyle = 'rgba(4, 18, 34, 0.88)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#7dffe8';
-        ctx.font = 'bold 44px "Share Tech Mono", monospace';
-        ctx.fillText(text, 24, 82);
+        ctx.strokeStyle = 'rgba(103, 232, 249, 0.75)';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+        ctx.fillStyle = '#67e8f9';
+        ctx.font = 'bold 42px "Share Tech Mono", "Noto Sans JP", monospace';
+        ctx.fillText(text, 28, 80);
 
         var texture = new THREE.CanvasTexture(canvas);
         texture.colorSpace = THREE.SRGBColorSpace;
@@ -244,8 +292,8 @@ export function createXrStoryReader() {
             depthTest: false,
             depthWrite: false
         }));
-        sprite.scale.set(0.95, 0.12, 1);
-        sprite.position.set(0, 0.52 - index * 0.14, -0.02);
+        sprite.scale.set(1.0, 0.125, 1);
+        sprite.position.set(0, 0.56 - index * 0.145, 0.04);
         sprite.renderOrder = 999;
         return sprite;
     }
@@ -264,14 +312,15 @@ export function createXrStoryReader() {
         canvas.width = 512;
         canvas.height = 160;
         var ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#123244';
+        ctx.fillStyle = '#071a2d';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = '#5de9ff';
+        ctx.strokeStyle = '#67e8f9';
         ctx.lineWidth = 5;
         ctx.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 52px "Share Tech Mono", monospace';
-        ctx.fillText(label, 56, 102);
+        ctx.fillStyle = '#e6f4ff';
+        ctx.font = 'bold 50px "Share Tech Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, canvas.width / 2, 98);
 
         var texture = new THREE.CanvasTexture(canvas);
         texture.colorSpace = THREE.SRGBColorSpace;
@@ -279,32 +328,118 @@ export function createXrStoryReader() {
             new THREE.PlaneGeometry(0.5, 0.15),
             new THREE.MeshBasicMaterial({ map: texture, toneMapped: false, side: THREE.DoubleSide })
         );
-        mesh.position.set(x, -0.78, 0.02);
+        mesh.position.set(x, -0.82, 0.03);
         mesh.userData.action = label === 'PREV' ? 'prev' : 'next';
         return mesh;
     }
 
-    function createBackdrop() {
+    function createSkyDome() {
+        var canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        var ctx = canvas.getContext('2d');
+        var grad = ctx.createLinearGradient(0, 0, 0, 512);
+        grad.addColorStop(0, '#02060f');
+        grad.addColorStop(0.45, '#071b33');
+        grad.addColorStop(0.7, '#061528');
+        grad.addColorStop(1, '#02050c');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Distant horizon glow band
+        var band = ctx.createLinearGradient(0, 220, 0, 310);
+        band.addColorStop(0, 'rgba(34,211,238,0)');
+        band.addColorStop(0.5, 'rgba(34,211,238,0.16)');
+        band.addColorStop(1, 'rgba(34,211,238,0)');
+        ctx.fillStyle = band;
+        ctx.fillRect(0, 220, 512, 90);
+
+        var tex = new THREE.CanvasTexture(canvas);
+        tex.colorSpace = THREE.SRGBColorSpace;
         return new THREE.Mesh(
-            new THREE.SphereGeometry(12, 32, 24),
-            new THREE.MeshBasicMaterial({ color: 0x1a4a6a, side: THREE.BackSide, toneMapped: false })
+            new THREE.SphereGeometry(28, 32, 24),
+            new THREE.MeshBasicMaterial({ map: tex, side: THREE.BackSide, toneMapped: false })
         );
+    }
+
+    function createCyberEnvironment(scene) {
+        var group = new THREE.Group();
+
+        // Dual Cyber Grid Floors
+        var mainGrid = new THREE.GridHelper(36, 48, 0x22d3ee, 0x102b46);
+        mainGrid.position.y = 0;
+        group.add(mainGrid);
+
+        var upperGrid = new THREE.GridHelper(36, 24, 0xa5b4fc, 0x0c1b36);
+        upperGrid.position.y = 5.4;
+        group.add(upperGrid);
+
+        // Floating Quantum Data Particles
+        var count = 520;
+        var positions = new Float32Array(count * 3);
+        var colors = new Float32Array(count * 3);
+        var cyan = new THREE.Color(0x67e8f9);
+        var violet = new THREE.Color(0xa5b4fc);
+
+        for (var i = 0; i < count; i++) {
+            var angle = Math.random() * Math.PI * 2;
+            var dist = 2.4 + Math.random() * 14;
+            positions[i * 3] = Math.cos(angle) * dist;
+            positions[i * 3 + 1] = 0.3 + Math.random() * 4.8;
+            positions[i * 3 + 2] = Math.sin(angle) * dist;
+
+            var c = i % 3 === 0 ? violet : cyan;
+            colors[i * 3] = c.r;
+            colors[i * 3 + 1] = c.g;
+            colors[i * 3 + 2] = c.b;
+        }
+
+        var pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        var pMat = new THREE.PointsMaterial({
+            size: 0.055,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.78
+        });
+        state.particles = new THREE.Points(pGeo, pMat);
+        group.add(state.particles);
+
+        // Rotating Spatial Orbital Rings
+        state.orbitRingA = new THREE.Mesh(
+            new THREE.RingGeometry(3.8, 3.83, 96),
+            new THREE.MeshBasicMaterial({ color: 0x22d3ee, side: THREE.DoubleSide, transparent: true, opacity: 0.32 })
+        );
+        state.orbitRingA.rotation.x = Math.PI / 2;
+        state.orbitRingA.position.y = 1.55;
+        group.add(state.orbitRingA);
+
+        state.orbitRingB = new THREE.Mesh(
+            new THREE.RingGeometry(4.6, 4.62, 96),
+            new THREE.MeshBasicMaterial({ color: 0xa5b4fc, side: THREE.DoubleSide, transparent: true, opacity: 0.25 })
+        );
+        state.orbitRingB.rotation.x = Math.PI / 2.25;
+        state.orbitRingB.rotation.y = 0.25;
+        state.orbitRingB.position.y = 1.65;
+        group.add(state.orbitRingB);
+
+        state.envGroup = group;
+        scene.add(group);
     }
 
     function mountRigForPreview() {
         if (!state.contentRig || !state.scene) return;
         state.camera.remove(state.contentRig);
         state.scene.add(state.contentRig);
-        state.contentRig.position.set(0, 1.55, 0);
+        state.contentRig.position.set(0, 1.62, 0);
         state.contentRig.rotation.set(0, 0, 0);
-        state.holoPanel.position.set(0, 0, -2.0);
+        state.holoPanel.position.set(0, 0, -2.05);
         state.holoPanel.scale.set(1, 1, 1);
         if (state.navPrev) state.navPrev.visible = false;
         if (state.navNext) state.navNext.visible = false;
-        if (state.backdrop) {
-            state.backdrop.visible = true;
-            state.scene.add(state.backdrop);
-        }
+        if (state.backdrop) state.backdrop.visible = true;
+        if (state.envGroup) state.envGroup.visible = true;
     }
 
     function mountRigForXr() {
@@ -316,6 +451,7 @@ export function createXrStoryReader() {
         if (state.navPrev) state.navPrev.visible = true;
         if (state.navNext) state.navNext.visible = true;
         if (state.backdrop) state.backdrop.visible = false;
+        if (state.envGroup) state.envGroup.visible = true;
     }
 
     function updateXrRigPose(frame) {
@@ -333,7 +469,7 @@ export function createXrStoryReader() {
             t.orientation.z,
             t.orientation.w
         );
-        var offset = new THREE.Vector3(0, 0, -1.0);
+        var offset = new THREE.Vector3(0, 0, -1.08);
         offset.applyQuaternion(state.contentRig.quaternion);
         state.contentRig.position.add(offset);
     }
@@ -349,31 +485,33 @@ export function createXrStoryReader() {
         var renderer = new THREE.WebGLRenderer({
             canvas: canvas,
             context: gl,
-            antialias: false,
+            antialias: true,
             alpha: false
         });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x0d2840, 1);
+        renderer.setClearColor(0x030812, 1);
         renderer.xr.enabled = true;
         renderer.xr.setReferenceSpaceType('local');
         state.renderer = renderer;
 
         var scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0d2840);
+        scene.background = new THREE.Color(0x030812);
+        scene.fog = new THREE.FogExp2(0x030812, 0.042);
         state.scene = scene;
 
-        var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 50);
-        camera.position.set(0, 1.55, 0.2);
+        var camera = new THREE.PerspectiveCamera(68, window.innerWidth / window.innerHeight, 0.01, 60);
+        camera.position.set(0, 1.62, 0.25);
         state.camera = camera;
 
-        state.backdrop = createBackdrop();
+        state.backdrop = createSkyDome();
         scene.add(state.backdrop);
+        createCyberEnvironment(scene);
 
         state.contentRig = new THREE.Group();
         var segment = currentSegment() || { text: state.data.title, overlays: [] };
         state.holoPanel = new THREE.Mesh(
-            new THREE.PlaneGeometry(2.6, 1.45),
+            new THREE.PlaneGeometry(2.75, 1.48),
             new THREE.MeshBasicMaterial({
                 map: buildHoloTexture(segment, false),
                 toneMapped: false,
@@ -382,8 +520,16 @@ export function createXrStoryReader() {
         );
         state.contentRig.add(state.holoPanel);
 
-        state.navPrev = createNavButton('PREV', -0.62);
-        state.navNext = createNavButton('NEXT', 0.62);
+        // Glowing wireframe halo behind holographic panel
+        var halo = new THREE.LineSegments(
+            new THREE.EdgesGeometry(new THREE.PlaneGeometry(2.84, 1.56)),
+            new THREE.LineBasicMaterial({ color: 0x22d3ee, transparent: true, opacity: 0.45 })
+        );
+        halo.position.z = -0.02;
+        state.holoPanel.add(halo);
+
+        state.navPrev = createNavButton('PREV', -0.64);
+        state.navNext = createNavButton('NEXT', 0.64);
         state.navPrev.visible = false;
         state.navNext.visible = false;
         state.contentRig.add(state.navPrev);
@@ -412,7 +558,7 @@ export function createXrStoryReader() {
                 state.pitch -= (e.clientY - state.lastY) * 0.003;
                 state.lastX = e.clientX;
                 state.lastY = e.clientY;
-                state.pitch = Math.max(-0.4, Math.min(0.4, state.pitch));
+                state.pitch = Math.max(-0.45, Math.min(0.45, state.pitch));
             },
             up: function () { state.dragging = false; }
         };
@@ -442,15 +588,23 @@ export function createXrStoryReader() {
         renderer.xr.addEventListener('sessionstart', state.sessionStartHandler);
         renderer.xr.addEventListener('sessionend', state.sessionEndHandler);
 
-        renderer.setAnimationLoop(function (time, frame) {
+        renderer.setAnimationLoop(function () {
+            var dt = state.clock.getDelta();
+            if (state.particles) {
+                state.particles.rotation.y += dt * 0.035;
+            }
+            if (state.orbitRingA) state.orbitRingA.rotation.z += dt * 0.12;
+            if (state.orbitRingB) state.orbitRingB.rotation.z -= dt * 0.08;
+
             if (!renderer.xr.isPresenting) {
-                var radius = 0.15;
+                var radius = 0.22;
                 camera.position.x = Math.sin(state.yaw) * radius;
                 camera.position.z = Math.cos(state.yaw) * radius;
-                camera.position.y = 1.55 + state.pitch;
-                camera.lookAt(0, 1.55, -1.8);
-            } else if (frame) {
-                updateXrRigPose(frame);
+                camera.position.y = 1.62 + state.pitch;
+                camera.lookAt(0, 1.62, -1.85);
+            } else {
+                var frame = renderer.xr.getFrame ? renderer.xr.getFrame() : null;
+                if (frame) updateXrRigPose(frame);
             }
             renderer.render(scene, camera);
         });
@@ -572,7 +726,7 @@ export function createXrStoryReader() {
             if (!mode) {
                 enterBtn.disabled = true;
                 unsupported.textContent =
-                    'WebXR 未対応。Vision Pro では Safari > 詳細 > 機能フラグ > WebXR Device API を ON にしてください。';
+                    'WebXR 未対応。3D PREVIEW（ドラッグ視点操作）でお楽しみください。Vision Pro では Safari > 詳細 > 機能フラグ > WebXR Device API を ON。';
             } else {
                 unsupported.textContent =
                     'Vision Pro: ENTER XR で没入。ピンチで次へ / PREV・NEXT ボタンで送り。';

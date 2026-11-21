@@ -2,23 +2,24 @@
 
 const THEME_STORAGE_KEY = 'hs-theme';
 
-function getPreferredTheme() {
+function getCurrentTheme() {
+    const attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'dark' || attr === 'light') return attr;
     try {
         const saved = localStorage.getItem(THEME_STORAGE_KEY);
         if (saved === 'dark' || saved === 'light') return saved;
     } catch (e) { /* ignore */ }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    }
-    return 'light';
+    return 'dark';
 }
 
-function applyTheme(theme) {
-    const next = theme === 'dark' ? 'dark' : 'light';
+function applyTheme(theme, persist) {
+    const next = theme === 'light' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', next);
-    try {
-        localStorage.setItem(THEME_STORAGE_KEY, next);
-    } catch (e) { /* ignore */ }
+    if (persist) {
+        try {
+            localStorage.setItem(THEME_STORAGE_KEY, next);
+        } catch (e) { /* ignore */ }
+    }
     const toggle = document.getElementById('themeToggle');
     if (toggle) {
         toggle.setAttribute('aria-label', next === 'dark' ? 'ライトモードに切替' : 'ダークモードに切替');
@@ -26,325 +27,154 @@ function applyTheme(theme) {
     }
 }
 
-function initThemeToggle() {
-    applyTheme(getPreferredTheme());
+function initNavControls() {
+    applyTheme(getCurrentTheme(), false);
 
     const navContainer = document.querySelector('.nav-container');
-    if (!navContainer || document.getElementById('themeToggle')) return;
+    if (!navContainer) return;
 
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.id = 'themeToggle';
-    btn.className = 'theme-toggle';
-    btn.innerHTML =
-        '<i class="fas fa-moon icon-moon" aria-hidden="true"></i>' +
-        '<i class="fas fa-sun icon-sun" aria-hidden="true"></i>';
-    btn.addEventListener('click', function () {
-        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-        applyTheme(current === 'dark' ? 'light' : 'dark');
-    });
+    let actions = navContainer.querySelector('.nav-actions');
+    if (!actions) {
+        actions = document.createElement('div');
+        actions.className = 'nav-actions';
 
-    const hamburger = navContainer.querySelector('.hamburger');
-    if (hamburger) {
-        navContainer.insertBefore(btn, hamburger);
-    } else {
-        navContainer.appendChild(btn);
+        const traceBtn = document.createElement('button');
+        traceBtn.type = 'button';
+        traceBtn.id = 'hudTraceNavBtn';
+        traceBtn.className = 'hud-trace-btn';
+        traceBtn.title = '観測コンソールを開く (Ctrl+Shift+U)';
+        traceBtn.setAttribute('aria-label', '観測コンソールを開く');
+        traceBtn.innerHTML = '<i class="fas fa-terminal" aria-hidden="true"></i><span>TRACE</span>';
+        traceBtn.addEventListener('click', function () {
+            if (typeof window.hsOpenTraceTerminal === 'function') {
+                window.hsOpenTraceTerminal();
+            }
+        });
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.id = 'themeToggle';
+        toggleBtn.className = 'theme-toggle';
+        toggleBtn.innerHTML =
+            '<i class="fas fa-moon icon-moon" aria-hidden="true"></i>' +
+            '<i class="fas fa-sun icon-sun" aria-hidden="true"></i>';
+        toggleBtn.addEventListener('click', function () {
+            const current = getCurrentTheme();
+            applyTheme(current === 'dark' ? 'light' : 'dark', true);
+        });
+
+        actions.appendChild(traceBtn);
+        actions.appendChild(toggleBtn);
+
+        const hamburger = navContainer.querySelector('.hamburger');
+        if (hamburger) {
+            navContainer.insertBefore(actions, hamburger);
+        } else {
+            navContainer.appendChild(actions);
+        }
     }
-    applyTheme(getPreferredTheme());
+
+    applyTheme(getCurrentTheme(), false);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    initThemeToggle();
+document.addEventListener('DOMContentLoaded', function () {
+    initNavControls();
 
     // ハンバーガーメニューの制御
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
 
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
 
-        // メニューリンクをクリックした時にメニューを閉じる
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
         });
     }
 
-    // スムーススクロール
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // スムーススクロール（存在するアンカーのみ）
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
             if (target) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight;
-                
+                e.preventDefault();
+                const header = document.querySelector('.header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
                 window.scrollTo({
-                    top: targetPosition,
+                    top: Math.max(0, targetPosition),
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    // ヘッダーの背景透明度調整（テーマ変数を使用）
-    window.addEventListener('scroll', function() {
+    // ヘッダーのスクロール状態
+    function syncHeaderScroll() {
         const header = document.querySelector('.header');
         if (!header) return;
-        if (window.scrollY > 100) {
-            header.classList.add('is-scrolled');
-            header.style.background = 'var(--header-bg-scrolled)';
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.12)';
-        } else {
-            header.classList.remove('is-scrolled');
-            header.style.background = 'var(--header-bg)';
-            header.style.boxShadow = 'none';
-        }
-    });
+        header.classList.toggle('is-scrolled', window.scrollY > 40);
+    }
+    syncHeaderScroll();
+    window.addEventListener('scroll', syncHeaderScroll, { passive: true });
 
-    // スクロールアニメーション
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // スクロール登場アニメーション（CSSクラス制御なので :hover と競合しない）
+    const revealEls = document.querySelectorAll(
+        '.story-card, .character-card-home, .episode-card, .keyword-card, .world-keyword-card, .tech-card, .org-card, .location-card, .character-card-detailed'
+    );
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+        revealEls.forEach(function (el) {
+            el.classList.add('reveal-target');
+            observer.observe(el);
         });
-    }, observerOptions);
-
-    // アニメーション対象要素を監視
-    document.querySelectorAll('.news-item, .character-card, .world-item, .timeline-item, .episode-card, .keyword-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // パーティクルアニメーション
-    function createParticle() {
-        const floatingParticles = document.querySelector('.floating-particles');
-        if (!floatingParticles) return; // 要素が存在しない場合は処理を終了
-        
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 6 + 's';
-        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-        
-        floatingParticles.appendChild(particle);
-        
-        // アニメーション終了後にパーティクルを削除
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.parentNode.removeChild(particle);
-            }
-        }, 6000);
     }
 
-    // パーティクルを定期的に生成（ヒーローセクションが存在する場合のみ）
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        setInterval(createParticle, 2000);
+    // スクロール進捗テレメトリバー（全ページ共通）
+    let progressBar = document.querySelector('.scroll-progress');
+    if (!progressBar) {
+        progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        progressBar.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(progressBar);
     }
 
-    // ボタンホバーエフェクト
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px)';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    // カードホバーエフェクト
-    document.querySelectorAll('.character-card, .news-item, .world-item').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
-
-    // ローディングアニメーション
-    window.addEventListener('load', function() {
-        document.body.classList.add('loaded');
-    });
-
-    // タイムラインアニメーション
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    const timelineObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateX(0)';
-            }
-        });
-    }, { threshold: 0.5 });
-
-    timelineItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-30px)';
-        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        timelineObserver.observe(item);
-    });
-
-    // スクロール進捗バー
     function updateScrollProgress() {
-        const scrollTop = window.pageYOffset;
-        const docHeight = document.body.offsetHeight - window.innerHeight;
-        const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
-        
-        let progressBar = document.querySelector('.scroll-progress');
-        if (!progressBar) {
-            progressBar = document.createElement('div');
-            progressBar.className = 'scroll-progress';
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: ${scrollPercent}%;
-                height: 3px;
-                background: linear-gradient(45deg, #e0ffef, #ffe0ff, #fef4f4);
-                z-index: 9999;
-                transition: width 0.1s ease;
-            `;
-            document.body.appendChild(progressBar);
-        } else {
-            progressBar.style.width = scrollPercent + '%';
-        }
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100)) : 0;
+        progressBar.style.width = pct.toFixed(2) + '%';
     }
+    updateScrollProgress();
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-    // スクロール進捗バーを有効にする（メインページのみ）
-    if (document.querySelector('.hero')) {
-        window.addEventListener('scroll', updateScrollProgress);
-    }
-
-    // キーボードナビゲーション
-    document.addEventListener('keydown', function(e) {
+    // Escキーでモバイルメニューを閉じる
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && hamburger && navMenu) {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }
     });
 
-    // フォーカス管理
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('focus', function() {
-            this.style.outline = '2px solid var(--primary-color)';
-            this.style.outlineOffset = '2px';
-        });
-        
-        link.addEventListener('blur', function() {
-            this.style.outline = 'none';
-        });
+    window.addEventListener('load', function () {
+        document.body.classList.add('loaded');
     });
-
-    // Fuzzy Text効果の初期化
-    initFuzzyTextEffect();
-    
-    // Decrypted Text効果の初期化
-    initDecryptedTextEffect();
 });
-
-// Fuzzy Text効果の実装（クリック時のみアクセス拒否）
-function initFuzzyTextEffect() {
-    const fuzzyTexts = document.querySelectorAll('.fuzzy-text');
-    
-    fuzzyTexts.forEach(element => {
-        if (!element) return;
-        
-        // クリックイベント（アクセス拒否）
-        element.addEventListener('click', (e) => {
-            e.preventDefault();
-            showAccessDenied();
-        });
-    });
-}
-
-// アクセス拒否オーバーレイの表示
-function showAccessDenied() {
-    const overlay = document.getElementById('accessDeniedOverlay');
-    const text = document.getElementById('accessDeniedText');
-    
-    if (overlay && text) {
-        // テキストにノイズ効果を適用
-        text.style.animation = 'none';
-        setTimeout(() => {
-            text.style.animation = 'fuzzyGlitch 0.5s infinite';
-        }, 10);
-        
-        overlay.classList.add('show');
-    }
-}
-
-// アクセス拒否オーバーレイを閉じる
-function closeAccessDenied() {
-    const overlay = document.getElementById('accessDeniedOverlay');
-    if (overlay) {
-        overlay.classList.remove('show');
-    }
-}
-
-// Decrypted Text効果の実装
-function initDecryptedTextEffect() {
-    const decryptedTexts = document.querySelectorAll('.decrypted-text');
-    
-    decryptedTexts.forEach(element => {
-        if (!element) return;
-        
-        const originalText = element.getAttribute('data-text') || element.textContent.trim();
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
-        
-        // テキストを文字ごとに分割
-        const textChars = originalText.split('');
-        element.innerHTML = '';
-        
-        textChars.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.textContent = char;
-            span.style.animationDelay = `${index * 0.1}s`;
-            element.appendChild(span);
-        });
-        
-        // アニメーション開始
-        setTimeout(() => {
-            const charElements = element.querySelectorAll('.char');
-            charElements.forEach((charEl, index) => {
-                setTimeout(() => {
-                    // ランダムな文字でアニメーション
-                    let iterations = 0;
-                    const maxIterations = 10;
-                    
-                    const interval = setInterval(() => {
-                        charEl.textContent = chars[Math.floor(Math.random() * chars.length)];
-                        iterations++;
-                        
-                        if (iterations >= maxIterations) {
-                            clearInterval(interval);
-                            charEl.textContent = originalText[index];
-                        }
-                    }, 50);
-                }, index * 100);
-            });
-        }, 500);
-    });
-}
 
 // Register episode cache SW early (https / localhost only)
 (function registerEpisodeCacheSW() {

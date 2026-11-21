@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/story.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/syncretic-hud.css">
+    <link rel="stylesheet" href="styles/story-archive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="scripts/theme-init.js"></script>
 </head>
@@ -42,9 +44,6 @@
                     <li class="nav-item">
                         <a href="world.html" class="nav-link">世界観</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#news" class="nav-link">ニュース</a>
-                    </li>
                 </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
@@ -59,8 +58,8 @@
     <section class="page-header">
         <div class="container">
             <div class="page-title">
-                <h1 class="decrypted-text" data-text="ストーリー">ストーリー</h1>
-                <p class="decrypted-text" data-text="~STORY~">~STORY~</p>
+                <h1 class="hud-decode" data-text="ストーリー">ストーリー</h1>
+                <p class="hud-decode" data-text="~STORY~">~STORY~</p>
             </div>
         </div>
     </section>
@@ -70,363 +69,361 @@
         <div class="container">
             <div class="overview-content">
                 <div class="overview-text">
-                    <h2 class="decrypted-text" data-text="物語の舞台">物語の舞台</h2>
-                    <p class="decrypted-text" data-text="2073年、高度AIに加えシンギュラリティである超高度AIレッドボックスが各国の軍事分野を中心に誕生し始めた時代。">2073年、高度AIに加えシンギュラリティである超高度AIレッドボックスが各国の軍事分野を中心に誕生し始めた時代。</p>
-                    <p class="decrypted-text" data-text="舞台は時代の波から遅れた山間部の田舎町瑠璃見に生きる少女春風千花はズレた現実を過ごしていた。存在したモノが存在しない現状に半分諦め、自分を責めながら半年がたち慣れを感じ始めていた二度目の高校１年生の春ある日現れた謎の男神田響との出会いから真実への扉が開かれる。">舞台は時代の波から遅れた山間部の田舎町瑠璃見に生きる少女春風千花はズレた現実を過ごしていた。<br>
-                        存在したモノが存在しない現状に半分諦め、自分を責めながら半年がたち慣れを感じ始めていた二度目の高校１年生の春<br>
-                        ある日現れた謎の男神田響との出会いから真実への扉が開かれる。
-                        </p>
+                    <h2>物語の舞台</h2>
+                    <p>2073年、高度AIに加えシンギュラリティである超高度AIレッドボックスが各国の軍事分野を中心に誕生し始めた時代。</p>
+                    <p>舞台は時代の波から遅れた山間部の田舎町・瑠璃見。そこで生きる少女・春風千花は「ズレた現実」を過ごしていた。<br>
+                        存在したモノが存在しない現状に半分諦め、自分を責めながら半年が経ち慣れを感じ始めていた二度目の高校1年生の春――ある日現れた謎の男・神田響との出会いから、真実への扉が開かれる。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- エピソード一覧 -->
-    <section class="episodes-section">
+    <!-- 第1部 エピソード一覧 -->
+    <section class="episodes-section" id="part1">
         <div class="container">
             <h2 class="section-title">
                 <span class="title-icon"><i class="fas fa-list"></i></span>
-                <span class="decrypted-text" data-text="エピソード一覧">エピソード一覧</span>
+                <span>第1部　Anesthesia Awareness（#1〜#7 公開中）</span>
             </h2>
-            <p class="episode-xr-note decrypted-text" data-text="各話ページ右下の XR STORY から、WebXR 対応端末で没入読書ができます。VR ヘッドセットまたは 3D プレビューで、ユビキタス・ビジョン演出付きの読書体験をお試しください。">各話ページ右下の <strong>XR STORY</strong> から、WebXR 対応端末で没入読書ができます。VR ヘッドセットまたは 3D プレビューで、ユビキタス・ビジョン演出付きの読書体験をお試しください。</p>
+            <p class="episode-xr-note">各話ページ右下の <strong>XR STORY</strong> から、WebXR 対応端末で没入読書ができます。VR ヘッドセットまたは 3D プレビューで、ユビキタス・ビジョン演出付きの読書体験をお試しください。</p>
             <div class="episodes-grid">
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="SYNC: INTERSECTION A-17">
                     <div class="episode-header">
                         <div class="episode-number">#1</div>
-                        <h3 class="decrypted-text" data-text="Contact">Contact</h3>
+                        <h3>Contact</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="退屈な日常の中、千花はスマートアイなしで町の内側に触れ、神田響と出会う。">退屈な日常の中、千花はスマートアイなしで町の内側に触れ、神田響と出会う。</p>
+                        <p class="episode-description">退屈な日常の中、千花はスマートアイなしで町の内側に触れ、神田響と出会う。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode1.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="LOG: REPORT UNSEALED">
                     <div class="episode-header">
                         <div class="episode-number">#2</div>
-                        <h3 class="decrypted-text" data-text="Log">Log</h3>
+                        <h3>Log</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="カイと綾との記憶、旧校舎のメモリー、そして黒塗りの報告書が千花の日常を揺らす。">カイと綾との記憶、旧校舎のメモリー、そして黒塗りの報告書が千花の日常を揺らす。</p>
+                        <p class="episode-description">カイと綾との記憶、旧校舎のメモリー、そして黒塗りの報告書が千花の日常を揺らす。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode2.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="NODE: OLD GYMNASIUM">
                     <div class="episode-header">
                         <div class="episode-number">#3</div>
-                        <h3 class="decrypted-text" data-text="Boundary">Boundary</h3>
+                        <h3>Boundary</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="報告書の余韻。旧体育館の不在。職員室で、倒れたことが別の言葉に変わる。">報告書の余韻。旧体育館の不在。職員室で、倒れたことが別の言葉に変わる。</p>
+                        <p class="episode-description">報告書の余韻。旧体育館の不在。職員室で、倒れたことが別の言葉に変わる。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode3.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="BEACON: AFX-012-VFZ23">
                     <div class="episode-header">
                         <div class="episode-number">#4</div>
-                        <h3 class="decrypted-text" data-text="Cracking Sandbox">Cracking Sandbox</h3>
+                        <h3>Cracking Sandbox</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="日常の箱庭にひびが入る。家で、千花の世界が音を立てて崩れ落ちる。">日常の箱庭にひびが入る。家で、千花の世界が音を立てて崩れ落ちる。</p>
+                        <p class="episode-description">日常の箱庭にひびが入る。家で、千花の世界が音を立てて崩れ落ちる。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode4.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="ESC: RED MOTORCYCLE">
                     <div class="episode-header">
                         <div class="episode-number">#5</div>
-                        <h3 class="decrypted-text" data-text="Aporia">Aporia</h3>
+                        <h3>Aporia</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="止まらない町。神田の救出。木村と赤いバイクの脱出。千花は家へ戻れなくなる。">止まらない町。神田の救出。木村と赤いバイクの脱出。千花は家へ戻れなくなる。</p>
+                        <p class="episode-description">止まらない町。神田の救出。木村と赤いバイクの脱出。千花は家へ戻れなくなる。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode5.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="AIR: C-2 RAICHO">
                     <div class="episode-header">
                         <div class="episode-number">#6</div>
-                        <h3 class="decrypted-text" data-text="Existential Exodus">Existential Exodus</h3>
+                        <h3>Existential Exodus</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="雷鳥に収容された千花は、合流済みの綾を想いながら、未確定の接続核と瑠璃見を離れる痛みを抱えて夜空へ向かう。">雷鳥に収容された千花は、合流済みの綾を想いながら、未確定の接続核と瑠璃見を離れる痛みを抱えて夜空へ向かう。</p>
+                        <p class="episode-description">雷鳥に収容された千花は、合流済みの綾を想いながら、未確定の接続核と瑠璃見を離れる痛みを抱えて夜空へ向かう。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode6.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="WINDOW // BOUNDARY">
                     <div class="episode-header">
                         <div class="episode-number">#7</div>
-                        <h3 class="decrypted-text" data-text="Boundary Noise">Boundary Noise</h3>
+                        <h3>Boundary Noise</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="瑠璃見サーバー施設からの接続ノイズに引き戻される千花は、御厨玲奈の助言で「窓」を作る術を知る。">瑠璃見サーバー施設からの接続ノイズに引き戻される千花は、御厨玲奈の助言で「窓」を作る術を知る。</p>
+                        <p class="episode-description">瑠璃見サーバー施設からの接続ノイズに引き戻される千花は、御厨玲奈の助言で「窓」を作る術を知る。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.06.28">2026.06.28</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.06.28</span>
                         </div>
                         <a href="episode7.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#8</div>
-                        <h3 class="decrypted-text" data-text="Red Wing">Red Wing</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="保護された綾は、翼のペンダントと荒木紘一の記憶を通じて、自分が千花の支えである意味を選ぶ。">保護された綾は、翼のペンダントと荒木紘一の記憶を通じて、自分が千花の支えである意味を選ぶ。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>第8話以降の観測記録は公開準備中のため保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#9</div>
-                        <h3 class="decrypted-text" data-text="Black File">Black File</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="旧郷土資料館で黒塗りの紙記録を発見し、千花はカイの声と瑠璃見サーバー施設を結ぶ線に触れる。">旧郷土資料館で黒塗りの紙記録を発見し、千花はカイの声と瑠璃見サーバー施設を結ぶ線に触れる。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#10</div>
-                        <h3 class="decrypted-text" data-text="Phase Two">Phase Two</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="霧崎譲が現れ、千花の社会復帰そのものが観察実験だったと告げる。町全体が試験場へ変わる。">霧崎譲が現れ、千花の社会復帰そのものが観察実験だったと告げる。町全体が試験場へ変わる。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#11</div>
-                        <h3 class="decrypted-text" data-text="Araki Record">Araki Record</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="荒木の告発記録は、事故、救命、実験、そして瑠璃見サーバー施設を物理停止するアナログハッチの存在を示す。">荒木の告発記録は、事故、救命、実験、そして瑠璃見サーバー施設を物理停止するアナログハッチの存在を示す。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#12</div>
-                        <h3 class="decrypted-text" data-text="Experiment Footage">Experiment Footage</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="綾のペンダントに隠された映像から、千花は麻酔覚醒の恐怖と黒く伏せられた対話補助の存在を目撃する。">綾のペンダントに隠された映像から、千花は麻酔覚醒の恐怖と黒く伏せられた対話補助の存在を目撃する。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#13</div>
-                        <h3 class="decrypted-text" data-text="Under the Gymnasium">Under the Gymnasium</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="旧体育館の床下に隠された同期観測線が、箱庭の記憶と瑠璃見サーバー施設を物理的につなげていた。">旧体育館の床下に隠された同期観測線が、箱庭の記憶と瑠璃見サーバー施設を物理的につなげていた。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#14</div>
-                        <h3 class="decrypted-text" data-text="Kai Lawrence">Kai Lawrence</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="IKAROS領域の縁で千花はカイと再会し、彼が作られた存在でありながら自ら空を望んだことを知る。">IKAROS領域の縁で千花はカイと再会し、彼が作られた存在でありながら自ら空を望んだことを知る。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#15</div>
-                        <h3 class="decrypted-text" data-text="The Whole Incident">The Whole Incident</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="紺虹峠の事故と隠蔽の真相が明かされ、千花はカイを鎖にしないためIKAROS領域を切り離す決断へ進む。">紺虹峠の事故と隠蔽の真相が明かされ、千花はカイを鎖にしないためIKAROS領域を切り離す決断へ進む。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#16</div>
-                        <h3 class="decrypted-text" data-text="Rurimi Uprising">Rurimi Uprising</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="瑠璃見サーバー施設停止後も町の暴走は止まらず、千花は力を兵器ではなく避難誘導の道標として使い始める。">瑠璃見サーバー施設停止後も町の暴走は止まらず、千花は力を兵器ではなく避難誘導の道標として使い始める。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#17</div>
-                        <h3 class="decrypted-text" data-text="Analog Hatch">Analog Hatch</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="元ダム保守員・真壁宗一の紙地図と手動工具が、デジタルが嘘を吐く夜に住民の道を守る。">元ダム保守員・真壁宗一の紙地図と手動工具が、デジタルが嘘を吐く夜に住民の道を守る。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#18</div>
-                        <h3 class="decrypted-text" data-text="Rurimi Server Facility">Rurimi Server Facility</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="湖底施設へ入った千花たちは美綴琴音と対峙し、町を救うため一時的な協力を選ぶ。">湖底施設へ入った千花たちは美綴琴音と対峙し、町を救うため一時的な協力を選ぶ。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#19</div>
-                        <h3 class="decrypted-text" data-text="White Sky">White Sky</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="白いノイズの中で千花はカイと最後の選択を交わし、町を救うためIKAROS領域を切断する。">白いノイズの中で千花はカイと最後の選択を交わし、町を救うためIKAROS領域を切断する。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
 
-                <div class="episode-card">
+                <div class="episode-card episode-card-locked">
                     <div class="episode-header">
                         <div class="episode-number">#20</div>
-                        <h3 class="decrypted-text" data-text="Anesthesia Awareness">Anesthesia Awareness</h3>
+                        <h3>[CLASSIFIED]</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="瑠璃見動乱の夜明け。政府の隠蔽と残された犠牲の中で、千花は自分の痛みで現実を歩き始める。">瑠璃見動乱の夜明け。政府の隠蔽と残された犠牲の中で、千花は自分の痛みで現実を歩き始める。</p>
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>未公開エピソードのため解析ログは保護されています。</p>
                         <div class="episode-meta">
-                            <span class="episode-status coming-soon decrypted-text" data-text="近日公開">近日公開</span>
-                            <span class="episode-date decrypted-text" data-text="準備中">準備中</span>
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
                         </div>
-                        <a href="#" class="btn btn-outline disabled">
-                            <span class="decrypted-text" data-text="準備中">準備中</span> <i class="fas fa-lock"></i>
-                        </a>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -434,69 +431,99 @@
     </section>
 
     <!-- 第2部 -->
-    <section class="episodes-section">
+    <section class="episodes-section" id="part2">
         <div class="container">
             <h2 class="section-title">
                 <span class="title-icon"><i class="fas fa-bolt"></i></span>
-                <span class="decrypted-text" data-text="第2部　第1次電子大戦編">第2部　第1次電子大戦編</span>
+                <span>第2部　第1次電子大戦編（#2-1〜#2-2 公開中）</span>
             </h2>
-            <p class="episode-xr-note decrypted-text" data-text="2076年。大学生となった千花は、表向きの日常の裏でスサノオの外部協力任務に組み込まれている。">2076年。大学生となった千花は、表向きの日常の裏でスサノオの外部協力任務に組み込まれている。</p>
+            <p class="episode-xr-note">2076年。大学生となった千花は、表向きの日常の裏でスサノオの外部協力任務に組み込まれている。</p>
             <div class="episodes-grid">
-                <div class="episode-card">
+                <div class="episode-card" data-raw-tag="2076.11.27 // KICHIJOJI">
                     <div class="episode-header">
                         <div class="episode-number">#2-1</div>
-                        <h3 class="decrypted-text" data-text="Old Electric Street">Old Electric Street</h3>
+                        <h3>Old Electric Street</h3>
                     </div>
                     <div class="episode-content">
-                        <p class="episode-description decrypted-text" data-text="吉祥寺・旧電気街。機械が嘘に負ける夜、千花だけが拾える一本がある。">吉祥寺・旧電気街。機械が嘘に負ける夜、千花だけが拾える一本がある。</p>
+                        <p class="episode-description">吉祥寺・旧電気街。機械が嘘に負ける夜、千花だけが拾える一本がある。</p>
                         <div class="episode-meta">
-                            <span class="episode-status available decrypted-text" data-text="公開中">公開中</span>
-                            <span class="episode-date decrypted-text" data-text="2026.11.02">2026.11.02</span>
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.11.02</span>
                         </div>
                         <a href="part2_episode1.html" class="btn btn-primary">
-                            <span class="decrypted-text" data-text="読む">読む</span> <i class="fas fa-arrow-right"></i>
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
                         </a>
+                    </div>
+                </div>
+
+                <div class="episode-card" data-raw-tag="2076.12.15 // AKIHABARA">
+                    <div class="episode-header">
+                        <div class="episode-number">#2-2</div>
+                        <h3>Analog Hack</h3>
+                    </div>
+                    <div class="episode-content">
+                        <p class="episode-description">立山美弓の依頼で秋葉原へ向かう千花と佳織。身体感覚とクオリアが交差する、束の間の休日任務。</p>
+                        <div class="episode-meta">
+                            <span class="episode-status available">公開中</span>
+                            <span class="episode-date">2026.11.21</span>
+                        </div>
+                        <a href="part2_episode2.html" class="btn btn-primary">
+                            <span>読む</span> <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="episode-card episode-card-locked">
+                    <div class="episode-header">
+                        <div class="episode-number">#2-3</div>
+                        <h3>[CLASSIFIED]</h3>
+                    </div>
+                    <div class="episode-content">
+                        <p class="episode-description"><span class="episode-classified-tag">SEALED</span>第2部 第3話以降は順次公開予定です。</p>
+                        <div class="episode-meta">
+                            <span class="episode-status coming-soon">近日公開</span>
+                            <span class="episode-date">準備中</span>
+                        </div>
+                        <span class="btn btn-outline disabled" aria-disabled="true">
+                            <span>準備中</span> <i class="fas fa-lock"></i>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Access Denied Overlay -->
-    <div class="access-denied-overlay" id="accessDeniedOverlay">
-        <div class="access-denied-text" id="accessDeniedText">ACCESS DENIED</div>
-        <div class="access-denied-subtitle">Reject Access</div>
-        <button class="access-denied-close" onclick="closeAccessDenied()">閉じる</button>
-    </div>
-
     <!-- フッター -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3 class="decrypted-text" data-text="春風シンクレティック">春風シンクレティック</h3>
-                    <p class="decrypted-text" data-text="2073年、高度AIが支配する世界で、一人の少女が運命と向き合う物語">2073年、高度AIが支配する世界で、一人の少女が運命と向き合う物語</p>
+                    <h3>春風シンクレティック</h3>
+                    <p>2073年、高度AIが支配する世界で、一人の少女が運命と向き合う物語</p>
                 </div>
                 <div class="footer-section">
-                    <h4 class="decrypted-text" data-text="サイトマップ">サイトマップ</h4>
+                    <h4>サイトマップ</h4>
                     <ul>
-                        <li><a href="index.html" class="decrypted-text" data-text="ホーム">ホーム</a></li>
-                        <li><a href="story.html" class="decrypted-text" data-text="ストーリー">ストーリー</a></li>
-                        <li><a href="characters.html" class="decrypted-text" data-text="キャラクター">キャラクター</a></li>
-                        <li><a href="world.html" class="decrypted-text" data-text="世界観">世界観</a></li>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="story.html">ストーリー</a></li>
+                        <li><a href="characters.html">キャラクター</a></li>
+                        <li><a href="world.html">世界観</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4 class="decrypted-text" data-text="お問い合わせ">お問い合わせ</h4>
-                    <p class="decrypted-text" data-text="公式サイトに関するお問い合わせはこちらまで">公式サイトに関するお問い合わせはこちらまで</p>
+                    <h4>プロジェクト</h4>
+                    <p>オリジナルSF小説公式サイト</p>
+                    <p><a href="https://github.com/HoloMoto/Echoes_of_a_MisalignedReality" target="_blank" rel="noopener noreferrer">GitHub Repository <i class="fas fa-external-link-alt"></i></a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="decrypted-text" data-text="© 2025 春風シンクレティック. All rights reserved by HoloMoto">&copy; 2025 春風シンクレティック. All rights reserved by HoloMoto.</p>
+                <p>&copy; 2025-2026 春風シンクレティック. All rights reserved by HoloMoto.</p>
             </div>
         </div>
     </footer>
 
+    <script src="scripts/syncretic-fx.js" defer></script>
+    <script src="scripts/story-archive.js" defer></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

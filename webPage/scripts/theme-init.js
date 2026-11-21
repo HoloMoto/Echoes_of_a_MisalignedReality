@@ -1,16 +1,17 @@
-/* Apply saved theme before paint to avoid flash */
+/* Apply saved theme & easter-egg layer state before first paint */
 (function () {
   try {
-    var key = 'hs-theme';
-    var saved = localStorage.getItem(key);
-    var theme = saved;
-    if (!theme) {
-      theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
+    var saved = localStorage.getItem('hs-theme');
+    var theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+
+    if (sessionStorage.getItem('hs-raw-vision') === '1') {
+      document.documentElement.classList.add('raw-vision');
     }
-    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    if (sessionStorage.getItem('hs-analog-hatch') === '1') {
+      document.documentElement.classList.add('analog-hatch');
+    }
   } catch (e) {
-    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'dark');
   }
 })();

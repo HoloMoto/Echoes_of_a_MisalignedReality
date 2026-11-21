@@ -3,6 +3,7 @@ import re
 import sys
 
 IMG_MD_RE = re.compile(r'^!\[(.*?)\]\((.+?)\)$')
+HR_RE = re.compile(r'^-{3,}$')
 
 
 def html_escape(text):
@@ -31,8 +32,11 @@ def md_to_episode_html(path):
     while i < len(lines):
         line = lines[i]
         stripped = line.rstrip()
-        # Skip episode title line and pure separators
-        if stripped == '' or stripped == '---' or stripped.startswith('ーーー') or (stripped.startswith('Episode ') and ':' in stripped):
+        if stripped == '' or stripped.startswith('ーーー') or (stripped.startswith('Episode ') and ':' in stripped):
+            i += 1
+            continue
+        if HR_RE.match(stripped.strip()):
+            out.append('                <hr class="scene-divider">\n\n')
             i += 1
             continue
         img_m = IMG_MD_RE.match(stripped)
@@ -45,23 +49,20 @@ def md_to_episode_html(path):
             out.append('<div class="chapter-break">\n<h2>{}</h2>\n</div>\n\n'.format(title))
             i += 1
             continue
-        # Single # chapter title (e.g. "# 3章　メモリーのあと")
         if stripped.startswith('# ') and not stripped.startswith('## '):
             title = stripped[2:].strip()
             out.append('<div class="chapter-break">\n<h2>{}</h2>\n</div>\n\n'.format(title))
             i += 1
             continue
-        # Date-only line like "2072年5月　ゴールデンウィーク" as small header or paragraph
         if re.match(r'^\d{4}年', stripped) and ' ' in stripped:
             out.append('<p class="chapter-date">{}</p>\n\n'.format(stripped))
             i += 1
             continue
-        # Collect paragraph lines
         para_lines = []
         while i < len(lines):
             l = lines[i]
             s = l.rstrip()
-            if s == '' or s == '---' or s.startswith('ーーー'):
+            if s == '' or HR_RE.match(s.strip()) or s.startswith('ーーー'):
                 break
             if s.startswith('## ') or (s.startswith('# ') and not s.startswith('## ')):
                 break
@@ -77,6 +78,7 @@ def md_to_episode_html(path):
         if i < len(lines) and (lines[i].strip() == '' or lines[i].strip().startswith('ー')):
             i += 1
     return ''.join(out)
+
 
 if __name__ == '__main__':
     path = sys.argv[1] if len(sys.argv) > 1 else 'Story/1AnesthesiaAwareness/4.md'

@@ -1,19 +1,25 @@
 /**
  * Episode prefetch / cache — while reading N, warm-load N+1 (and its images).
- * Requires https or localhost for Cache API + Service Worker.
+ * Strictly honors published boundaries: Part 1 (#1..#7) and Part 2 (#2-1..#2-2).
  */
 (function () {
   'use strict';
 
-  var CACHE_NAME = 'hs-episode-cache-v2';
-  var MAX_EPISODE = 7;
+  var CACHE_NAME = 'hs-episode-cache-v4';
+  var MAX_PART1 = 7;
+  var MAX_PART2 = 2;
   var SW_URL = 'sw.js';
 
-  function currentEpisodeNumber() {
-    var match = (window.location.pathname || '').match(/episode(\d+)\.html/i);
-    if (match) return parseInt(match[1], 10);
-    match = (window.location.href || '').match(/episode(\d+)\.html/i);
-    if (match) return parseInt(match[1], 10);
+  function detectEpisode() {
+    var path = window.location.pathname || window.location.href || '';
+    var p2 = path.match(/(?:^|\/)part2_episode(\d+)\.html(?:$|[?#])/i);
+    if (p2) {
+      return { part: 2, num: parseInt(p2[1], 10) };
+    }
+    var p1 = path.match(/(?:^|\/)episode(\d+)\.html(?:$|[?#])/i);
+    if (p1) {
+      return { part: 1, num: parseInt(p1[1], 10) };
+    }
     return null;
   }
 
@@ -25,22 +31,38 @@
     }
   }
 
-  function nextEpisodeUrl(num) {
-    if (!num || num >= MAX_EPISODE) return null;
-    return toAbsolute('episode' + (num + 1) + '.html');
+  function nextEpisodeInfo(ep) {
+    if (!ep) return null;
+    if (ep.part === 1) {
+      if (ep.num >= MAX_PART1) return null;
+      var n1 = ep.num + 1;
+      return {
+        url: toAbsolute('episode' + n1 + '.html'),
+        label: '第' + n1 + '話'
+      };
+    }
+    if (ep.part === 2) {
+      if (ep.num >= MAX_PART2) return null;
+      var n2 = ep.num + 1;
+      return {
+        url: toAbsolute('part2_episode' + n2 + '.html'),
+        label: '第2部 第' + n2 + '話'
+      };
+    }
+    return null;
   }
 
   function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return Promise.resolve(null);
-    // file:// and insecure LAN origins cannot register
-    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    if (
+      window.location.protocol !== 'https:' &&
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1'
+    ) {
       return Promise.resolve(null);
     }
     return navigator.serviceWorker
       .register(SW_URL, { scope: './' })
-      .then(function (reg) {
-        return reg;
-      })
       .catch(function (err) {
         console.warn('Episode SW register failed:', err);
         return null;
@@ -66,18 +88,18 @@
     return hint;
   }
 
-  function setHintLoading(hint, nextNum) {
+  function setHintLoading(hint, label) {
     if (!hint) return;
     hint.className = 'episode-prefetch-hint is-visible';
     hint.innerHTML =
-      '<span class="spin" aria-hidden="true"></span><span>第' + nextNum + '話を先読み中…</span>';
+      '<span class="spin" aria-hidden="true"></span><span>' + label + 'を先読み中…</span>';
   }
 
-  function setHintReady(hint, nextNum) {
+  function setHintReady(hint, label) {
     if (!hint) return;
     hint.className = 'episode-prefetch-hint is-visible is-ready';
     hint.innerHTML =
-      '<i class="fas fa-check" aria-hidden="true"></i><span>第' + nextNum + '話の表示準備完了</span>';
+      '<i class="fas fa-check" aria-hidden="true"></i><span>' + label + 'の表示準備完了</span>';
   }
 
   function setHintFailed(hint, message) {
@@ -98,11 +120,11 @@
       var cache = await caches.open(CACHE_NAME);
       await cache.put(url, response.clone());
     } catch (e) {
-      // ignore quota / opaque failures
+      /* ignore quota / opaque failures */
     }
   }
 
-  function collectAssetUrls(htmlText, pageUrl) {
+  function collectAssetUrls(htmlText) {
     var urls = [];
     try {
       var doc = new DOMParser().parseFromString(htmlText, 'text/html');
@@ -113,8 +135,17 @@
     } catch (e) {
       /* ignore parse errors */
     }
-    // shared styles used by episode pages
-    ['styles/main.css', 'styles/theme.css', 'styles/episode.css'].forEach(function (p) {
+    [
+      'styles/main.css',
+      'styles/theme.css',
+      'styles/syncretic-hud.css',
+      'styles/episode.css',
+      'styles/episode-hud.css',
+      'styles/webxr-story.css',
+      'scripts/syncretic-fx.js',
+      'scripts/episode-hud.js',
+      'scripts/main.js'
+    ].forEach(function (p) {
       urls.push(toAbsolute(p));
     });
     return urls.filter(function (u, i, arr) {
@@ -139,49 +170,47 @@
     );
   }
 
-  async function prefetch(url, nextNum) {
-    var hint = ensureHint(url);
+  async function prefetch(next) {
+    var hint = ensureHint(next.url);
 
     if (!('caches' in window)) {
       setHintUnsupported(hint);
-      // still add <link rel=prefetch> as best-effort
     }
 
-    setHintLoading(hint, nextNum);
+    setHintLoading(hint, next.label);
 
-    if (!document.querySelector('link[data-episode-prefetch="' + url + '"]')) {
+    if (!document.querySelector('link[data-episode-prefetch="' + next.url + '"]')) {
       var link = document.createElement('link');
       link.rel = 'prefetch';
       link.as = 'document';
-      link.href = url;
-      link.setAttribute('data-episode-prefetch', url);
+      link.href = next.url;
+      link.setAttribute('data-episode-prefetch', next.url);
       document.head.appendChild(link);
     }
 
     try {
       if ('caches' in window) {
         var cache = await caches.open(CACHE_NAME);
-        var cached = await cache.match(url, { ignoreSearch: true });
+        var cached = await cache.match(next.url, { ignoreSearch: true });
         if (cached) {
           var cachedText = await cached.clone().text();
-          await warmAssets(collectAssetUrls(cachedText, url));
-          setHintReady(hint, nextNum);
-          // still revalidate in background
-          fetch(url, { credentials: 'same-origin', cache: 'no-cache' })
+          await warmAssets(collectAssetUrls(cachedText));
+          setHintReady(hint, next.label);
+          fetch(next.url, { credentials: 'same-origin', cache: 'no-cache' })
             .then(function (res) {
-              if (res && res.ok) return putInCache(url, res);
+              if (res && res.ok) return putInCache(next.url, res);
             })
             .catch(function () {});
           return;
         }
       }
 
-      var res = await fetch(url, { credentials: 'same-origin', cache: 'no-cache' });
+      var res = await fetch(next.url, { credentials: 'same-origin', cache: 'no-cache' });
       if (!res.ok) throw new Error('prefetch status ' + res.status);
       var text = await res.clone().text();
-      await putInCache(url, res);
-      await warmAssets(collectAssetUrls(text, url));
-      setHintReady(hint, nextNum);
+      await putInCache(next.url, res);
+      await warmAssets(collectAssetUrls(text));
+      setHintReady(hint, next.label);
     } catch (err) {
       console.warn('Episode prefetch failed:', err);
       setHintFailed(hint);
@@ -189,14 +218,13 @@
   }
 
   function init() {
-    var num = currentEpisodeNumber();
-    if (!num) return;
-    var nextUrl = nextEpisodeUrl(num);
-    if (!nextUrl) return;
+    var ep = detectEpisode();
+    var next = nextEpisodeInfo(ep);
+    if (!next) return;
 
     var run = function () {
       registerServiceWorker().finally(function () {
-        prefetch(nextUrl, num + 1);
+        prefetch(next);
       });
     };
 

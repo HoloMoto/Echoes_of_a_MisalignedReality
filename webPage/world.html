@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>世界観 - 春風シンクレティック</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <meta name="description" content="『春風シンクレティック』の世界観。2073年の瑠璃見、ユビキタスネットワーク、サーバー施設と用語集。">
+    <meta name="description" content="『春風シンクレティック』の世界観。2073年の瑠璃見、サードアイ、ネオユビキタスネットワーク、技術・組織相関図。">
     <meta property="og:type" content="website">
     <meta property="og:title" content="世界観 - 春風シンクレティック">
-    <meta property="og:description" content="『春風シンクレティック』の世界観。2073年の瑠璃見、ユビキタスネットワーク、サーバー施設と用語集。">
+    <meta property="og:description" content="『春風シンクレティック』の世界観。2073年の瑠璃見、サードアイ、ネオユビキタスネットワーク、技術・組織相関図。">
     <meta property="og:url" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/world.html">
     <meta property="og:image" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/images/ChikaHarukaze.png">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/world.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/syncretic-hud.css">
+    <link rel="stylesheet" href="styles/world-graphics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="scripts/theme-init.js"></script>
 </head>
@@ -42,9 +44,6 @@
                     <li class="nav-item">
                         <a href="world.html" class="nav-link active">世界観</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#world-keywords" class="nav-link">キーワード</a>
-                    </li>
                 </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
@@ -59,8 +58,8 @@
     <section class="page-header">
         <div class="container">
             <div class="page-title">
-                <h1>世界観</h1>
-                <p>2073年の近未来世界</p>
+                <h1 class="hud-decode" data-text="世界観">世界観</h1>
+                <p>WORLD ARCHITECTURE // 2073〜2076 技術と境界の地図</p>
             </div>
         </div>
     </section>
@@ -71,27 +70,98 @@
             <div class="era-content">
                 <div class="era-text">
                     <h2>2073年の世界</h2>
-                    <p>高度AI（強いAI）が各国の軍事分野を中心に誕生した時代。この技術革新により、世界のパワーバランスが大きく変化し、新たな社会構造が生まれた。</p>
-                    <p>従来のコンピュータ技術を遥かに超える演算能力を持つAIが軍事・産業・日常生活のあらゆる分野に浸透し、人類の生活様式を根本的に変革しています。</p>
+                    <p>高度AI（強いAI）が各国の軍事分野を中心に誕生し、さらに特異点を超えた超高度AI《レッドボックス》の登場によって世界のパワーバランスが大きく変化した時代。</p>
+                    <p>従来のコンピュータ技術を遥かに超える演算能力が軍事・産業・日常生活のあらゆる分野に浸透し、サードアイ越しの拡張現実が「もう一つの網膜」として人類の生活様式を書き換えています。</p>
                 </div>
                 <div class="era-visual">
                     <div class="tech-showcase">
                         <div class="tech-item">
                             <i class="fas fa-robot"></i>
                             <h3>高度AI</h3>
-                            <p>軍事分野を中心に誕生した自己進化型AI、今では一般人もアクセス可能で生活に浸透している。</p>
+                            <p>自己進化型AI。現在では民間インフラや一般人の生活支援にも広く浸透している。</p>
                         </div>
                         <div class="tech-item">
                             <i class="fas fa-globe"></i>
-                            <h3>超高度AI</h3>
-                            <p>高度AIによって開発される技術群の中で人類未到達な技術水準のAI。民間に解放されておらず軍事分野にのみ使用されている。<br>核兵器同様各国のパワーバランスを大きく変える可能性があるため国家ぐるみで管理されている。</p>
+                            <h3>超高度AI（レッドボックス）</h3>
+                            <p>人類未到達の水準へ至った特異点AI。核兵器同様、国家ぐるみで秘匿管理されている。</p>
                         </div>
                         <div class="tech-item">
-                            <i class="fas fa-cogs"></i>
+                            <i class="fas fa-eye"></i>
                             <h3>サードアイ（スマートアイ）</h3>
-                            <p>スマートフォンの進化として登場した眼鏡型空間コンピューティングデバイス。<br>高度AIによる情報処理と無線給電技術によって眼鏡サイズまで小型軽量化しながらも手の動きを検知して操作が可能な情報端末<br>簡易的に脳波を用いて補助操作が可能なモデルも登場している。</p>
+                            <p>眼鏡型空間コンピューティング端末。無線給電と空間演算により網膜上の日常を形づくる。</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- インタラクティブ技術・組織相関図 -->
+    <section class="world-topology-section" id="topology">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon"><i class="fas fa-project-diagram"></i></span>
+                システム・勢力トポロジー
+            </h2>
+            <p class="world-section-lead">各ノードをクリックまたはホバーすると、技術・組織同士の接続関係を確認できます。</p>
+            <div class="topology-shell">
+                <div class="topology-canvas-card" data-raw-tag="TOPOLOGY // NODE GRAPH">
+                    <svg class="topology-svg" viewBox="0 0 640 380" role="img" aria-label="技術と組織の相関図">
+                        <!-- Edges -->
+                        <line class="topo-edge" data-from="redbox" data-to="neoubi" x1="320" y1="68" x2="160" y2="175"/>
+                        <line class="topo-edge" data-from="redbox" data-to="susanoo" x1="320" y1="68" x2="500" y2="175"/>
+                        <line class="topo-edge" data-from="redbox" data-to="linker" x1="320" y1="68" x2="320" y2="195"/>
+                        <line class="topo-edge" data-from="neoubi" data-to="thirdeye" x1="160" y1="175" x2="130" y2="308"/>
+                        <line class="topo-edge" data-from="neoubi" data-to="linker" x1="160" y1="175" x2="320" y2="195"/>
+                        <line class="topo-edge" data-from="linker" data-to="susanoo" x1="320" y1="195" x2="500" y2="175"/>
+                        <line class="topo-edge" data-from="linker" data-to="div13" x1="320" y1="195" x2="480" y2="308"/>
+                        <line class="topo-edge" data-from="susanoo" data-to="div13" x1="500" y1="175" x2="480" y2="308"/>
+                        <line class="topo-edge" data-from="thirdeye" data-to="linker" x1="130" y2="308" x2="320" y2="195"/>
+
+                        <!-- Nodes -->
+                        <g class="topo-node" data-node="redbox" tabindex="0">
+                            <rect x="215" y="28" width="210" height="58" rx="4"/>
+                            <text class="topo-code" x="320" y="48" text-anchor="middle">SINGULARITY // AI</text>
+                            <text x="320" y="70" text-anchor="middle">超高度AI《レッドボックス》</text>
+                        </g>
+
+                        <g class="topo-node" data-node="neoubi" tabindex="0">
+                            <rect x="42" y="146" width="214" height="58" rx="4"/>
+                            <text class="topo-code" x="149" y="166" text-anchor="middle">INFRASTRUCTURE</text>
+                            <text x="149" y="188" text-anchor="middle">ネオユビキタス網</text>
+                        </g>
+
+                        <g class="topo-node is-selected" data-node="linker" tabindex="0">
+                            <rect x="235" y="166" width="170" height="62" rx="4"/>
+                            <text class="topo-code" x="320" y="187" text-anchor="middle">QUANTUM BMI</text>
+                            <text x="320" y="209" text-anchor="middle">ユビキタスリンカー</text>
+                        </g>
+
+                        <g class="topo-node" data-node="susanoo" tabindex="0">
+                            <rect x="420" y="146" width="190" height="58" rx="4"/>
+                            <text class="topo-code" x="515" y="166" text-anchor="middle">DEFENSE // KAGURA</text>
+                            <text x="515" y="188" text-anchor="middle">スサノオ隊</text>
+                        </g>
+
+                        <g class="topo-node" data-node="thirdeye" tabindex="0">
+                            <rect x="35" y="280" width="190" height="58" rx="4"/>
+                            <text class="topo-code" x="130" y="300" text-anchor="middle">XR RETINA // GEN 5-6</text>
+                            <text x="130" y="322" text-anchor="middle">サードアイ</text>
+                        </g>
+
+                        <g class="topo-node" data-node="div13" tabindex="0">
+                            <rect x="385" y="280" width="205" height="58" rx="4"/>
+                            <text class="topo-code" x="487" y="300" text-anchor="middle">INTELLIGENCE</text>
+                            <text x="487" y="322" text-anchor="middle">公安情報局 第13課</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="topology-detail-card">
+                    <span class="topology-detail-tag" id="topoDetailTag">QUANTUM BMI // CORE</span>
+                    <h3 class="topology-detail-title" id="topoDetailTitle">ユビキタスリンカー &amp; コア</h3>
+                    <p class="topology-detail-body" id="topoDetailBody">量子コンピュータ級の演算領域と人間の脳波を接続する秘匿技術。春風千花は端末を介さず町の情報網を視認してしまう異常接続を観測され、物語が動き出す。</p>
+                    <div class="topology-detail-links" id="topoDetailLinks">LINKED: 春風千花 / 荒木紘一の研究 / スサノオ保護対象 / 13課回収目標</div>
                 </div>
             </div>
         </div>
@@ -102,7 +172,7 @@
         <div class="container">
             <h2 class="section-title">
                 <span class="title-icon"><i class="fas fa-microchip"></i></span>
-                技術解説
+                主要テクノロジー
             </h2>
             <div class="tech-grid">
                 <div class="tech-card">
@@ -112,19 +182,19 @@
                     <h3>サードアイ</h3>
                     <p class="tech-subtitle">XRデバイス</p>
                     <div class="tech-description">
-                        <p>現代のメガネと見た目が全く同じXRデバイス。超小型プロセッサ、バッテリー、ディスプレイのみで構築されたサードアイはかつてのユビキタスネットワーク論を拡張したネオユビキタスネットワークによって実現した。</p>
+                        <p>現代のメガネと見た目が全く同じXRデバイス。超小型プロセッサ、バッテリー、ディスプレイのみで構築され、ネオユビキタスネットワークと連動して空間上にウィンドウを描画する。</p>
                         <div class="tech-features">
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>超小型プロセッサ</span>
+                                <span>第5世代：簡易脳波補助入力</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>高性能バッテリー</span>
+                                <span>第6世代（VA64）：うなじ補助デバイス連携</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>高解像度ディスプレイ</span>
+                                <span>高解像度網膜投影</span>
                             </div>
                         </div>
                     </div>
@@ -137,7 +207,7 @@
                     <h3>ネオユビキタスネットワーク</h3>
                     <p class="tech-subtitle">次世代ネットワーク</p>
                     <div class="tech-description">
-                        <p>大規模データサーバーと量子型演算コンピュータを融合したインフラ施設と町中に展開される高性能無線回線によって実現。椅子など日常で過ごす時間が多い家具らによる無線給電システムでバッテリー問題を解消した。</p>
+                        <p>大規模データサーバーと量子型演算コンピュータを融合したインフラ施設と高性能無線回線によって実現。椅子や机など日常家具からの非接触無線給電でバッテリー制約を解消した。</p>
                         <div class="tech-features">
                             <div class="feature">
                                 <i class="fas fa-check"></i>
@@ -145,11 +215,11 @@
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>高性能無線回線</span>
+                                <span>高密度無線演算代行</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>無線給電システム</span>
+                                <span>家具組み込み無線給電</span>
                             </div>
                         </div>
                     </div>
@@ -162,19 +232,19 @@
                     <h3>ユビキタスリンカー</h3>
                     <p class="tech-subtitle">ブレインマシンインターフェース</p>
                     <div class="tech-description">
-                        <p>量子コンピュータと人間の意識を接続するために構想されたブレインマシンインターフェース。詳細な仕組みや被験者の記録は多くが秘匿されており、物語の進行とともに断片的に明かされていく。</p>
+                        <p>量子コンピュータと人間の意識・脳波を接続するために構想された極秘BMI。中核部品「ユビキタスコア」や被験者記録の多くは黒塗りで秘匿されている。</p>
                         <div class="tech-features">
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>量子演算接続</span>
+                                <span>量子演算直結</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>仮想環境</span>
+                                <span>非端末・裸眼接続</span>
                             </div>
                             <div class="feature">
                                 <i class="fas fa-check"></i>
-                                <span>秘匿研究</span>
+                                <span>秘匿臨床試験記録</span>
                             </div>
                         </div>
                     </div>
@@ -183,252 +253,103 @@
         </div>
     </section>
 
-    <!-- 世界観キーワード -->
-    <section class="world-keywords-section" id="world-keywords">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-icon"><i class="fas fa-key"></i></span>
-                世界観キーワード
-            </h2>
-            <p class="world-section-lead">本編を読む前でも把握しやすい範囲で、世界観の軸になる言葉を整理しています。核心に触れる説明は折りたたみにしています。</p>
-            <div class="world-keyword-grid">
-                <article class="world-keyword-card">
-                    <span class="world-keyword-tag">FACILITY</span>
-                    <h3>瑠璃見サーバー施設</h3>
-                    <p>瑠璃見のダム湖周辺に存在する巨大サーバー施設。町の静かな日常の裏側にある重要な場所です。</p>
-                    <details class="world-spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>水冷系や古い接続線を備え、町の制御、記録、千花の体験が交差する中枢として描かれます。IKAROSの演算領域とも関わる、瑠璃見の歪みの象徴です。</p>
-                    </details>
-                </article>
-                <article class="world-keyword-card">
-                    <span class="world-keyword-tag">INTERFACE</span>
-                    <h3>ユビキタスリンカー</h3>
-                    <p>脳波とデジタル情報を接続する特殊なブレインマシンインターフェースです。</p>
-                    <details class="world-spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>量子演算と人間の認知をつなぐため、被験者や記憶の扱いに大きな影響を及ぼします。</p>
-                    </details>
-                </article>
-                <article class="world-keyword-card">
-                    <span class="world-keyword-tag">AI</span>
-                    <h3>レッドボックス</h3>
-                    <p>人類未到達の技術を生み出しうる、超高度AIや量子コンピュータを指す呼称です。</p>
-                    <details class="world-spoiler-detail">
-                        <summary>詳しく読む</summary>
-                        <p>軍事・政治・生活技術の均衡を左右する存在として扱われ、国家規模の管理対象になっています。</p>
-                    </details>
-                </article>
-            </div>
-            <div class="world-keywords-more">
-                <a href="#world-keywords-detail" class="btn btn-outline">
-                    詳細キーワードを見る（装備・組織・AI） <i class="fas fa-arrow-down"></i>
-                </a>
-            </div>
-            <h3 id="world-keywords-detail" class="world-keywords-detail-title">詳細キーワード（装備・組織・AI）</h3>
-            <p class="world-section-lead">装備、組織、AIに関する用語です。本編の進展に触れる内容を含むため、各項目の折りたたみを開くかどうかは読み進め具合に合わせて選んでください。</p>
-            <div class="keyword-grid">
-<article class="keyword-card" id="keyword-redbox">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>レッドボックス</h3>
-                    </div>
-                    <p>人類未到達の技術を生み出しうる、超高度AIや量子コンピュータを指す呼称。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>日本ではIKAROSや神楽が該当する。軍事・政治・生活技術の均衡を左右する存在として扱われ、核兵器級の抑止力として警戒されます。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>IKAROS</h3>
-                    </div>
-                    <p>作中の重要な超高度AI。ユビキタスリンカーの思想やカイの成立に関わる存在。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>荒木紘一の構想を内側に抱え、疑似人格カイ・ローレンスを作成した領域に関わります。瑠璃見サーバー施設の停止時には残存領域の扱いが大きな選択になります。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AI</span>
-                        <h3>神楽</h3>
-                    </div>
-                    <p>スサノオ部隊の支援にも使われる超高度AI。装備制御や作戦支援に関わる。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>強化スーツf62などの高度装備をバックアップし、対レッドボックス戦でも重要な役割を持つAIです。</p>
-                    </details>
-                </article>
-<article class="keyword-card" id="keyword-gear">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>強化スーツ</h3>
-                    </div>
-                    <p>身体保護と身体拡張を組み合わせた戦闘装備。特殊部隊で運用される。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>AI支援による姿勢制御や換装式ユニットを備え、任務に応じて飛行・高機動・防護などを拡張する。第6世代以降のスマートアイとの併用が基本です。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>強化スーツf62</h3>
-                    </div>
-                    <p>スサノオに先行配備された新型パワードスーツ。任務に応じて構成を変えられる。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>神楽のバックアップを受けて身体を拡張する試作装備。飛行ユニットや高高度狙撃など、三次元的な機動を想定しています。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">GEAR</span>
-                        <h3>シールド</h3>
-                    </div>
-                    <p>スサノオ隊に先行配備された特殊素材の防弾シールド。f62開発のプロトタイプでもある。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>多層フィルムと電子回路を内蔵し、ビーム給電による相転移で強度を上げる。自己再生ガラスの性質を持ち、継続使用を想定した装備です。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">DEVICE</span>
-                        <h3>クアンタムセル</h3>
-                    </div>
-                    <p>強化スーツなどに用いられる超高度AIの子機端末。同期によって演算能力を拡張する。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>20cm大のセルにナンバリングされ、センサーや演算補助として使われる。雷鳥に搭載された神楽のターミナルハブは、この発想へ通じるプロトタイプです。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">SUIT</span>
-                        <h3>ヘパイストス</h3>
-                    </div>
-                    <p>ユビキタスリンカーユーザー専用の高高度強襲用空中装備。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>思考操作により身体を動かさず操縦でき、分離後は浮遊支援テザードローンとしても運用できる。隠密偵察や強襲に向いた装備です。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">SUIT</span>
-                        <h3>ヘパイストスII</h3>
-                    </div>
-                    <p>ユビキタスリンカーユーザー以外にも扱えるよう改良されたヘパイストス。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>脳波コントロールで操作可能になり、ハードポイントも増設された一方、重量増加や出力低下が見られる改良型です。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">AIRCRAFT</span>
-                        <h3>輸送機C-2改「雷鳥」</h3>
-                    </div>
-                    <p>自衛隊C-2輸送機をベースにした特殊作戦用輸送機。空中指揮所としても機能する。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>13課やスサノオ部隊などが運用する輸送・指揮統制機。監視スクリーンや強化スーツのコントロールパネル、隊員の空中展開機能を備えます。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">DEVICE</span>
-                        <h3>VA64</h3>
-                    </div>
-                    <p>Vision Amplifier type64型スマートアイ。スサノオ隊の標準装備。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>第6世代スマートアイに相当するバイザー型デバイス。うなじ部の脳波集約補助デバイスで高度な入力を行います。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">WEAPON</span>
-                        <h3>VSAR</h3>
-                    </div>
-                    <p>13課の標準装備である実弾型ライフル。読みはヴァーサー。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>Variable Speed Assault Rifleの略。実弾を使用し、MDシリーズ同様にAIによる自動照準機能を備えます。</p>
-                    </details>
-                </article>
-<article class="keyword-card" id="keyword-organizations">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">ORG</span>
-                        <h3>公安局 / 第13課</h3>
-                    </div>
-                    <p>ユビキタスコアをめぐる捜査や回収に関わる国家側組織。作中の対立軸の一つ。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>国内機密情報を扱う組織として、ユビキタスコアの共同捜査や技術独占に関わる。琴音との癒着やユビキタスシステムの秘匿をめぐり、スサノオ隊と衝突します。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">ORG</span>
-                        <h3>スサノオ部隊</h3>
-                    </div>
-                    <p>ユビキタスコアの保護・国外流出防止などに関わる自衛隊側の特務部隊。</p>
-                    <details class="keyword-detail">
-                        <summary>詳しく読む</summary>
-                        <p>強化スーツf62、VA64、雷鳥などを運用する特殊部隊。13課と対立し、千花の保護をめぐる作戦に関与します。</p>
-                    </details>
-                </article>
-<article class="keyword-card">
-                    <div class="keyword-card-header">
-                        <span class="keyword-tag">PERSON</span>
-                        <h3>荒木紘一</h3>
-                    </div>
-                    <p>ユビキタスコアおよびユビキタスリンカーの開発者。脳科学者であり量子コンピュータ研究者。</p>
-                    <details class="keyword-detail spoiler-detail">
-                        <summary>核心に触れる可能性があります</summary>
-                        <p>ユビキタスリンカー計画と千花の過去に関わる研究者。彼の告発記録は、事故、救命、実験、アナログハッチの存在をつなぐ重要な証拠になります。</p>
-                    </details>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- 舞台設定 -->
+    <!-- 舞台設定 + 瑠璃見レーダーマップ -->
     <section class="setting-section">
         <div class="container">
             <h2 class="section-title">
                 <span class="title-icon"><i class="fas fa-map-marker-alt"></i></span>
-                舞台設定
+                舞台設定 // 瑠璃見セクター
             </h2>
-            <div class="setting-content">
+            <div class="setting-grid">
                 <div class="location-card">
                     <div class="location-header">
                         <h3>瑠璃見町</h3>
-                        <p class="location-subtitle">物語の舞台</p>
+                        <p class="location-subtitle">RURIMI SECTOR-01</p>
                     </div>
                     <div class="location-description">
-                        <p>時代の波から少し遅れた山間部の田舎町。都市部とは違い、古い生活様式と新しいネットワークが不均一に重なっている。</p>
-                        <p>ネオユビキタスネットワークの恩恵を十分に受けられない地域であり、その静かな環境が物語の違和感を際立たせる舞台になります。</p>
+                        <p>時代の波から少し遅れた山間部の田舎町。古い木造校舎や瓦屋根の家並みと、近年張り巡らされた最新の情報網が不均一に重なり合っている。</p>
+                        <p>町外れのダム湖周辺には巨大な「瑠璃見サーバー施設」が佇み、静かな日常の裏側で異常接続や隠蔽記録の接点となる。</p>
                     </div>
                     <div class="location-features">
                         <div class="feature-item">
                             <i class="fas fa-mountain"></i>
-                            <span>山間部の田舎町</span>
+                            <span>外輪山と盆地地形</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-water"></i>
-                            <span>ダム湖と山道</span>
+                            <span>水冷利用のダム湖</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span>不均一なネットワーク</span>
+                            <i class="fas fa-school"></i>
+                            <span>瑠璃見高校・旧体育館</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="rurimi-map-card" data-raw-tag="CONTOUR // AFX-012 RELAY">
+                    <div class="panel-label">TOPOGRAPHIC RADAR // RURIMI</div>
+                    <svg class="rurimi-map-svg" viewBox="0 0 460 320" role="img" aria-label="瑠璃見町 地形レーダー図">
+                        <!-- Contour lines -->
+                        <path d="M20 70 Q120 20 220 60 T440 45" fill="none" stroke="rgba(103,232,249,0.22)" stroke-width="1"/>
+                        <path d="M15 110 Q130 55 240 95 T445 85" fill="none" stroke="rgba(103,232,249,0.18)" stroke-width="1"/>
+                        <path d="M20 265 Q140 225 260 260 T440 245" fill="none" stroke="rgba(103,232,249,0.18)" stroke-width="1"/>
+                        <!-- Dam lake -->
+                        <path d="M265 95 C325 75, 410 105, 420 155 C428 202, 360 228, 300 205 C255 186, 232 122, 265 95 Z" fill="rgba(34,211,238,0.1)" stroke="rgba(103,232,249,0.45)" stroke-width="1.3"/>
+                        <!-- Server node -->
+                        <rect x="332" y="136" width="22" height="22" fill="rgba(165,180,252,0.25)" stroke="#a5b4fc" stroke-width="1.5"/>
+                        <text x="343" y="176" text-anchor="middle" fill="#a5b4fc" font-family="Share Tech Mono, monospace" font-size="10">RURIMI SERVER</text>
+                        <!-- High School & Old Gym -->
+                        <circle cx="135" cy="148" r="6" fill="#67e8f9"/>
+                        <text x="135" y="135" text-anchor="middle" fill="#67e8f9" font-family="Share Tech Mono, monospace" font-size="10">RURIMI HIGH</text>
+                        <!-- Intersection A-17 -->
+                        <circle cx="178" cy="222" r="5" fill="#67e8f9"/>
+                        <line x1="135" y1="148" x2="178" y2="222" stroke="rgba(103,232,249,0.5)" stroke-dasharray="4 3"/>
+                        <text x="178" y="242" text-anchor="middle" fill="#67e8f9" font-family="Share Tech Mono, monospace" font-size="10">INTERSECTION A-17</text>
+                        <!-- RAW VISION Hidden Beacon Trace -->
+                        <g class="map-raw-secret">
+                            <line x1="135" y1="148" x2="343" y2="147" stroke="#fda4af" stroke-width="1.5" stroke-dasharray="3 3"/>
+                            <circle cx="240" cy="147" r="4" fill="#fda4af"/>
+                            <text x="240" y="138" text-anchor="middle" fill="#fda4af" font-family="Share Tech Mono, monospace" font-size="9">RELAY // AFX-012-VFZ23</text>
+                        </g>
+                    </svg>
+                    <div class="map-legend">
+                        <span><i class="map-dot map-dot--cyan"></i>日常領域（高校・通学路A-17）</span>
+                        <span><i class="map-dot map-dot--violet"></i>ダム湖・瑠璃見サーバー施設</span>
+                        <span><i class="map-dot map-dot--rose"></i>RAW VISION時のみ可視</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 年代タイムライン -->
+    <section class="world-timeline-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon"><i class="fas fa-stream"></i></span>
+                年代アーカイブ（2070〜2076）
+            </h2>
+            <div class="timeline-track">
+                <article class="timeline-node">
+                    <div class="timeline-year">2070</div>
+                    <h3>秘匿された論文</h3>
+                    <p>脳科学・量子コンピュータ研究者・荒木紘一がユビキタスリンカーに関わる研究を発表。ほどなくして存在は抹消される。</p>
+                </article>
+                <article class="timeline-node">
+                    <div class="timeline-year">2072.04</div>
+                    <h3>事故と空白の半年</h3>
+                    <p>春風千花が事故により意識不明の昏睡状態に。記録上の半年間と千花の記憶にある「一度目の高校一年生」が食い違う。</p>
+                </article>
+                <article class="timeline-node">
+                    <div class="timeline-year">2073.04</div>
+                    <h3>第1部：境界の亀裂</h3>
+                    <p>瑠璃見の交差点A-17で千花が端末なしに情報網を視認。スサノオ隊・神田響と第13課の接触により日常が崩壊する。</p>
+                </article>
+                <article class="timeline-node">
+                    <div class="timeline-year">2076.11</div>
+                    <h3>第2部：第1次電子大戦編</h3>
+                    <p>東京で宇宙工学を学ぶ大学生となった千花。裏ではスサノオ隊の外部協力者として吉祥寺や秋葉原の電子戦へ身を投じる。</p>
+                </article>
             </div>
         </div>
     </section>
@@ -441,67 +362,130 @@
                 組織・勢力
             </h2>
             <div class="organizations-grid">
-                <div class="org-card">
+                <div class="org-card" data-raw-tag="UNIT: SUSANOO // KAGURA">
                     <div class="org-header">
                         <div class="org-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
                         <h3>スサノオ隊</h3>
-                        <p class="org-subtitle">自衛隊電子戦部隊</p>
+                        <p class="org-subtitle">自衛隊特殊電子戦部隊</p>
                     </div>
                     <div class="org-description">
-                        <p>自衛隊側の電子戦部隊。高度AI時代の特殊事案に対応し、瑠璃見で起こる異変にも関わっていく。</p>
+                        <p>防衛省傘下の非公開電子戦部隊。超高度AI《神楽》やMD59、強化スーツf62、輸送機C-2改「雷鳥」を運用し、千花の保護と監視を担う。</p>
                         <div class="org-members">
-                            <div class="member">
-                                <strong>近藤達也</strong> - 隊長
-                            </div>
-                            <div class="member">
-                                <strong>清水</strong> - 隊員
-                            </div>
+                            <div class="member"><strong>近藤達也</strong> - 総隊長</div>
+                            <div class="member"><strong>立山美弓</strong> - 第一小隊長</div>
+                            <div class="member"><strong>神田響 / 清水暁美 / 木村佳織</strong> - 第一小隊</div>
+                            <div class="member"><strong>御厨玲奈</strong> - 本部付解析班長</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="org-card">
+                <div class="org-card" data-raw-tag="13TH DIV // COVERT">
                     <div class="org-header">
                         <div class="org-icon">
                             <i class="fas fa-user-secret"></i>
                         </div>
-                        <h3>公安情報局第13課</h3>
+                        <h3>公安情報局 第13課</h3>
                         <p class="org-subtitle">情報機関</p>
                     </div>
                     <div class="org-description">
-                        <p>公安情報局の一部門。ユビキタスリンカーやユビキタスコアをめぐる調査に関わり、作中の緊張を生む組織。</p>
+                        <p>公安情報局の一部門。「都合の悪い事象」を処理し、ユビキタスコアをめぐる調査や千花の強硬な回収作戦でスサノオ隊と対立する。</p>
                         <div class="org-activities">
                             <div class="activity">
                                 <i class="fas fa-exclamation-triangle"></i>
-                                <span>機密技術の調査</span>
+                                <span>機密技術の独占・回収</span>
                             </div>
                             <div class="activity">
                                 <i class="fas fa-user-secret"></i>
-                                <span>非公開作戦</span>
+                                <span>非公開工作・情報遮断</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="org-card">
+                <div class="org-card" data-raw-tag="LAB // ARCHIVED">
                     <div class="org-header">
                         <div class="org-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
                         <h3>大学病院研究チーム</h3>
-                        <p class="org-subtitle">医療・研究機関</p>
+                        <p class="org-subtitle">医療・量子研究機関</p>
                     </div>
                     <div class="org-description">
-                        <p>都内の大学病院に勤める研究者たち。医療と先端研究の境界で、ユビキタスリンカーの開発史に関わっている。</p>
+                        <p>都内の大学病院に籍を置いていた研究者たち。医療と先端量子工学の境界で、ユビキタスリンカーの開発史に深く関わっている。</p>
                         <div class="org-members">
-                            <div class="member">
-                                <strong>荒木紘一</strong> - 主任研究者
-                            </div>
+                            <div class="member"><strong>荒木紘一</strong> - 主任研究者</div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- スサノオ隊 配備武装・戦闘服ブループリント -->
+    <section class="susanoo-blueprint-section" id="susanoo-gear">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon"><i class="fas fa-drafting-compass"></i></span>
+                配備装備・戦闘服仕様 // SUSANOO SPEC
+            </h2>
+            <div class="blueprint-grid">
+                <article class="blueprint-card" data-raw-tag="RAIL-HANDGUN // MD59">
+                    <span class="topology-detail-tag">WEAPON // MD59</span>
+                    <h3>多機能電子銃 MD59（Multifunctional Dominator）</h3>
+                    <p>口径2mm・装弾数24発のレールガン式電子拳銃。《神楽》とのリンク下では銃身センサーによる高精度照準・反動制御を行い、非殺傷制圧から対物貫通まで電圧で出力を可変させる。</p>
+                    <svg class="blueprint-svg" viewBox="0 0 460 190" role="img" aria-label="MD59 電子銃 設計シルエット">
+                        <!-- Grid lines -->
+                        <line x1="20" y1="95" x2="440" y2="95" stroke="rgba(103,232,249,0.16)" stroke-dasharray="4 4"/>
+                        <line x1="220" y1="15" x2="220" y2="175" stroke="rgba(103,232,249,0.16)" stroke-dasharray="4 4"/>
+                        <!-- Angular MD59 silhouette matching 3D model -->
+                        <polygon points="88,108 135,98 188,62 246,38 308,66 364,66 392,76 418,76 418,96 366,96 346,118 292,118 270,98 205,98 185,126 164,126 150,154 114,154 128,122 88,120" fill="rgba(10,24,42,0.72)" stroke="#67e8f9" stroke-width="1.8"/>
+                        <!-- Open triangular carry/frame cutout -->
+                        <polygon points="184,88 238,56 268,78 212,88" fill="#040812" stroke="#67e8f9" stroke-width="1.2"/>
+                        <!-- Green optical sensor slit on upper slope -->
+                        <polygon points="274,48 292,57 288,63 270,54" fill="#4ade80" stroke="#86efac" stroke-width="1"/>
+                        <!-- Callout annotations -->
+                        <line x1="282" y1="54" x2="328" y2="28" stroke="#4ade80" stroke-width="1"/>
+                        <text x="332" y="31" fill="#86efac" font-family="Share Tech Mono, monospace" font-size="10">KAGURA OPTIC SLIT</text>
+                        <line x1="405" y1="86" x2="405" y2="136" stroke="#67e8f9" stroke-width="1"/>
+                        <text x="335" y="150" fill="#67e8f9" font-family="Share Tech Mono, monospace" font-size="10">2mm RAIL BARREL</text>
+                    </svg>
+                    <ul class="blueprint-specs">
+                        <li>口径：2mm 無火薬レールガン / 装弾数：24発</li>
+                        <li>出力制御：非殺傷スタン〜長距離精密射撃（最大1km）</li>
+                        <li>オフライン時はマニュアル射撃へフォールバック可能</li>
+                    </ul>
+                </article>
+
+                <article class="blueprint-card" data-raw-tag="UNIFORM // JACKET + SKIRT">
+                    <span class="topology-detail-tag">UNIFORM // SUSANOO COMBAT</span>
+                    <h3>スサノオ隊 標準戦闘服</h3>
+                    <p>白のボタンシャツの上から、立襟オレンジラインと袖口白ラインの入った機能的なショートジャケットを着込むスタイル。女性隊員はベルトと機動性の高い戦闘スカートを組み合わせる。</p>
+                    <svg class="blueprint-svg" viewBox="0 0 320 190" role="img" aria-label="スサノオ隊 戦闘服 仕様図">
+                        <!-- Stand-collar cropped jacket over white shirt -->
+                        <path d="M115 36 L142 30 L160 34 L178 30 L205 36 L224 72 L210 112 L182 112 L176 96 L144 96 L138 112 L110 112 L96 72 Z" fill="rgba(15,30,52,0.85)" stroke="#67e8f9" stroke-width="1.5"/>
+                        <!-- White dress shirt front V -->
+                        <polygon points="145,42 175,42 182,110 138,110" fill="rgba(230,241,255,0.22)" stroke="#e6f1ff" stroke-width="1"/>
+                        <!-- Orange collar trim -->
+                        <path d="M142 30 L160 35 L178 30" fill="none" stroke="#fbbf24" stroke-width="2.6"/>
+                        <!-- White cuff accents -->
+                        <line x1="100" y1="98" x2="115" y2="102" stroke="#e6f1ff" stroke-width="2"/>
+                        <line x1="205" y1="102" x2="220" y2="98" stroke="#e6f1ff" stroke-width="2"/>
+                        <!-- Waist belt & female tactical skirt -->
+                        <rect x="136" y="110" width="48" height="9" fill="#1e293b" stroke="#67e8f9" stroke-width="1.2"/>
+                        <polygon points="136,119 184,119 198,166 122,166" fill="rgba(15,30,52,0.8)" stroke="#a5b4fc" stroke-width="1.4"/>
+                        <!-- Labels -->
+                        <text x="16" y="42" fill="#fbbf24" font-family="Share Tech Mono, monospace" font-size="9">COLLAR TRIM</text>
+                        <line x1="82" y1="39" x2="140" y2="33" stroke="#fbbf24" stroke-width="0.9"/>
+                        <text x="218" y="148" fill="#a5b4fc" font-family="Share Tech Mono, monospace" font-size="9">FEMALE: SKIRT SPEC</text>
+                        <line x1="192" y1="145" x2="215" y2="145" stroke="#a5b4fc" stroke-width="0.9"/>
+                    </svg>
+                    <ul class="blueprint-specs">
+                        <li>構造：白シャツ＋ショートジャケット＋タクティカルベルト</li>
+                        <li>女性隊員仕様：戦闘スカート採用（機動・遮蔽対応）</li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
@@ -521,20 +505,22 @@
                         <li><a href="story.html">ストーリー</a></li>
                         <li><a href="characters.html">キャラクター</a></li>
                         <li><a href="world.html">世界観</a></li>
-                        <li><a href="index.html#keywords">キーワード</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>お問い合わせ</h4>
-                    <p>公式サイトに関するお問い合わせはこちらまで</p>
+                    <h4>プロジェクト</h4>
+                    <p>オリジナルSF小説公式サイト</p>
+                    <p><a href="https://github.com/HoloMoto/Echoes_of_a_MisalignedReality" target="_blank" rel="noopener noreferrer">GitHub Repository <i class="fas fa-external-link-alt"></i></a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 春風シンクレティック. All rights reserved by HoloMoto.</p>
+                <p>&copy; 2025-2026 春風シンクレティック. All rights reserved by HoloMoto.</p>
             </div>
         </div>
     </footer>
 
+    <script src="scripts/syncretic-fx.js" defer></script>
+    <script src="scripts/world-graphics.js" defer></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

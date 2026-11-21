@@ -1,0 +1,312 @@
+/* ==========================================================================
+   World Page Graphic Atlas: Interactive Topology, Contour Map & Timeline
+   フォント不変: Noto Sans JP / GAU Root / Share Tech Mono
+   ========================================================================== */
+
+.world-topology-section,
+.world-timeline-section {
+  padding: 88px 0;
+  border-top: 1px solid var(--df-line-soft);
+}
+
+.topology-shell {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.topology-canvas-card,
+.topology-detail-card,
+.rurimi-map-card,
+.timeline-card {
+  background: var(--df-panel);
+  border: 1px solid var(--df-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5rem;
+}
+
+.topology-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.topo-edge {
+  stroke: var(--df-line);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+}
+
+.topo-edge.is-highlighted {
+  stroke: var(--df-cyan);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+}
+
+.topo-node {
+  cursor: pointer;
+}
+
+.topo-node rect,
+.topo-node circle,
+.topo-node polygon {
+  fill: var(--df-panel-strong);
+  stroke: var(--df-line);
+  stroke-width: 1.5;
+  transition: stroke 0.2s ease, fill 0.2s ease, filter 0.2s ease;
+}
+
+.topo-node text {
+  fill: var(--df-text);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.topo-node text.topo-code {
+  fill: var(--df-cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.topo-node:hover rect,
+.topo-node.is-selected rect,
+.topo-node:hover circle,
+.topo-node.is-selected circle {
+  stroke: var(--df-cyan);
+  fill: rgba(34, 211, 238, 0.14);
+}
+
+.topology-detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.topology-detail-tag {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--df-line);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--df-cyan);
+}
+
+.topology-detail-title {
+  font-size: 1.35rem;
+  color: var(--df-text);
+}
+
+.topology-detail-body {
+  color: var(--df-text-muted);
+  line-height: 1.85;
+  font-size: 0.94rem;
+}
+
+.topology-detail-links {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--df-line-soft);
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.8rem;
+  color: var(--df-violet);
+}
+
+/* ---------- Rurimi Topographic Contour Map ---------- */
+.setting-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.rurimi-map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.75rem;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.74rem;
+  color: var(--df-text-muted);
+}
+
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.map-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.map-dot--cyan { background: var(--df-cyan); }
+.map-dot--violet { background: var(--df-violet); }
+.map-dot--rose { background: var(--df-rose); }
+
+.map-raw-secret {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+html.raw-vision .map-raw-secret {
+  opacity: 1;
+}
+
+/* ---------- World Timeline Graphic ---------- */
+.timeline-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.timeline-track::before {
+  content: '';
+  position: absolute;
+  top: 1.35rem;
+  left: 2rem;
+  right: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--df-cyan), var(--df-violet));
+  opacity: 0.45;
+}
+
+.timeline-node {
+  position: relative;
+  padding: 2.6rem 1.25rem 1.35rem;
+  border: 1px solid var(--df-line-soft);
+  background: var(--df-panel);
+  backdrop-filter: blur(8px);
+}
+
+.timeline-node::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--df-cyan);
+  background: var(--df-bg);
+  box-shadow: 0 0 12px var(--df-glow);
+}
+
+.timeline-year {
+  font-family: 'GAU Root', 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: var(--df-cyan);
+  margin-bottom: 0.45rem;
+}
+
+.timeline-node h3 {
+  font-size: 1.05rem;
+  color: var(--df-text);
+  margin-bottom: 0.55rem;
+}
+
+.timeline-node p {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--df-text-muted);
+}
+
+@media (max-width: 960px) {
+  .topology-shell,
+  .setting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timeline-track::before {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .timeline-track {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- MD59 & Susanoo Tactical Equipment Blueprint ---------- */
+.susanoo-blueprint-section {
+  padding: 72px 0;
+  border-top: 1px solid var(--df-line-soft);
+}
+
+.blueprint-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.5rem;
+}
+
+.blueprint-card {
+  background: var(--df-panel);
+  border: 1px solid var(--df-line);
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.blueprint-card h3 {
+  font-size: 1.2rem;
+  color: var(--df-text);
+  margin: 0.45rem 0 0.75rem;
+}
+
+.blueprint-card p {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--df-text-muted);
+}
+
+.blueprint-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.blueprint-specs {
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-size: 0.78rem;
+  color: var(--df-text-muted);
+}
+
+.blueprint-specs li::before {
+  content: '> ';
+  color: var(--df-cyan);
+}
+
+@media (max-width: 900px) {
+  .blueprint-grid {
+    grid-template-columns: 1fr;
+  }
+}

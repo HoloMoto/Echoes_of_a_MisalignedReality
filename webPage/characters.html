@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>キャラクター - 春風シンクレティック</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <meta name="description" content="『春風シンクレティック』の登場人物紹介。春風千花、神宮寺カイ、姫宮綾ほか、瑠璃見の人々。">
+    <meta name="description" content="『春風シンクレティック』の登場人物紹介。春風千花、神田響、永洞綾、美綴琴音ほか、瑠璃見とスサノオ隊の人々。">
     <meta property="og:type" content="website">
     <meta property="og:title" content="キャラクター - 春風シンクレティック">
-    <meta property="og:description" content="『春風シンクレティック』の登場人物紹介。春風千花、神宮寺カイ、姫宮綾ほか、瑠璃見の人々。">
+    <meta property="og:description" content="『春風シンクレティック』の登場人物紹介。春風千花、神田響、永洞綾、美綴琴音ほか、瑠璃見とスサノオ隊の人々。">
     <meta property="og:url" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/characters.html">
     <meta property="og:image" content="https://holomoto.github.io/Echoes_of_a_MisalignedReality/webPage/images/ChikaHarukaze.png">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/theme.css">
     <link rel="stylesheet" href="styles/characters.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/syncretic-hud.css">
+    <link rel="stylesheet" href="styles/characters-dossier.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="scripts/theme-init.js"></script>
 </head>
@@ -42,9 +44,6 @@
                     <li class="nav-item">
                         <a href="world.html" class="nav-link">世界観</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#news" class="nav-link">ニュース</a>
-                    </li>
                 </ul>
                 <div class="hamburger">
                     <span class="bar"></span>
@@ -59,8 +58,8 @@
     <section class="page-header">
         <div class="container">
             <div class="page-title">
-                <h1>キャラクター</h1>
-                <p>物語を彩る登場人物たち</p>
+                <h1 class="hud-decode" data-text="キャラクター">キャラクター</h1>
+                <p>BIOMETRIC DOSSIER // 物語を彩る登場人物たち</p>
             </div>
         </div>
     </section>
@@ -68,12 +67,12 @@
     <!-- メインキャラクター -->
     <section class="main-character" id="chika">
         <div class="container">
-            <div class="character-detail">
+            <div class="character-detail" data-raw-tag="CALLSIGN: F-BLOOM // CORE HOLDER">
                 <div class="character-image-large">
-                    <div class="character-illustration">
+                    <div class="character-illustration optical-plate-circle">
                         <img src="images/ChikaHarukaze.png" alt="春風千花" class="character-portrait">
                     </div>
-                    <div class="character-badge main">メインキャラクター</div>
+                    <div class="character-badge main">F-BLOOM // MAIN</div>
                 </div>
                 <div class="character-info-large">
                     <h2 class="character-name-large">春風 千花</h2>
@@ -81,7 +80,7 @@
                     <div class="character-stats">
                         <div class="stat">
                             <span class="stat-label">年齢</span>
-                            <span class="stat-value">16歳</span>
+                            <span class="stat-value">16歳（第1部）</span>
                         </div>
                         <div class="stat">
                             <span class="stat-label">身長</span>
@@ -99,8 +98,8 @@
                     <div class="character-description-large">
                         <h3>プロフィール</h3>
                         <p>物心つく前に両親が蒸発したため親の顔を知らず、瑠璃見の親戚の家で育った。瑠璃見からほとんど外へ出たことがないため広い世界へのあこがれと、変わらない日常への退屈さを感じている。</p>
-                        <p>物語開始1年前、2062年4月3日に土砂崩れに巻き込まれ意識不明の昏睡状態により8か月間の集中治療が行われた。</p>
-                        <p>というのが記録上の物であり、千花自身はその期間に１度目の高校一年生を過ごす中である少年と出会った。</p>
+                        <p>物語開始1年前、2072年4月14日の事故により意識不明の昏睡状態となり、半年間の集中治療が行われた。</p>
+                        <p>――というのが記録上の話であり、千花自身はその期間に「一度目の高校一年生」を過ごす中である少年と出会った記憶を持っている。</p>
                     </div>
                     <div class="character-abilities">
                         <h3>特技・能力</h3>
@@ -129,116 +128,152 @@
         <div class="container">
             <h2 class="section-title">
                 <span class="title-icon"><i class="fas fa-users"></i></span>
-                その他のキャラクター
+                登場人物ファイル
             </h2>
-            <div class="characters-grid">
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="character-badge">重要人物</div>
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">美綴 琴音</h3>
-                        <p class="character-name-romaji">Mitodori Kotone</p>
-                        <div class="character-role">政界の重要人物</div>
-                        <p class="character-description">政界に強い影響力を持つ人物。元脳科学研究者。</p>
-                        <div class="character-relations">
-              
-                        </div>
-                    </div>
-                </div>
+            <div class="character-filter-bar" role="tablist" aria-label="所属フィルタ">
+                <button type="button" class="char-filter-btn is-active" data-faction="all">ALL [8]</button>
+                <button type="button" class="char-filter-btn" data-faction="rurimi">瑠璃見・日常 [2]</button>
+                <button type="button" class="char-filter-btn" data-faction="susanoo">スサノオ隊 [4]</button>
+                <button type="button" class="char-filter-btn" data-faction="politics">政界・研究 [2]</button>
+            </div>
 
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="character-badge">国防省　自衛隊電子戦部隊　スサノオ隊</div>
+            <div class="characters-grid" id="charactersGrid">
+                <div class="character-card-detailed" data-faction="susanoo" data-raw-tag="CALLSIGN: F-ECHO // DUAL-AGENT">
+                    <div class="character-image character-image-plate">
+                        <img src="images/KandaHibiki.jpg" alt="神田響" class="character-portrait-rect">
+                        <div class="character-badge">スサノオ隊</div>
+                        <span class="character-dossier-code">F-ECHO // 01</span>
                     </div>
                     <div class="character-info">
                         <h3 class="character-name">神田 響</h3>
                         <p class="character-name-romaji">Kanda Hibiki</p>
-                        <div class="character-role">国防省　自衛隊特殊電子戦部隊所属の准尉</div>
-                        <p class="character-description">千花と接触した謎多き青年</p>
+                        <div class="character-role">国防省 自衛隊特殊電子戦部隊・准尉</div>
+                        <p class="character-description">千花の異常接続を観測して接触した24歳の青年。野性味を帯びた不器用な大人の顔を覗かせながら、距離と呼吸を見極め現場に立ち、真実への鍵となるメモリーを託す。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 H45 L55 3 L65 17 L75 10 H155 L165 5 L175 15 L185 10 H240" stroke="currentColor" stroke-width="1.2"/>
+                        </svg>
                     </div>
                 </div>
 
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="character-badge">重要人物？</div>
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">彼</h3>
-                        <p class="character-name-romaji">彼</p>
-                        <div class="character-role">千花の記憶の中の少年</div>
-                        <p class="character-description">仮想世界で千花が出会った少年。空への憧れを抱き、学校のボロ倉庫でライト兄弟の作成したライトフライヤー号のレプリカを作成し大空を飛ぼうと夢見る。</p>
-                    </div>
-                </div>
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
+                <div class="character-card-detailed" data-faction="rurimi" data-raw-tag="RED SMART EYE // ANCHOR">
+                    <div class="character-image character-image-plate">
+                        <img src="images/AyaEido.jpg" alt="永洞綾" class="character-portrait-rect">
                         <div class="character-badge">教師</div>
+                        <span class="character-dossier-code">ANCHOR // 02</span>
                     </div>
                     <div class="character-info">
                         <h3 class="character-name">永洞 綾</h3>
                         <p class="character-name-romaji">Eido Aya</p>
-                        <div class="character-role">国語科教師</div>
-                        <p class="character-description">瑠璃三高校の教師 国語担当。26歳。派手なバイクが好き。</p>
-                      
+                        <div class="character-role">瑠璃見高校 国語科教師</div>
+                        <p class="character-description">瑠璃見高校の現代文担当教師。27歳。赤いバイクと赤いスマートアイ、銀の翼のペンダントを身につけ、千花の記憶を否定せず受け止める。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 Q30 2 60 10 T120 10 T180 10 T240 10" stroke="currentColor" stroke-width="1.2"/>
+                        </svg>
                     </div>
                 </div>
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
+
+                <div class="character-card-detailed" data-faction="rurimi" data-raw-tag="MEMORY // FILE CORRUPTED">
+                    <div class="character-image character-image-plate">
+                        <img src="images/KaiBoy.jpg" alt="記憶の中の少年" class="character-portrait-rect">
+                        <div class="character-badge">記憶の中の少年</div>
+                        <span class="character-dossier-code">ARCHIVE // 12</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">彼</h3>
+                        <p class="character-name-romaji">UNKNOWN // MEMORY</p>
+                        <div class="character-role">千花の記憶の中の少年</div>
+                        <p class="character-description">一度目の春で千花が出会った少年。空への憧れを抱き、旧校舎のボロ倉庫でライトフライヤー号の再現機を作り、大空へ飛ぶことを夢見ていた。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 12 L25 8 L40 15 L65 4 L90 13 L120 10 L148 3 L176 16 L205 9 L240 10" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 2"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="character-card-detailed" data-faction="susanoo" data-raw-tag="CALLSIGN: F-FROST // AFX-012">
+                    <div class="character-image character-image-plate">
+                        <img src="images/4-1.jpg" alt="清水暁美" class="character-portrait-rect">
+                        <div class="character-badge">スサノオ隊</div>
+                        <span class="character-dossier-code">F-FROST // 03</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">清水 暁美</h3>
+                        <p class="character-name-romaji">Shimizu Akemi</p>
+                        <div class="character-role">スサノオ隊 三尉</div>
+                        <p class="character-description">スサノオ隊の電子戦・医療・前線支援要員。左目元の涙ボクロが印象的な冷静なプロフェッショナル。第13課の妨害から千花を保護する。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 H70 L78 2 L86 18 L94 10 H185 L193 4 L201 16 L209 10 H240" stroke="currentColor" stroke-width="1.2"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="character-card-detailed" data-faction="susanoo" data-raw-tag="CALLSIGN: F-HEX // 6-DRONE LINK">
+                    <div class="character-image character-image-plate">
+                        <img src="images/KimuraKaori.jpg" alt="木村佳織" class="character-portrait-rect">
+                        <div class="character-badge">スサノオ隊</div>
+                        <span class="character-dossier-code">F-HEX // 04</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">木村 佳織</h3>
+                        <p class="character-name-romaji">Kimura Kaori</p>
+                        <div class="character-role">スサノオ隊 准尉（情報分析・護衛）</div>
+                        <p class="character-description">23歳。小柄ながら卓越した空間認識能力を持ち、6機のドローンを同時に操る電子戦のエキスパート。白シャツにショートジャケットとスカートのスサノオ戦闘服を纏い、第1部では綾の救出を、第2部では千花のバディを務める。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 H30 L40 4 L50 16 L60 10 H90 L100 4 L110 16 L120 10 H150 L160 4 L170 16 L180 10 H240" stroke="currentColor" stroke-width="1.2"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="character-card-detailed" data-faction="susanoo" data-raw-tag="COMMAND // SUSANOO">
+                    <div class="character-image character-image-plate">
+                        <img src="images/KondoTatsuya.jpg" alt="近藤達也" class="character-portrait-rect">
+                        <div class="character-badge">総隊長</div>
+                        <span class="character-dossier-code">CMD // 00</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">近藤 達也</h3>
+                        <p class="character-name-romaji">Kondo Tatsuya</p>
+                        <div class="character-role">スサノオ隊 総隊長（一佐）</div>
+                        <p class="character-description">自衛隊電子戦部隊スサノオ隊を率いる54歳の指揮官。任務には厳格ながら部下と市民を重んじ、荒木紘一から事件の告発を受け取ろうとする。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 H240" stroke="currentColor" stroke-width="1" stroke-dasharray="6 4"/>
+                            <path d="M90 10 L105 3 L120 17 L135 10" stroke="currentColor" stroke-width="1.4"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="character-card-detailed" data-faction="politics" data-raw-tag="CLASSIFIED // POL">
+                    <div class="character-image character-image-plate">
+                        <img src="images/MituduriKotone.jpg" alt="美綴琴音" class="character-portrait-rect">
+                        <div class="character-badge">重要人物</div>
+                        <span class="character-dossier-code">POL // 05</span>
+                    </div>
+                    <div class="character-info">
+                        <h3 class="character-name">美綴 琴音</h3>
+                        <p class="character-name-romaji">Mituduri Kotone</p>
+                        <div class="character-role">政界の重要人物</div>
+                        <p class="character-description">政界に強い影響力を持つ35歳の若手政治家。元・脳科学研究者であり、黒塗り報告書の中でその名が浮かび上がる。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <rect x="20" y="7" width="54" height="6" fill="currentColor" opacity="0.5"/>
+                            <path d="M84 10 H155" stroke="currentColor" stroke-width="1.2"/>
+                            <rect x="165" y="7" width="48" height="6" fill="currentColor" opacity="0.5"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="character-card-detailed" data-faction="politics" data-raw-tag="ARCHIVED RECORD // ARAKI">
+                    <div class="character-image character-image-plate">
+                        <img src="images/ArakiKouichi.jpg" alt="荒木紘一" class="character-portrait-rect">
                         <div class="character-badge">研究者</div>
+                        <span class="character-dossier-code">LAB // 06</span>
                     </div>
                     <div class="character-info">
                         <h3 class="character-name">荒木 紘一</h3>
                         <p class="character-name-romaji">Araki Kouichi</p>
                         <div class="character-role">大学病院研究者</div>
-                        <p class="character-description">千花の治療に関連した研究者</p>
-                        
-                    </div>
-                </div>
-
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="character-badge">隊長</div>
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">近藤 達也</h3>
-                        <p class="character-name-romaji">Kondo Tatsuya</p>
-                        <div class="character-role">スサノオ隊隊長</div>
-                        <p class="character-description">自衛隊電子戦部隊スサノオ隊隊長。荒木紘一から事件のすべてを伝えられようとするが、13課の妨害により断片的に情報を得る。</p>
-
-                    </div>
-                </div>
-
-                <div class="character-card-detailed">
-                    <div class="character-image">
-                        <div class="character-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                        <div class="character-badge">隊員</div>
-                    </div>
-                    <div class="character-info">
-                        <h3 class="character-name">清水　暁美</h3>
-                        <p class="character-name-romaji">Shimizu</p>
-                        <div class="character-role">スサノオ隊員</div>
-                        <p class="character-description">スサノオ隊の隊員。第13課による千花誘拐未遂、綾暗殺未遂を阻止し、千花をスサノオ隊に保護する。</p>
-
+                        <p class="character-description">ユビキタスリンカー研究と千花の治療に関わった脳科学・量子コンピュータ研究者。2072年末に不審死を遂げたと記録されている。</p>
+                        <svg class="character-wave-strip" viewBox="0 0 240 20" fill="none" aria-hidden="true">
+                            <path d="M0 10 C30 2, 50 18, 80 10 C110 2, 130 18, 160 10 C190 2, 210 18, 240 10" stroke="currentColor" stroke-width="1.2"/>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -263,16 +298,34 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>お問い合わせ</h4>
-                    <p>公式サイトに関するお問い合わせはこちらまで</p>
+                    <h4>プロジェクト</h4>
+                    <p>オリジナルSF小説公式サイト</p>
+                    <p><a href="https://github.com/HoloMoto/Echoes_of_a_MisalignedReality" target="_blank" rel="noopener noreferrer">GitHub Repository <i class="fas fa-external-link-alt"></i></a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 春風シンクレティック. All rights reserved.</p>
+                <p>&copy; 2025-2026 春風シンクレティック. All rights reserved by HoloMoto.</p>
             </div>
         </div>
     </footer>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var btns = document.querySelectorAll('.char-filter-btn');
+        var cards = document.querySelectorAll('.character-card-detailed');
+        btns.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var target = btn.getAttribute('data-faction');
+            btns.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+            cards.forEach(function (card) {
+              var match = target === 'all' || card.getAttribute('data-faction') === target;
+              card.classList.toggle('is-hidden', !match);
+            });
+          });
+        });
+      });
+    </script>
+    <script src="scripts/syncretic-fx.js" defer></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

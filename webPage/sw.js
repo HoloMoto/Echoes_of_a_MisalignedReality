@@ -1,10 +1,10 @@
 /**
- * Episode cache SW — serve prefetched episode HTML (and warm assets) on navigation.
- * Scope: same directory as this file (webPage/).
+ * Episode cache SW — serve prefetched episode HTML and shared assets.
+ * Scope: webPage/
  */
-const CACHE_NAME = 'hs-episode-cache-v2';
+const CACHE_NAME = 'hs-episode-cache-v4';
 
-self.addEventListener('install', function (event) {
+self.addEventListener('install', function () {
   self.skipWaiting();
 });
 
@@ -26,30 +26,29 @@ self.addEventListener('activate', function (event) {
   );
 });
 
-function isEpisodeHtml(url) {
-  return /\/episode\d+\.html$/i.test(url.pathname);
+function isPublishedEpisodeHtml(url) {
+  var p1 = url.pathname.match(/\/episode(\d+)\.html$/i);
+  if (p1) return parseInt(p1[1], 10) >= 1 && parseInt(p1[1], 10) <= 7;
+  var p2 = url.pathname.match(/\/part2_episode(\d+)\.html$/i);
+  if (p2) return parseInt(p2[1], 10) >= 1 && parseInt(p2[1], 10) <= 2;
+  return false;
+}
+
+function isStaticAsset(pathname) {
+  return /\/(images|styles|scripts|font)\//i.test(pathname);
 }
 
 function shouldHandle(request) {
   if (request.method !== 'GET') return false;
   var url = new URL(request.url);
   if (url.origin !== self.location.origin) return false;
-  if (isEpisodeHtml(url)) return true;
-  if (/\/images\//i.test(url.pathname)) return true;
-  if (/\/styles\//i.test(url.pathname)) return true;
-  return false;
+  return isPublishedEpisodeHtml(url) || isStaticAsset(url.pathname);
 }
 
 async function fromNetwork(request) {
   var res = await fetch(request);
-  var path = new URL(request.url).pathname;
-  if (
-    res &&
-    res.ok &&
-    (isEpisodeHtml(new URL(request.url)) ||
-      /\/images\//i.test(path) ||
-      /\/styles\//i.test(path))
-  ) {
+  var url = new URL(request.url);
+  if (res && res.ok && (isPublishedEpisodeHtml(url) || isStaticAsset(url.pathname))) {
     var cache = await caches.open(CACHE_NAME);
     try {
       await cache.put(request, res.clone());
@@ -67,7 +66,6 @@ self.addEventListener('fetch', function (event) {
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.match(event.request, { ignoreSearch: true }).then(function (cached) {
         if (cached) {
-          // Stale-while-revalidate: show cached episode immediately, refresh in background
           event.waitUntil(
             fetch(event.request)
               .then(function (res) {
